@@ -2,27 +2,23 @@
 
 project(sayHello)
 
+# includes
+
+INCLUDE_DIRECTORIES (
+  headers/
+)
 
 # Sources
 
 file(
-
-        GLOB_RECURSE
-
-        source_files
-
-        srcs/*
-		
-		includes/*
-
+  GLOB_RECURSE
+  FILES
+  srcs/*
 )
 
 # Exec
 
 add_executable(
-
-        say_hello
-
-        $(source_files)
-
+  say_hello
+  ${FILES}
 )
