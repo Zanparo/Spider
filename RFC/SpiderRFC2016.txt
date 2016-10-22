@@ -96,11 +96,10 @@ Table of contents
 	1.2	Requierements................................................2
 	1.3	Terminology..................................................3
 	1.4	Overall Operation............................................7
-	2 - SLL..............................................................
-	2.1	Purpose......................................................
-	2.2	Requierements................................................
-	2.3	Terminology..................................................
-	2.4	Certificat...................................................
+	2 - SLL..............................................................9
+	2.1	Purpose......................................................9
+	2.2	Handshake...................................................10
+	2.3	Requierements...............................................12
 	3 - Header
 	3.1	Purpose......................................................
 	3.2	Organisation.................................................
@@ -515,6 +514,329 @@ Table of contents
 	that provides such guarantees can be used; the mapping of the Socket
 	request and response structures onto the transport data units of the
 	protocol in question is outside the scope of this specification.
+
+2̲ ̲-̲ ̲S̲S̲L̲
+
+2̲.̲1̲ ̲P̲u̲r̲p̲o̲s̲e̲
+
+	The goals of SSL protocol, in order of their priority,
+	are:
+
+	1. Cryptographic security
+
+		SSL should be used to establish a secure connection between
+		two parties.
+
+	2.  Interoperability
+
+		Independent programmers should be able to develop applications
+		utilizing SSL 3.0 that will then be able to successfully
+		exchange cryptographic parameters without knowledge of one
+		another's code.
+
+	3.  Extensibility
+
+		SSL seeks to provide a framework into which new public key and
+		bulk encryption methods can be incorporated as necessary.
+		This will also accomplish two sub-goals: to prevent the need
+		to create a new protocol (and risking the introduction of
+		possible new weaknesses) and to avoid the need to implement an
+		entire new security library.
+
+	SSL is a layered protocol. At each layer, messages may include fields
+	for length, description, and content. SSL takes messages to be
+	transmitted, fragments the data into manageable blocks, optionally
+	compresses the data, applies a MAC, encrypts, and transmits the
+	result.  Received data is decrypted, verified, decompressed, and
+	reassembled, then delivered to higher level clients.
+
+	An SSL session is stateful.  It is the responsibility of the SSL
+	handshake protocol to coordinate the states of the client and server,
+	thereby allowing the protocol state machines of each to operate
+	consistently, despite the fact that the state
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 10]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	is not exactly parallel. Logically, the state is represented twice,
+	once as the current operating state and (during the handshake
+	protocol) again as the pending state. Additionally, separate read and
+	write states are maintained. When the client or server receives a
+	change cipher spec message, it copies the pending read state into the
+	current read state. When the client or server sends a change cipher
+	spec message, it copies the pending write state into the current write
+	state. When the handshake negotiation is complete, the client and
+	server exchange change cipher spec messages, and they then communicate
+	using the newly agreed-upon cipher spec.
+
+2̲.̲2̲ ̲H̲a̲n̲d̲s̲h̲a̲k̲e̲
+
+	The cryptographic parameters of the session state are produced by the
+	SSL handshake protocol, which operates on top of the SSL record layer.
+	When an SSL client and server first start communicating, they agree
+	on a protocol version, select cryptographic algorithms, optionally
+	authenticate each other, and use public key encryption techniques to
+	generate shared secrets. These processes are performed in the
+	handshake protocol, which can be summarized as follows: the client
+	sends a client hello message to which the server must respond with a
+	server hello message, or else a fatal error will occur and the
+	connection will fail. The client hello and server hello are used to
+	establish security enhancement capabilities between client and server.
+	The client hello and server hello establish the following attributes:
+	Protocol Version, Session ID, Cipher Suite, and Compression Method.
+	Additionally, two random values are generated and exchanged:
+	ClientHello.random and ServerHello.random.
+
+	Following the hello messages, the server will send its certificate,
+	if it is to be authenticated.  Additionally, a server key exchange
+	message may be sent, if it is required. If the server is
+	authenticated, it may request a certificate from the client, if that
+	is appropriate to the cipher suite selected.  Now the server will
+	send the server hello done message, indicating that the	hello-message
+	phase of the handshake is complete.  The server will then wait for a
+	client response. If the server has sent a certificate request message,
+	the client must send either the certificate message or a
+	no_certificate alert. The client key exchange message is now sent,
+	and the content of that message will depend on the public key
+	algorithm selected between the client hello and the server hello.
+	If the client has sent a certificate with signing ability, a
+	digitally-signed certificate verify message is sent to explicitly
+	verify the certificate.
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 11]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	At this point, a change cipher spec message is sent by the client,
+	and the client copies the pending CipherSpec into the current
+	CipherSpec. The client then immediately sends the finished message
+	under the new algorithms, keys, and secrets.  In response, the server
+	will send its own change cipher spec message, transfer the pending to
+	the current CipherSpec, and send its finished message under the new
+	CipherSpec.  At this point, the handshake is complete and the client
+	and server may begin to exchange application layer data. (See flow
+	chart below.)
+
+	Client						Server
+
+	ClientHello		→
+							ServerHello
+							Certificate*
+							ServerKeyExchange*
+							CertificateRequest*
+				←			ServerHelloDone
+	Certificate*
+	ClientKeyExchange
+	CertificateVerify*
+	Finished		→
+				←			Finished
+	Application Data       ←-→			Application Data
+
+      	*Indicates optional or situation-dependent messages that are not
+        always sent.
+
+	When the client and server decide to resume a previous session or
+	duplicate an existing session (instead of negotiating new security
+	parameters) the message flow is as follows:
+
+	The client sends a ClientHello using the session ID of the session
+	to be resumed. The server then checks its session cache for a match.
+	If a match is found, and the server is willing to re-establish the
+	connection under the specified session state, it will send a
+	ServerHello with the same session ID value.  At this point, both
+	client and server must send change cipher spec messages and proceed
+	directly to finished messages.  Once the re-establishment is
+	complete, the client and server may begin to exchange application
+	layer data.  (See flow chart below.)  If a session ID match is not
+	found, the server generates a new session ID and the SSL client and
+	server perform a full handshake.
+
+
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 12]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	Client						Server
+
+	ClientHello		→
+							ServerHello
+				←			Finished
+	Finished		→
+	Application Data       ←-→			Application Data
+
+
+	The contents and significance of each message will be presented in
+	detail in the following sections.
+
+2̲.̲3̲ ̲R̲e̲q̲u̲i̲e̲r̲e̲m̲e̲n̲t̲s̲
+
+	To perform a SSL connection beetween you client and your server you
+	must have a certificat on your server. As described above the server
+	provite the certificat to all the client who want to exchange message
+	with the server. In order to give a certificat to the server you may
+	perform a few step. It's one of the multiple way to create an SSL
+	certificat, please make sure that before you start this short tutorial
+	you have openssl installed on your linux distribution.
+
+	The first step to generate a certificat is to generate a private RSA
+	key. For this tutorial openssl will be used.
+
+	sudo openssl genrsa -out server.key 2048
+
+	The RSA key generated the second step can be done. Make sure that
+	this private key stay private and will not be reachable on the
+	internet. The second step is to generate a certificat with the key
+	that have been created above.
+
+	sudo openssl req -new -key server.key -out server.csr
+
+	The argument -key allow the commend line to take a RSA key as a entry
+	parameter. -out specify the output file. In this case the certificat
+	will be named server.csr. This certificate is the private certificat
+	for the server. This certificat allow the SSL messages to be
+	decrypted by the server. It must be protected. If this certificat is
+	stolen anyone who have it would be able to decrypt all the SSL
+	messages to your server.
+
+	openssl req -text -noout -in server.csr
+
+	This command line allow you to display safely th key on your terminal.
+	The last step is to generate two time-limited signed certificat. For 
+	this use these command lines.
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 13]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	sudo openssl x509 -req -days 365 -in server.csr -signkey server.key
+	-out server.crt
+
+	sudo openssl x509 -req -days 365 -outform PEM -in server.csr -signkey
+	server.key -out server.pem
+	
+	This first command line is used to sign a private SSL certificat for
+	the server during a limited time. In this case the certificat is
+	signed for 365 day (1 year).
+	The second command line is used to generate a .pem certificat. It is
+	also signed for 356 day (1 year). This certificat is the public that
+	will be send to the client at their first connection.
+
+3̲ ̲-̲ ̲H̲e̲a̲d̲e̲r̲
+
+2̲.̲1̲ ̲P̲u̲r̲p̲o̲s̲e̲
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
