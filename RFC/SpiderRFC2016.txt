@@ -50,9 +50,8 @@
 	   | Author : Matthieu Lambert     \ `'-,_,-'\ |
 	   |_______________________________/____)_`-._\|
 
-IMPORTANT : Les TOFIX doivent imérativement être changés
-
-
+Warning : 	There is some TOFIX in this RFC. This is the first version.
+		These TOFIX will be changed on the next version.
 
 S̲t̲a̲t̲u̲s̲ ̲o̲f̲ ̲t̲h̲i̲s̲ ̲M̲e̲m̲o̲ ̲:̲
 
@@ -107,8 +106,8 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 	3.4	Status......................................................15
 	4 - Data
 	4.1	Purpose.....................................................19
-	4.1	Date format.................................................19
-	4.2	Data format.................................................20
+	4.2	Date format.................................................19
+	4.3	Data format.................................................20
 
 
 +----------------------------------------------------------------------------+
@@ -219,7 +218,7 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 	M̲e̲s̲s̲a̲g̲e̲
 		The basic unit of Socket communication, consisting of a
 		structured sequence of octets matching the syntax defined in
-		section TOFIX and transmitted via the connection.
+		section 3 and transmitted via the connection.
 	
 +----------------------------------------------------------------------------+
 |				Standards			     [page 4]|
@@ -228,14 +227,14 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 +----------------------------------------------------------------------------+
 
 	R̲e̲q̲u̲e̲s̲t̲
-		An Socket request message, as defined in section TOFIX.
+		An Socket request message, as defined in section 3.
 
 	R̲e̲s̲p̲o̲n̲s̲e̲
-		An Socket response message, as defined in section TOFIX.	
+		An Socket response message, as defined in section 3.	
 		
 	R̲e̲s̲o̲u̲r̲c̲e̲
 		A dll/library object or service that can be identified by a
-		name and a path, as defined in section TOFIX. Resources may be
+		name and a path, as defined in section 1.4. Resources may be
 		available in multiple representations (e.g. multiple
 		functions, developpement languages, size, and utilities) or
 		vary in other ways.
@@ -244,7 +243,7 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 		The information transferred as the payload of a request or
       		response. An entity consists of metainformation in the form of
       		entity-header fields and content in the form of an entity-body,
-		as described in section TOFIX.
+		as described in section 3.
 
 	R̲e̲p̲r̲e̲s̲e̲n̲t̲a̲t̲i̲o̲n̲
       		An entity included with a response that is subject to content
@@ -1117,7 +1116,7 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 
 
 +----------------------------------------------------------------------------+
-|				Standards			    [page 19]|
+|				Standards			    [page 20]|
 |									     |
 |RFC 1				Spider v0.1			November 2016|
 +----------------------------------------------------------------------------+
@@ -1131,17 +1130,31 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 
 	The code define the kind of data that will be contained on this minor
 	major beacons.
+	Here is a little exemple of data with some beacons.
 
+		aeE|tf#k
 
+	will give :
 
+		ae<MAJ>E</MAJ><ALTGR>-</ALTGR>tf<ALTGR>"</ALTGR>k
 
+	As you can see the UTF8 characteres placed in the extended ascii table
+	are place between th major minor beacons corresponding to their key on
+	the keyboard of the trageted computer.
 
+	Here is a short list of beacons :
 
+		<MAJ></MAJ>		Uppercase
 
+		<ALTGR></ALTGR>		Special Character
 
+		<NUMP></NUMP>		Numeric number pad
 
+		<FN></FN>		Function key
 
+		<DATE></DATE>		Date between beacons
 
+		<ERROR></ERROR>		Do not parse
 
 
 
@@ -1157,64 +1170,8 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
++----------------------------------------------------------------------------+
+|				Standards			    [page 21]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
