@@ -106,8 +106,9 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 	3.3	Signification...............................................14
 	3.4	Status......................................................15
 	4 - Data
-	4.1	Date format..................................................
-	4.2	Data format..................................................
+	4.1	Purpose.....................................................19
+	4.1	Date format.................................................19
+	4.2	Data format.................................................20
 
 
 +----------------------------------------------------------------------------+
@@ -871,7 +872,7 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 +-----------------------------------------------------------------------+
 |		| KO : This status define that nothing went well or that|
 |      102	| there is a problem on the message. The message have	|
-|		| not been processed. If a messae is recieved wit this	|
+|		| not been processed. If a message is recieved wit this	|
 |		| status, you can send back a message.			|
 +-----------------------------------------------------------------------+
 |		| CONNECTION : This status define that the spider want	|
@@ -961,35 +962,175 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 +-----------------------------------------------------------------------+
 |		| SEND CERTIFICAT : This status define an action 	|
 |      205	| performed by the server. It happend when the client 	|
-|		| ask for a certificat. |
-|		| message to a 103 message.				|
+|		| ask for a certificat. The server must respond with a	|
+|		| 210 message.						|
 +-----------------------------------------------------------------------+
-|		| REFUSE : This status define an action performed by the|
-|      206	| server. The server has refused the connection of the  |
-|		| spider. If this happend ,there is no need to respond	|
-|		| because the message will not be processed.		|
+|		| REFUSE CERTIFICAT : This satus define an action 	|
+|      206	| performed by the server. It mean thet it have refused |
+|		| the certificat. The spider must ask for a new one.	|
+|		| 							|
 +-----------------------------------------------------------------------+
-|		| BUSY : This satus define that the server cannot handle|
-|      207	| any request for the moment. The server is busy. It	|
-|		| mean that the spider have to retry later. It can also |
-|		| mean that the server need to be restarted.		|
+|		| ACCEPT CERTIFICAT : This status define an action	|
+|      207	| performed by the server. It mean that the certificat	|
+|		| has been accepted by the server. The operations can go|
+|		| further.						|
 +-----------------------------------------------------------------------+
-|		| ASK CERTIFICAT : This status happend when the		|
-|      208	| connection is accepted. The server need to veryfy the |
-|		| certificat of the client. The client is warned that he|
-|		| have to send the certificat in a 105 message.		|
+|		| OK : This status define that everything is fine or	|
+|      208	| that the last message recevied was well processed and	|
+|		| well recieved. If a message is recieved with this	|
+|		| status there is no need to send back a message.	|
++-----------------------------------------------------------------------+
+|		| KO : This status define that nothing went well or that|
+|      209	| there is a problem on the message. The message have	|
+|		| not been processed. If a message is recieved wit this	|
+|		| status, you can send back a message.			|
++-----------------------------------------------------------------------+
+|		| DATA : This status define a message that contain data.|
+|      210	| This message must be processed by the client. This	|
+|		| message requiere a response.				|
+|		| 							|
++-----------------------------------------------------------------------+
+|		| ORDER : This status is here to warn the server that	|
+|      211	| the data of the message will be an order. This kind	|
+|		| of message need a response. Usualy it will be a 205	|
+|		| message.						|
++-----------------------------------------------------------------------+
+
+	The next array going to be the errors present on both side of the
+	communication. To simplify the protocol, the error are the same on
+	both side of the tunnel.
+
+	See bellow the internal errors.
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 18]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------+
+|		|							|
+|    Status	|			Description			|
+|		|							|
+|		|							|
++-----------------------------------------------------------------------+
+|		|  : |
+|      301	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      302	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      303	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      304	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      305	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      306	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      307	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      208	| |
+|		| |
+|		| |
 +-----------------------------------------------------------------------+
 
 
 
 
++----------------------------------------------------------------------------+
+|				Standards			    [page 19]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+4̲ ̲-̲ ̲D̲a̲t̲a̲
+
+4̲.̲1̲ ̲P̲u̲r̲p̲o̲s̲e̲
+
+	If the data is recieved on the server, the data must be stored on the
+	database. When this data is stored, the server must be able to process
+	it. For this purpose the data must follow a few serealisation in order
+	to simplify the processing.
+	The rules are quiete simple to implement. It is sliced in two parts.
+	The first part is to write correctly the date, in a certain way simple
+	to parse.
+	The second step is to understand the rules to place simple data in a
+	message. These data must have a major-minor writying style. (see 4.3)
+
+4̲.̲2̲ ̲D̲a̲t̲e̲ ̲f̲o̲r̲m̲a̲t̲
+
+	The date is a easy way to keep the data in the right order. But be
+	careful to write it the simple way possible as described bellow.
+	The date must follow the rule if you want the data processed on the
+	server.
+
+	A date is composed by tree part.
+	The first one is the time on the current day.
+
+		10:56:25
+		ten hours, fifty-six minutes and twenty-five seconds
+
+	The second one is the day on the current year.
+	
+		10/12
+		The tenth of december
+
+	In our case the date will be writed like that :
+
+		10:12
+		The tenth of december
+
+	The third part of the date format will be the year describer.
+	For this one this is quiete simple. The year is writed like that
+
+		2016
+		twenty sixteen
+
+	In the data send each time a date is send, the way to write it is :
+
+		10:56:25/10:12/2016
 
 
 
 
++----------------------------------------------------------------------------+
+|				Standards			    [page 19]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
 
+4̲.̲3̲ ̲D̲a̲t̲a̲ ̲f̲o̲r̲m̲a̲t̲
 
+	The major minor style is a easy way to detect patterns in a data set.
+	For the spider the major minor will be writted like in HTML code.
 
+		<CODE> data </CODE>
+
+	The code define the kind of data that will be contained on this minor
+	major beacons.
 
 
 
