@@ -54,7 +54,7 @@ IMPORTANT : Les TOFIX doivent imérativement être changés
 
 
 
-Status of this Memo
+S̲t̲a̲t̲u̲s̲ ̲o̲f̲ ̲t̲h̲i̲s̲ ̲M̲e̲m̲o̲ ̲:̲
 
 	This document specifies the Spider standart protocol for the Epitech's
 	groups participating the Spider (keylogger on Windows) project at
@@ -62,13 +62,13 @@ Status of this Memo
 	question aout this document. The distribution of this document is
 	stictly reserved to Epitech's Members.
 
-Copyright Notice
+C̲o̲p̲y̲r̲i̲g̲h̲t̲ ̲N̲o̲t̲i̲c̲e̲ ̲:̲
 
 	There is no currents Copyright for this project. This project is the
 	intellectual property of the Epitech's member who are developping
 	the software.
 
-Abstract
+A̲b̲s̲t̲r̲a̲c̲t̲ ̲:̲
 
 	The spider is a low level keylogger developped in c++. Te project is 
 	designed in twoo parts at least. One is the Widows malware. It is
@@ -89,7 +89,7 @@ Abstract
 |RFC 1				Spider v0.1			November 2016|
 +----------------------------------------------------------------------------+
 
-Table of contents
+T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 
 	1 - Introduction.....................................................2
 	1.1	Purpose......................................................2
@@ -101,10 +101,10 @@ Table of contents
 	2.2	Handshake...................................................10
 	2.3	Requierements...............................................12
 	3 - Header
-	3.1	Purpose......................................................
-	3.2	Organisation.................................................
-	3.3	Signification................................................
-	3.4	Status.......................................................
+	3.1	Purpose.....................................................13
+	3.2	Organisation................................................13
+	3.3	Signification...............................................14
+	3.4	Status......................................................15
 	4 - Data
 	4.1	Date format..................................................
 	4.2	Data format..................................................
@@ -746,7 +746,128 @@ Table of contents
 
 2̲.̲1̲ ̲P̲u̲r̲p̲o̲s̲e̲
 
-	
+	The header refers to supplemental data placed at the beginning of a
+	block of data being stored or transmitted. In data transmission, the
+	data following the header is called the body.
+	The header of the message is a structure send with the data in order
+	to organize and recognize if the socket message is legit. This
+	structure contain different data that allow the server and the client
+	to give and understand different order. 
+
+2̲.̲2̲ ̲O̲r̲g̲a̲n̲i̲s̲a̲t̲i̲o̲n̲
+
+	The structure is definded like this :
+
+	t_struct		Structure
+	{
+		
+		unsigned char	_id;
+
+		unsigned short	_status;
+
+		size_t		_size;
+
+		bool		_next;
+
+		char[0]		_data;
+
+	}			s_struct;
+
+
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 14]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	This header is critical. It must be present on all messages send from
+	or to the server. Any message send without this header will be refused
+	on the server or the client.
+	Every field of this structure must be filled before the message is
+	send. The different field of this header is definded int he section
+	3.3.
+
+3̲.̲3̲ ̲S̲i̲g̲n̲i̲f̲i̲c̲a̲t̲i̲o̲n̲
+
+	_̲i̲d̲ ̲:̲		The id define the computer where the spider is
+			installed. Each computer must have a diffenrent id.
+			If two computer have the same id the data will be
+			fetched with the data of another computer on the
+			server. If this happend both of the data will be
+			loosed because of irrelevant informations. To obtain
+			a unique id on the computer you can use the OS
+			licence number, the porcessor serial number or the
+			MAC adress. (this is a non-exhaustive list).
+
+	_̲s̲t̲a̲t̲u̲s̲ ̲:̲	The status define the action performed by the spider
+			or by the server. Thanks to it, the server or client
+			can act accordingly to the previous action. The list
+			of all the status is definded in the section 2.3.
+
+	_̲s̲i̲z̲e̲ ̲:̲		The status define the size of the data stored after 
+			the header. See below the definition of _data.
+			If the data stored after the header is not the same
+			of the size stored in _size, the data will not be
+			processed.
+
+	_̲n̲e̲x̲t̲ ̲:̲		The next value is definded as a bolean value. It
+			mean that the value is 0 or 1. This value is here to
+			notify the server or the client that a message will
+			follow or not. If the value is 1, a next message will
+			be send. If the value is 0 it mean that no messages
+			will follow the previous message.
+
+	_̲d̲a̲t̲a̲ ̲:̲		This field is a charset that represent the data stored
+			after the header. It size is definded by the field
+			_size. It cannot exceed this size or the message
+			integrity will be compromised. This field is used to
+			store the data you want to send to the server or to
+			the spider.
+
+
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 15]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	All these field must be filled. The parsing of the message is made
+	acording this structure. If any parameter is missing or is not correct
+	all the behaviour of the server and/or the spider can be compromissed.
+	This header will have the same size no matter the location in the 
+	world, the type of connection, the kind of windows the target have, or
+	any other parameters. If the header have not the right size, the
+	message will not be processed.
+
+2̲.̲3̲ ̲S̲t̲a̲t̲u̲s̲
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
