@@ -851,21 +851,134 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 
 2̲.̲3̲ ̲S̲t̲a̲t̲u̲s̲
 
+	The status are split in tree categories. The first one goes from 100
+	to 199 and are the spider status.
+	The second categorie is from 200 to 299 and define the server status.
+	The third and last categorie is the error categorie.
+
+	Let's start with the spider status.
+
++-----------------------------------------------------------------------+
+|		|							|
+|    Status	|			Description			|
+|		|							|
+|		|							|
++-----------------------------------------------------------------------+
+|		| OK : This status define that everything is fine or	|
+|      101	| that the last message recevied was well processed and	|
+|		| well recieved. If a message is recieved with this	|
+|		| status there is no need to send back a message.	|
++-----------------------------------------------------------------------+
+|		| KO : This status define that nothing went well or that|
+|      102	| there is a problem on the message. The message have	|
+|		| not been processed. If a messae is recieved wit this	|
+|		| status, you can send back a message.			|
++-----------------------------------------------------------------------+
+|		| CONNECTION : This status define that the spider want	|
+|      103	| to connect ther server in order to exchange data or	|
+|		| to recieve order. If a mesage is recieved with this	|
+|		| status it need a response.				|
++-----------------------------------------------------------------------+
+|		| DISCONNECT : This status define taht the spider is	|
+|      104	| going to disconnect. There is no need to awnser this	|
+|		| message. But the server must be aware that the socket	|
+|		| is going to be closed.				|
++-----------------------------------------------------------------------+
+|		| DATA : This status define a message that contain data.|
+|      105	| This message must be processed by the server. This	|
+|		| message requiere a response.				|
+|		| 							|
++-----------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 16]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------+
+|		|							|
+|    Status	|			Description			|
+|		|							|
+|		|							|
++-----------------------------------------------------------------------+
+|		| UNEXPECTED BEHAVIOUR : This status is here to warn the|
+|      106	| server that the spider have a bug or a crash. It need |
+|		| a restart or to be fixed mannualy. This message will  |
+|		| eventually followed by a 104 message.			|
++-----------------------------------------------------------------------+
+|		| ORDER : This status is here to warn the server that	|
+|      106	| the data of the message will be an order. This kind	|
+|		| of message need a response. Usualy it will be a 205	|
+|		| message.						|
++-----------------------------------------------------------------------+
+
+	The second category is going to be the server status.
+
++-----------------------------------------------------------------------+
+|		|							|
+|    Status	|			Description			|
+|		|							|
+|		|							|
++-----------------------------------------------------------------------+
+|		| ACCEPTED : This status define an action performed by 	|
+|      201	| the server. The server has accepted the connection of	|
+|		| the spider. In no case the server will awnser a OK	|
+|		| message to a 103 message.				|
++-----------------------------------------------------------------------+
+|		| REFUSE : This status define an action performed by the|
+|      202	| server. The server has refused the connection of the  |
+|		| spider. If this happend ,there is no need to respond	|
+|		| because the message will not be processed.		|
++-----------------------------------------------------------------------+
+|		| BUSY : This satus define that the server cannot handle|
+|      203	| any request for the moment. The server is busy. It	|
+|		| mean that the spider have to retry later. It can also |
+|		| mean that the server need to be restarted.		|
++-----------------------------------------------------------------------+
+|		| ASK CERTIFICAT : This status happend when the		|
+|      204	| connection is accepted. The server need to veryfy the |
+|		| certificat of the client. The client is warned that he|
+|		| have to send the certificat in a 105 message.		|
++-----------------------------------------------------------------------+
 
 
 
 
 
++----------------------------------------------------------------------------+
+|				Standards			    [page 17]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
 
-
-
-
-
-
-
-
-
-
++-----------------------------------------------------------------------+
+|		|							|
+|    Status	|			Description			|
+|		|							|
+|		|							|
++-----------------------------------------------------------------------+
+|		| SEND CERTIFICAT : This status define an action 	|
+|      205	| performed by the server. It happend when the client 	|
+|		| ask for a certificat. |
+|		| message to a 103 message.				|
++-----------------------------------------------------------------------+
+|		| REFUSE : This status define an action performed by the|
+|      206	| server. The server has refused the connection of the  |
+|		| spider. If this happend ,there is no need to respond	|
+|		| because the message will not be processed.		|
++-----------------------------------------------------------------------+
+|		| BUSY : This satus define that the server cannot handle|
+|      207	| any request for the moment. The server is busy. It	|
+|		| mean that the spider have to retry later. It can also |
+|		| mean that the server need to be restarted.		|
++-----------------------------------------------------------------------+
+|		| ASK CERTIFICAT : This status happend when the		|
+|      208	| connection is accepted. The server need to veryfy the |
+|		| certificat of the client. The client is warned that he|
+|		| have to send the certificat in a 105 message.		|
++-----------------------------------------------------------------------+
 
 
 
