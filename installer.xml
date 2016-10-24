@@ -1,1 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns='http://schemas.microsot.com/wix/2006/wi'>
+  <Product Name='Spider1.0' Manufacturer='TeamRocket'
+           Id='48C8740E-6D30-4513-A209-38F4DF9ADDEF'
+           UpgradeCode='*'
+           Language='1033' Codepage='1252' Version='1.0.0'>
+    <Package Id='*' Keywords='Installer' Description="Spider1.0 Foo installer"
+             Comments='Foo installer to be edited' Manufacturer='TeamRocket'
+             InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="SpiderHQ" />
+      </Directory>
+    </Directory>
+  </Product>
+
+             
+</Wix>
