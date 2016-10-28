@@ -43,11 +43,22 @@
 
 	   ,___________________________________________
 	   |\'-._(   /                                 |
-	   | \  .'-._\  Spider communication      ,   ,|
-	   |-.\'    .-;      Protocol           .'\`-' |
-	   |   \  .'       Version 0.1       _.'   \   |
-	   |.--.\'                        ;-;       \._|
-	   | Author : Matthieu Lambert     \ `'-,_,-'\ |
+	   | \  .'-._\  Spider communication	       |
+	   |-.\'    .-;      Protocol		       |
+	   |   \  .'       Version 0.1		       |
+	   |.--.\'				       |
+	   | 					       |
+	   |	Author	: Matthieu Lambert	       |
+	   |					       |
+	   |	For Team Rocket :		       |
+	   |		- Samuel Darracq	       |
+	   |		- Alexandre Joris	       |
+	   |		- Lucien perouz		       |
+	   |		- Matthieu Lambert	  ,   ,|
+	   |				        .'\`-' |
+	   |				     _.'   \   |
+	   |				  ;-;       \._|
+	   | 			           \ `'-,_,-'\ |
 	   |_______________________________/____)_`-._\|
 
 Warning : 	There is some TOFIX in this RFC. This is the first version.
@@ -932,6 +943,7 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 |		| spider. If this happend ,there is no need to respond	|
 |		| because the message will not be processed.		|
 +-----------------------------------------------------------------------+
+|		| OK : This status define that everything is fine or	|
 |		| BUSY : This satus define that the server cannot handle|
 |      203	| any request for the moment. The server is busy. It	|
 |		| mean that the spider have to retry later. It can also |
@@ -974,7 +986,6 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 |		| has been accepted by the server. The operations can go|
 |		| further.						|
 +-----------------------------------------------------------------------+
-|		| OK : This status define that everything is fine or	|
 |      208	| that the last message recevied was well processed and	|
 |		| well recieved. If a message is recieved with this	|
 |		| status there is no need to send back a message.	|
@@ -996,14 +1007,14 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 +-----------------------------------------------------------------------+
 
 	The next array going to be the errors present on both side of the
+both	+----------------------------------------------------------------------------+
 	communication. To simplify the protocol, the error are the same on
-	both side of the tunnel.
+ side of the tunnel.
 
 	See bellow the internal errors.
 
 
 
-+----------------------------------------------------------------------------+
 |				Standards			    [page 18]|
 |									     |
 |RFC 1				Spider v0.1			November 2016|
@@ -1040,7 +1051,7 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 |		| |
 |		| |
 +-----------------------------------------------------------------------+
-|		|  : |
+|		| UNICORN :|
 |      306	| |
 |		| |
 |		| |
