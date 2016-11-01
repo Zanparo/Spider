@@ -6,27 +6,26 @@
 #ifndef _DATAMODELHANDLER_H
 #define _DATAMODELHANDLER_H
 
-#include "DataHandler.h"
-
+#include "DataModel.h"
+#include <list>
 
 class DataModelHandler {
 public: 
-    
     /**
      * Constructor of DataModelHandler.
      */
-    void DataModelHandler();
+    DataModelHandler();
+	~DataModelHandler();
     
     /**
      * Returns the list of DataModel pointers.
      */
-    list<DataModel*> getDataModels();
+    std::list<DataModel*> getDataModels();
 private: 
     /**
      * Contains DataModels used by DataHandler.
      */
-    List<DataModel*> _dataModels;
-    DataHandler _dataModelHandler;
+    std::list<DataModel*> _dataModels;
 };
 
 #endif //_DATAMODELHANDLER_H

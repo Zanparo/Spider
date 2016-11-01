@@ -7,7 +7,7 @@
 #define _AFILE_H
 
 #include "IFile.h"
-
+#include <string>
 
 class AFile: public IFile {
 public: 
@@ -15,11 +15,13 @@ public:
     /**
      * @param string
      */
-    void AFile(void string);
-private: 
-    string _filename;
+	AFile();
+	 AFile(std::string const& c);
+	 ~AFile();
+
+    std::string _filename;
     int _size;
-    string _path;
+    std::string _path;
 };
 
 #endif //_AFILE_H

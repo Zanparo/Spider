@@ -6,6 +6,11 @@
 #ifndef _DATAMODELFACTORY_H
 #define _DATAMODELFACTORY_H
 
+#include "DataModel.h"
+#include <iostream>
+
+class APacket { };
+class AEvent { };
 class DataModelFactory {
 public: 
     
@@ -14,14 +19,15 @@ public:
      * 
      * @param APacket*
      */
-    static DataModel* create(void APacket*);
+     DataModel* create(APacket* c);
     
     /**
      * Function used to create a DataModel instance from a AEvent pointer.
      * 
      * @param AEvent*
      */
-    static DataModel* create(void AEvent*);
+
+	 DataModel* create(AEvent* c);
 };
 
 #endif //_DATAMODELFACTORY_H

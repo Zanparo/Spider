@@ -9,7 +9,9 @@
 class FileManager {
 public: 
     
-    void FileManager();
+  FileManager();
+  ~FileManager();
+
 };
 
 #endif //_FILEMANAGER_H

@@ -1,18 +1,11 @@
-/**
- * Project FileManager DLL
- */
-
-
 #include "AFile.h"
 
-/**
- * AFile implementation
- */
+AFile::AFile() {
+}
+AFile::AFile(std::string const &path) {
+	this->_filename = path;
+}
 
-
-/**
- * @param string
- */
-void AFile::AFile(void string) {
+AFile::~AFile() {
 
 }

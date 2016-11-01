@@ -14,13 +14,15 @@
 class CWFile : public AFile {
 public: 
     
-	CWFile();
+	CWFile() {}
+	CWFile(std::string const& filename);
 	~CWFile();
 
     /**
      * Open the Windows file. Returns bool if succeed.
      */
     bool open(std::string const& path);
+	bool open();
     
     /**
      * Close the Windows file. Returns true if succeed.
@@ -39,7 +41,7 @@ public:
      */
     int write(std::string const& towrite);
 private: 
-    HFILE _file;
+    HANDLE _file;
 };
 
 #endif //_CWFILE_H

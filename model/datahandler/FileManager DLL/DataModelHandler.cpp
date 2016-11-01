@@ -13,7 +13,11 @@
 /**
  * Constructor of DataModelHandler.
  */
-void DataModelHandler::DataModelHandler() {
+DataModelHandler::DataModelHandler() {
+
+}
+
+DataModelHandler::~DataModelHandler() {
 
 }
 
@@ -21,6 +25,6 @@ void DataModelHandler::DataModelHandler() {
  * Returns the list of DataModel pointers. 
  * @return list<DataModel*>
  */
-list<DataModel*> DataModelHandler::getDataModels() {
-    return null;
+std::list<DataModel*> DataModelHandler::getDataModels() {
+	return this->_dataModels;
 }

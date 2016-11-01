@@ -10,6 +10,9 @@
  */
 
 
-void FileManager::FileManager() {
+ FileManager::FileManager() {
 
-}
+ }
+
+ FileManager::~FileManager() {
+ }

@@ -16,8 +16,8 @@
  * @param APacket*
  * @return DataModel*
  */
-static DataModel* DataModelFactory::create(void APacket*) {
-    return null;
+DataModel* DataModelFactory::create(APacket*) {
+    return NULL;
 }
 
 /**
@@ -26,6 +26,6 @@ static DataModel* DataModelFactory::create(void APacket*) {
  * @param AEvent*
  * @return DataModel*
  */
-static DataModel* DataModelFactory::create(void AEvent*) {
-    return null;
+DataModel* DataModelFactory::create(AEvent*) {
+    return NULL;
 }

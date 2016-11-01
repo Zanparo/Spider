@@ -14,7 +14,7 @@ public:
      * 
      * @param DataModel*
      */
-    virtual string serialize(void DataModel*) = 0;
+    virtual std::string serialize(DataModel* c) = 0;
 };
 
 #endif //_ISERIALIZER_H

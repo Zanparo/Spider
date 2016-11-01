@@ -13,15 +13,35 @@
 /**
  * Constructor of FileHandler class.
  */
-void FileHandler::FileHandler() {
+FileHandler::FileHandler() {
+	std::cout << "FileHandler constructor" << std::endl;
+	_nbfiles = 0;
+}
 
+FileHandler::~FileHandler() {
 }
 
 /**
- * Add a file to _files. Return true if succeed.
+ * Add a file to _files. Returns ID of _file on success, otherwise -1
  * @param string
- * @return bool
+ * @return int
  */
-bool FileHandler::AddFile(void string) {
-    return false;
+bool FileHandler::AddFile(std::string const& path) {
+#if defined(WIN32)
+	IFile *newitem = new CWFile;
+#elif(UNIX)
+	IFile *newitem = new CUFile;
+#endif
+	if (newitem->open(path) == true) {
+		this->_files.insert(std::pair<IFile*, int>(newitem, _nbfiles));
+		_nbfiles++;
+		return (true);
+	}
+	return (false);
 }
+
+/**
+  *  Returns file handler for given id.
+  *
+  */
+

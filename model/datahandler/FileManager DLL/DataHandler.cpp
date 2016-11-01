@@ -13,7 +13,7 @@
 /**
  * Constructor of DataHandler class.
  */
-void DataHandler::DataHandler() {
+DataHandler::DataHandler() {
 
 }
 

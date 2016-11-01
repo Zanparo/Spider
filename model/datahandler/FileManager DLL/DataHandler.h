@@ -6,13 +6,18 @@
 #ifndef _DATAHANDLER_H
 #define _DATAHANDLER_H
 
+#include "DataModelHandler.h"
+#include "FileHandler.h"
+#include "ISerializer.h"
+#include <list>
+
 class DataHandler {
 public: 
     
     /**
      * Constructor of DataHandler class.
      */
-    void DataHandler();
+    DataHandler();
     
     /**
      * Initialization of DataHandler class.
@@ -21,7 +26,7 @@ public:
 private: 
     DataModelHandler _dataModelHandler;
     FileHandler _fileHandler;
-    List<ISerializer*> _serializers;
+    std::list<ISerializer*> _serializers;
 };
 
 #endif //_DATAHANDLER_H
