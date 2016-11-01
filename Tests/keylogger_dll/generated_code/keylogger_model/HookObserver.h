@@ -3,25 +3,19 @@
  */
 
 
-#ifndef _HOOKOBSERVER_H
-#define _HOOKOBSERVER_H
+#ifndef					_HOOKOBSERVER_H
+#define					_HOOKOBSERVER_H
 
-class HookObserver {
-public: 
-    
-    /**
-     * @param EventManager&
-     */
-    void HookObserver(void EventManager&);
-    
-    /**
-     * update must notify the EventManager that an event should be created. To do this, call 
-     * @param LPARAM
-     * @param WPARAM
-     */
-    void update(void LPARAM, void WPARAM);
+#include				"EventManager.h"
+
+class					HookObserver {
+
+public:     
+    HookObserver(EventManager&);
+    void				update(const LPARAM, const WPARAM) const;
+
 private: 
-    EventManager& _eventManager;
+    EventManager&		_eventManager;
 };
 
 #endif //_HOOKOBSERVER_H

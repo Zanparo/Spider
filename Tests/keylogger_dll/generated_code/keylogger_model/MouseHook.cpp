@@ -1,23 +1,22 @@
 /**
- * Project Keylogger
+ *						Project Keylogger
  */
 
 
-#include "MouseHook.h"
+#include				"MouseHook.h"
 
 /**
  * MouseHook implementation
  */
 
 
-void MouseHook::MouseHook() {
-
+MouseHook::MouseHook(const HookObserver& hookObserver) : AHook::AHook(hookObserver) {
 }
 
 /**
- * @return bool
+ * @return bool if hook set succeeded
  */
-bool MouseHook::setHook() {
+const bool				MouseHook::setHook() const {
     return false;
 }
 
@@ -27,6 +26,6 @@ bool MouseHook::setHook() {
  * @param WPARAM
  * @return LRESULT CALLBACK
  */
-static LRESULT CALLBACK MouseHook::mousehook(void int, void LPARAM, void WPARAM) {
-    return null;
+LRESULT CALLBACK		MouseHook::mousehook(const int code, const LPARAM lparam, const WPARAM wparam) {
+    return CallNextHookEx(NULL, code, wparam, lparam);
 }

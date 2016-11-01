@@ -12,7 +12,7 @@
 class MouseEvent: public AEvent {
 public: 
     
-    void MouseEvent();
+   MouseEvent();
 };
 
 #endif //_MOUSEEVENT_H

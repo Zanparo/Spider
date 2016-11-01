@@ -1,23 +1,22 @@
 /**
- * Project Keylogger
+ *							Project Keylogger
  */
 
 
-#include "KeyboardHook.h"
+#include					"KeyboardHook.h"
 
 /**
  * KeyboardHook implementation
  */
 
 
-void KeyboardHook::KeyboardHook() {
-
+KeyboardHook::KeyboardHook(const HookObserver& observer) : AHook::AHook(observer){
 }
 
 /**
- * @return bool
+ * @return bool true if hook set succeeded
  */
-bool KeyboardHook::setHook() {
+const bool						KeyboardHook::setHook() {
     return false;
 }
 
@@ -27,6 +26,6 @@ bool KeyboardHook::setHook() {
  * @param WPARAM
  * @return LRESULT CALLBACK
  */
-static LRESULT CALLBACK KeyboardHook::keyboardhook(void int, void LPARAM, void WPARAM) {
-    return null;
+LRESULT CALLBACK			KeyboardHook::keyboardhook(const int code, const LPARAM lparam, const WPARAM wparam) {
+    return CallNextHookEx(NULL, code, lparam, wparam);
 }

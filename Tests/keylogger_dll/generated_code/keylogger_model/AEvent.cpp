@@ -1,9 +1,9 @@
 /**
- * Project Keylogger
+ *								Project Keylogger
  */
 
 
-#include "AEvent.h"
+#include						"AEvent.h"
 
 /**
  * AEvent implementation
@@ -11,72 +11,70 @@
 
 
 /**
- * @param LPARAM
- * @param WPARAM
+ * Constructor of AEvent
  */
-void AEvent::AEvent(void LPARAM, void WPARAM) {
-
+AEvent::AEvent(const int virtualKeyCode, const int repeatCount, const char scanCode, const bool isExtend, const bool isAlt, const bool prevKeyState, const bool transState, const std::chrono::milliseconds& time, const t_Context context) : _virtualKeyCode(virtualKeyCode), _repeatCount(repeatCount), _scanCode(scanCode), _isExtend(isExtend), _alt(isAlt), _prevKeyState(prevKeyState), _transState(transState), _time(time), _context(context) {
 }
 
 /**
- * @return int
+ * @return int the virtual key code
  */
-int AEvent::getVirtualKeyCode() {
-    return 0;
+const int						AEvent::getVirtualKeyCode() const {
+    return	_virtualKeyCode;
 }
 
 /**
- * @return int
+ * @return int the repeat counter
  */
-int AEvent::getRepeatCount() {
-    return 0;
+const int						AEvent::getRepeatCount() const{
+    return _repeatCount;
 }
 
 /**
- * @return int
+ * @return int the scan code
  */
-int AEvent::getScanCode() {
-    return 0;
+const int						AEvent::getScanCode() const {
+    return _scanCode;
 }
 
 /**
- * @return bool
+ * @return bool the extend value
  */
-bool AEvent::isExtend() {
-    return false;
+const bool						AEvent::isExtend() const {
+    return _isExtend;
 }
 
 /**
- * @return bool
+ * @return bool the alt value
  */
-bool AEvent::isAlt() {
-    return false;
+const bool						AEvent::isAlt() const {
+    return _alt;
 }
 
 /**
- * @return bool
+ * @return bool the previous key state
  */
-bool AEvent::getPrevKeyState() {
-    return false;
+const bool						AEvent::getPrevKeyState() const {
+    return _prevKeyState;	
+}							
+							
+/**							
+ * @return bool the transition state
+ */							
+const bool						AEvent::getTransState() const {
+    return _transState;
 }
 
 /**
- * @return bool
+ * @return std::chrono::milliseconds the recording of time
  */
-bool AEvent::getTransState() {
-    return false;
+const std::chrono::milliseconds	 AEvent::getTime() const{
+    return _time;
 }
 
 /**
- * @return time
+ * @return string the title of the active window
  */
-time AEvent::getTime() {
-    return null;
-}
-
-/**
- * @return string
- */
-string AEvent::getWindowTitle() {
-    return "";
+const t_Context					AEvent::getContext() const {
+    return _context;
 }

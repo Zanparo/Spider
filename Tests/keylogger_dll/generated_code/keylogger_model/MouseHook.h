@@ -1,27 +1,20 @@
 /**
- * Project Keylogger
+ *							Project Keylogger
  */
 
 
-#ifndef _MOUSEHOOK_H
-#define _MOUSEHOOK_H
+#ifndef						_MOUSEHOOK_H
+#define						_MOUSEHOOK_H
 
-#include "AHook {abstract}.h"
+#include					"AHook.h"
 
+class MouseHook: public AHook {
 
-class MouseHook: public AHook {abstract} {
 public: 
     
-    void MouseHook();
-    
-    bool setHook();
-    
-    /**
-     * @param int
-     * @param LPARAM
-     * @param WPARAM
-     */
-    static LRESULT CALLBACK mousehook(void int, void LPARAM, void WPARAM);
+MouseHook(const HookObserver&);
+const bool					setHook() const;    
+static LRESULT CALLBACK		mousehook(const int, const LPARAM, const WPARAM);
 };
 
 #endif //_MOUSEHOOK_H

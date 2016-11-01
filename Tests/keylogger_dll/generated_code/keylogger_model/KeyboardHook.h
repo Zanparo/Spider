@@ -1,27 +1,20 @@
 /**
- * Project Keylogger
+ *							Project Keylogger
  */
 
 
-#ifndef _KEYBOARDHOOK_H
-#define _KEYBOARDHOOK_H
+#ifndef						_KEYBOARDHOOK_H
+#define						_KEYBOARDHOOK_H
 
-#include "AHook {abstract}.h"
+#include					"AHook.h"
 
 
-class KeyboardHook: public AHook {abstract} {
+class KeyboardHook: public AHook {
 public: 
     
-    void KeyboardHook();
-    
-    bool setHook();
-    
-    /**
-     * @param int
-     * @param LPARAM
-     * @param WPARAM
-     */
-    static LRESULT CALLBACK keyboardhook(void int, void LPARAM, void WPARAM);
+KeyboardHook(const HookObserver&);
+	const bool				setHook();
+    static LRESULT CALLBACK keyboardhook(const int, const LPARAM, const WPARAM);
 };
 
 #endif //_KEYBOARDHOOK_H

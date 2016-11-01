@@ -1,9 +1,9 @@
 /**
- * Project Keylogger
+ *						Project Keylogger
  */
 
 
-#include "HookObserver.h"
+#include				"HookObserver.h"
 
 /**
  * HookObserver implementation
@@ -13,8 +13,7 @@
 /**
  * @param EventManager&
  */
-void HookObserver::HookObserver(void EventManager&) {
-
+HookObserver::HookObserver(EventManager& eventManager) : _eventManager(eventManager) {
 }
 
 /**
@@ -23,6 +22,6 @@ void HookObserver::HookObserver(void EventManager&) {
  * @param WPARAM
  * @return void
  */
-void HookObserver::update(void LPARAM, void WPARAM) {
+void						HookObserver::update(const LPARAM lparam, const WPARAM wparam) {
     return;
 }
