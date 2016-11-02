@@ -13,7 +13,7 @@
 #include				<chrono>
 #include				<ctime>
 
-class					EventFactory {
+class __declspec(dllexport) EventFactory {
 public: 
     
     EventFactory();

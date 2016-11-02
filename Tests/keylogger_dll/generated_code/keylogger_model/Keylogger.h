@@ -6,14 +6,14 @@
 #ifndef _KEYLOGGER_H
 #define _KEYLOGGER_H
 
-#include <stdlib.h>
+#include <iostream>
 #include <vector>
 
 #include "AEvent.h"
 #include "EventManager.h"
 #include "HookHandler.h"
 
-class Keylogger {
+class __declspec(dllexport)  Keylogger {
 public: 
 	static Keylogger _instance;
 

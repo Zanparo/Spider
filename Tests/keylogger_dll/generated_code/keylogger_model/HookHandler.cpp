@@ -1,9 +1,9 @@
 /**
- * Project Keylogger
+ *						Project Keylogger
  */
 
 
-#include "HookHandler.h"
+#include				"HookHandler.h"
 
 /**
  * HookHandler implementation
@@ -13,8 +13,7 @@
 /**
  * @param EventManager&
  */
-void HookHandler::HookHandler(void EventManager&) {
-
+HookHandler::HookHandler(const EventManager& eventManager) : _eventManager(eventManager){
 }
 
 /**
@@ -23,8 +22,9 @@ void HookHandler::HookHandler(void EventManager&) {
  * @param AHook
  * @return bool
  */
-bool HookHandler::AddHook(void AHook) {
-    return false;
+const bool HookHandler::AddHook(AHook* hook) {
+   _hooks.push_front(hook);
+   return true;
 }
 
 /**
@@ -33,6 +33,6 @@ bool HookHandler::AddHook(void AHook) {
  * @param const AHook&
  * @return bool
  */
-bool HookHandler::RemoveHook(void const AHook&) {
+const bool HookHandler::RemoveHook(const AHook& hook) {
     return false;
 }

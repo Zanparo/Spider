@@ -22,6 +22,6 @@ HookObserver::HookObserver(EventManager& eventManager) : _eventManager(eventMana
  * @param WPARAM
  * @return void
  */
-void						HookObserver::update(const LPARAM lparam, const WPARAM wparam) {
+void						HookObserver::update(const LPARAM lparam, const WPARAM wparam) const {
     return;
 }

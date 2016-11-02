@@ -1,36 +1,25 @@
 /**
- * Project Keylogger
+ *									Project Keylogger
  */
 
 
-#ifndef _HOOKHANDLER_H
-#define _HOOKHANDLER_H
+#ifndef								_HOOKHANDLER_H
+#define								_HOOKHANDLER_H
+	
+#include							<vector>
+	
+#include							"EventManager.h"
+#include							"AHook.h"
 
-class HookHandler {
+class __declspec(dllexport)  HookHandler {
 public: 
-    
-    /**
-     * @param EventManager&
-     */
-    void HookHandler(void EventManager&);
-    
-    /**
-     * Add the AHook parameter to the list of hooks the handler contains.
-     * 
-     * @param AHook
-     */
-    bool AddHook(void AHook);
-    
-    /**
-     * Remove the AHook& paramater from the hook list contained by the HookHandler
-     * 
-     * @param const AHook&
-     */
-    bool RemoveHook(void const AHook&);
+    HookHandler(const EventManager&);
+    const bool						AddHook(AHook*);
+    const bool						RemoveHook(const AHook&);
+
 private: 
-    List<AHook*> _hooks;
-    EventManager& _eventManager;
-    HookHandler _instance;
+	std::vector<AEvent*>				_hooks;
+    const EventManager&				_eventManager;
 };
 
 #endif //_HOOKHANDLER_H
