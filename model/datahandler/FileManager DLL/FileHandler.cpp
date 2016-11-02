@@ -26,7 +26,8 @@ FileHandler::~FileHandler() {
  * @param string
  * @return int
  */
-bool FileHandler::AddFile(std::string const& path) {
+
+int FileHandler::AddFile(std::string const& path) {
 #if defined(WIN32)
 	IFile *newitem = new CWFile;
 #elif(UNIX)
@@ -35,9 +36,9 @@ bool FileHandler::AddFile(std::string const& path) {
 	if (newitem->open(path) == true) {
 		this->_files.insert(std::pair<IFile*, int>(newitem, _nbfiles));
 		_nbfiles++;
-		return (true);
+		return (_nbfiles - 1);
 	}
-	return (false);
+	return (-1);
 }
 
 /**

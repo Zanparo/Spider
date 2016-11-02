@@ -10,7 +10,7 @@
 #include <string>
 #include <Windows.h>
 #include <exception>
-
+#include <fstream>
 class CWFile : public AFile {
 public: 
     
@@ -41,7 +41,7 @@ public:
      */
     int write(std::string const& towrite);
 private: 
-    HANDLE _file;
+     std::fstream _file;
 };
 
 #endif //_CWFILE_H

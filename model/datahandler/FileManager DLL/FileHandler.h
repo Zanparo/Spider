@@ -24,7 +24,7 @@ public:
      * Add a file to _files. Return true if succeed.
      * @param string
      */
-    bool AddFile(std::string const& path);
+	int AddFile(std::string const& path);
 
 private: 
     /**

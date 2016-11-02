@@ -10,9 +10,7 @@
  * CWFile implementation
  */
 CWFile::CWFile(std::string const& path) : AFile(path) {
-	this->_file = CreateFile((LPCWSTR)path.c_str(), (GENERIC_READ | GENERIC_WRITE), FILE_SHARE_READ, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	if (this->_file == INVALID_HANDLE_VALUE)
-		throw std::exception("Could not open file.");
+	this->_file.open(path);
 }
 
 CWFile::~CWFile() {
@@ -24,18 +22,16 @@ CWFile::~CWFile() {
  * @return bool
  */
 bool CWFile::open(std::string const& path) {
-	std::cout << "path: " << path << std::endl;
-	this->_file = CreateFile((LPCWSTR)path.c_str(), (GENERIC_READ | GENERIC_WRITE), FILE_SHARE_READ, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	if (this->_file == INVALID_HANDLE_VALUE) {
-		std::cout << GetLastError() << std::endl;
+	std::cout << "Opening : " << path << std::endl;
+	this->_file.open(path, std::ios::in | std::ios::out | std::ios::ate);
+	if (this->_file.is_open() == false)
 		return (false);
-	}
 	return (true);
 }
 
 bool CWFile::open() {
-	this->_file = CreateFile((LPCWSTR)this->_filename.c_str(), (GENERIC_READ | GENERIC_WRITE), FILE_SHARE_READ, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	if (this->_file == INVALID_HANDLE_VALUE)
+	this->_file.open(this->_filename);
+	if (this->_file.is_open() == false)
 		return (false);
 	return (true);
 }
@@ -44,9 +40,7 @@ bool CWFile::open() {
  * @return bool
  */
 bool CWFile::close() {
-	if (this->_file == INVALID_HANDLE_VALUE)
-		throw std::exception("Uninitialized file.");
-	CloseHandle(_file);
+	this->_file.close();
 	return (true);
 }
 
@@ -56,14 +50,20 @@ bool CWFile::close() {
  * @return string
  */
 std::string CWFile::read(int size) {
-	if (this->_file == INVALID_HANDLE_VALUE)
+	if (this->_file.is_open() == false)
 		throw std::exception("Uninitialized file.");
-	char *buffer = new char[size];
-	LPDWORD nb_read = 0;
-	if (ReadFile(this->_file, buffer, size, nb_read, NULL) == false)
-		throw std::exception("Invalid read.");
-	buffer[*(int*)nb_read + 1] = 0;
-	return (std::string(buffer));
+	this->_file.seekg(0, _file.end);
+	if (this->_file.tellg() < size) {
+		size = this->_file.tellg();
+	}
+	this->_file.seekg(0, _file.beg);
+	std::cout << "Size read is : " << size << std::endl;
+	char *buffer = new char [size + 1];
+	this->_file.read(buffer, size);
+	buffer[size] = 0;
+	std::string ret(buffer);
+	delete[] buffer;
+	return (ret);
 }
 
 /**
@@ -72,10 +72,9 @@ std::string CWFile::read(int size) {
  * @return int
  */
 int CWFile::write(std::string const& towrite) {
-	if (this->_file == INVALID_HANDLE_VALUE)
+	if (this->_file.is_open() == false)
 		throw std::exception("Uninitialized file.");
-	int nb_written = 0;
-	if (WriteFile(_file, towrite.c_str(), towrite.length(), (LPDWORD)&nb_written, NULL) == false)
-		throw std::exception("Invalid write");
-	return (nb_written);
+	std::cout << "writing this: " << towrite << std::endl;
+	this->_file.write(towrite.c_str(), towrite.length());
+	return (towrite.length());
 }
