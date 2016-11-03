@@ -10,7 +10,7 @@ if (WIN32)
 	###########################################################
 	##  WINDOWS
 	###########################################################
-	
+
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ../build/windows)
 	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../build/windows)
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../build/windows)
@@ -25,7 +25,7 @@ if (WIN32)
 		DLLoader/DLibrary.cpp
 		DLLoader/CWDLibrary.cpp
 	)
-	
+
 endif (WIN32)
 
 if (UNIX)

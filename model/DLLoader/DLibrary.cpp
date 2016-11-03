@@ -1,7 +1,7 @@
 #include <iostream>
 #include "DLibrary.h"
 
-#ifdef __linux__ 
+#ifdef __linux__
 	#include "CUDLibrary.h"
 #elif _WIN32
 	#include "CWDLibrary.h"
@@ -15,7 +15,7 @@ IDLibrary*		DLFactory::createLibrary(int _id, const char *_name, const char *_pa
 {
 	IDLibrary	*library;
 
-	#ifdef __linux__ 
+	#ifdef __linux__
 		library = new CUDLibrary(_id, _name, _path);
 	#elif _WIN32
 		library = new CWDLibrary(_id, _name, _path);
