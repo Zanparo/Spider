@@ -15,6 +15,10 @@
 typedef std::map<std::string, void *>*		Dictionary;
 
 // Get Dictionary Function
-typedef __declspec(dllimport) Dictionary	(__cdecl *GET_DICTIONARY)(void);
+# ifdef __linux__
+	typedef Dictionary	(*GET_DICTIONARY)(void);
+# elif _WIN32
+	typedef __declspec(dllimport) Dictionary	(__cdecl *GET_DICTIONARY)(void);
+# endif
 
 #endif /* !DLDICTIONARY_H__ */

@@ -14,7 +14,7 @@ void	sayHelloFrom(std::string from)
 /////////////////////////////////////////////////////
 
 extern "C" {
-	#ifdef __linux__ 
+	#ifdef __linux__
 	Dictionary	getDictionary(void)
 	#elif _WIN32
 	__declspec(dllexport) Dictionary	__cdecl getDictionary(void)
@@ -23,7 +23,7 @@ extern "C" {
 		Dictionary	dict = new std::map<std::string, void *>;
 
 		// List every usefull functions out there
-		(*dict)["sayHelloFrom"] = &sayHelloFrom;
+		(*dict)["sayHelloFrom"] = (void *)&sayHelloFrom;
 
 		return (dict);
 	}

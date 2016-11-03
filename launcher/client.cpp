@@ -10,6 +10,5 @@ int						main(int ac, char **av)
 	catch (DLibraryException &err) {
 		std::cerr << err.what() << std::endl;
 	}
-	system("pause");
 	return (1);
 }

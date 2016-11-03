@@ -9,15 +9,15 @@ class	clientController {
 
 	// Dictionaries
 	Dictionary	sayHello;
-	
+
 public:
 
 	clientController(void) throw(DLibraryException);	// Initialise
-	~clientController(void);							// Destroy
+	~clientController(void);			        // Destroy
 
 	int		mainAction(int, char**);
-	void	sayHelloAction(void);
-	
+	void		sayHelloAction(void);
+
 };
 
 #endif /* !CLIENT_H__ */

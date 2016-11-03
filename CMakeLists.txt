@@ -8,31 +8,24 @@ project("Spider")
 
 include_directories("include")
 
-add_subdirectory(model)
-
 if (WIN32)
-
-	###########################################################
-	##  WINDOWS
-	###########################################################
-	
-	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY build/windows)
-	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY build/windows)
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build/windows)
-
+  set(BUILD_FOLDER build/windows)
 endif (WIN32)
 
 if (UNIX)
-
-	###########################################################
-	##  UNIX
-	###########################################################
-	
-	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY build/unix)
-	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY build/unix)
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY build/unix)
-
+  set(BUILD_FOLDER build/unix)
 endif (UNIX)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BUILD_FOLDER})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BUILD_FOLDER})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BUILD_FOLDER})
+
+# Build Models
+add_subdirectory(model)
+
+###########################################################
+##  SPIDER CLIENT
+###########################################################
 
 add_executable (
 	client
@@ -43,3 +36,18 @@ add_executable (
 
 target_link_libraries(client DLLoader)
 
+#
+#  Add additionnal libraries
+#
+
+if (WIN32)
+  # Silence is golden
+endif (WIN32)
+
+if (UNIX)
+  target_link_libraries(client dl)
+endif (UNIX)
+
+###########################################################
+##  SPIDER SERVER
+###########################################################

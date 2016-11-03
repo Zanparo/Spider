@@ -11,3 +11,4 @@ CMakeFiles
 .vs
 *.dir
 **.dir
+Makefile

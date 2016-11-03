@@ -1,21 +1,20 @@
 #include <iostream>
 #include "client.h"
-#include "CWDLibrary.h"
 #include "sayHello.h"
 
 /////////////////////////////////////////////////////////////////
 //  SETTINGS
 /////////////////////////////////////////////////////////////////
 
-clientController::clientController(void)
+clientController::clientController(void) throw(DLibraryException)
 {
 
 	//////////////////////////////
 	// Load libraries
 	//////////////////////////////
 
-	#ifdef __linux__ 
-		this->libraries.add(1, "sayHello", "sayHello.so");
+	#ifdef __linux__
+		this->libraries.add(1, "sayHello", "./libsayHello.so");
 	#elif _WIN32
 		this->libraries.add(1, "sayHello", "sayHello.dll");
 	#endif
@@ -42,9 +41,6 @@ int		clientController::mainAction(int ac, char **av) {
 
 	// Faire pleins de trucs ...
 	// ...
-
-	// Pause
-	system("pause");
 
 	// Quitter
 	return (0);
