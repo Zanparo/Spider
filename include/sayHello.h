@@ -1,7 +1,7 @@
 #ifndef SAYHELLO_H__
 # define SAYHELLO_H__
 
-# ifdef __linux__ 
+# ifdef __linux__
    // Silence is golden
 # elif _WIN32
 #  include <windows.h>
