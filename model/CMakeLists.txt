@@ -33,11 +33,11 @@ if (UNIX)
 	###########################################################
 	##  UNIX
 	###########################################################
-	
+
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ../build/unix)
 	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../build/unix)
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../build/unix)
-	
+
 	# Load external libraries dynamically
     add_library (
 		DLLoader
@@ -51,11 +51,19 @@ if (UNIX)
 
 endif (UNIX)
 
-	# Say Hello
-	add_library (
-		sayHello
-		SHARED
-		../include/DLDictionary.h
-		../include/sayHello.h
-		sayHello/sayHello.cpp
-	)
+# Say Hello
+add_library (
+  sayHello
+  SHARED
+  ../include/DLDictionary.h
+  ../include/sayHello.h
+  sayHello/sayHello.cpp
+)
+
+# Say Hello
+add_library (
+  network
+  SHARED
+  ../include/network.h
+  network/network.cpp
+)

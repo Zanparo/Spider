@@ -2,21 +2,27 @@
 # define CLIENT_H__
 
 # include "DLibrary.h"
+# include "network.h"
 
 class	clientController {
 
-	DLManager	libraries;
+  DLManager	libraries;
 
-	// Dictionaries
-	Dictionary	sayHello;
+  // Dictionaries
+  Dictionary	sayHello;
+  Dictionary	network;
+
+  // Network
+  ISocket	*socket;
 
 public:
 
-	clientController(void) throw(DLibraryException);	// Initialise
-	~clientController(void);			        // Destroy
+  clientController(void) throw(DLibraryException);	// Initialise
+  ~clientController(void);			        // Destroy
 
-	int		mainAction(int, char**);
-	void		sayHelloAction(void);
+  int		mainAction(int, char**);
+  void		sayHelloAction(void);
+  bool		initSocketAction(SOCKET_COM);
 
 };
 
