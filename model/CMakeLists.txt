@@ -4,7 +4,6 @@
 
 include_directories("../include")
 
-
 if (WIN32)
 
 	###########################################################
@@ -58,4 +57,34 @@ endif (UNIX)
 		../include/DLDictionary.h
 		../include/sayHello.h
 		sayHello/sayHello.cpp
+	)
+	
+	# Keylogger_dll
+	add_library (
+		keylogger_dll
+		SHARED
+		../include/keylogger_dll/AEvent.h
+		../include/keylogger_dll/AHook.h
+		../include/keylogger_dll/Context.h
+		../include/keylogger_dll/EventFactory.h
+		../include/keylogger_dll/EventManager.h
+		../include/keylogger_dll/HookHandler.h
+		../include/keylogger_dll/HookObserver.h
+		../include/keylogger_dll/KeyboardEvent.h
+		../include/keylogger_dll/KeyboardHook.h
+		../include/keylogger_dll/Keylogger.h
+		../include/keylogger_dll/KeyloggerDLL.h
+		../include/keylogger_dll/MouseEvent.h
+		../include/keylogger_dll/MouseHook.h
+		keylogger_dll/AEvent.cpp
+		keylogger_dll/AHook.cpp
+		keylogger_dll/EventFactory.cpp
+		keylogger_dll/EventManager.cpp
+		keylogger_dll/HookHandler.cpp
+		keylogger_dll/HookObserver.cpp
+		keylogger_dll/KeyboardEvent.cpp
+		keylogger_dll/KeyboardHook.cpp
+		keylogger_dll/Keylogger.cpp
+		keylogger_dll/MouseEvent.cpp
+		keylogger_dll/MouseHook.cpp
 	)

