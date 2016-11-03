@@ -1,20 +1,17 @@
 /**
  * Project Keylogger
  */
-
-
-#include "EventManager.h"
-
-/**
- * EventManager implementation
- */
+#include				"EventManager.h"
 
 
 /**
  * @param Keylogger&
  */
-EventManager::EventManager(Keylogger& keylogger) {
-	_keylogger = keylogger;
+EventManager::EventManager(const Keylogger& keylogger) : _keylogger(keylogger){
+}
+
+EventManager::~EventManager()
+{
 }
 
 /**
@@ -23,6 +20,6 @@ EventManager::EventManager(Keylogger& keylogger) {
  * @param WPARAM
  * @return void
  */
-void EventManager::HandleEvent(void LPARAM, void WPARAM) {
+void					EventManager::handleEvent(const LPARAM lparam, const WPARAM wparam) {
     return;
 }

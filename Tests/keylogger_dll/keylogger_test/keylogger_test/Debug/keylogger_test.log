@@ -1,0 +1,154 @@
+﻿  MouseHook.cpp
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(16): error C2143: syntax error: missing ',' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(17): error C2061: syntax error: identifier 'AHook'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(18): error C2061: syntax error: identifier 'AHook'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): error C2065: 'AHook': undeclared identifier
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): error C2059: syntax error: '>'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): error C2976: 'std::vector': too few template arguments
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(679): note: see declaration of 'std::vector'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): warning C4251: 'HookHandler::_hooks': class 'std::vector' needs to have dll-interface to be used by clients of class 'HookHandler'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(679): note: see declaration of 'std::vector'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C2143: syntax error: missing ';' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C2238: unexpected token(s) preceding ';'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(23): warning C4624: 'HookHandler': destructor was implicitly defined as deleted
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C3646: '_eventManager': unknown override specifier
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  Keylogger.cpp
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\eventmanager.h(15): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\eventmanager.h(15): error C2143: syntax error: missing ',' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\eventmanager.h(19): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\eventmanager.h(19): error C2143: syntax error: missing ';' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\eventmanager.h(19): error C2238: unexpected token(s) preceding ';'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): warning C4251: 'HookHandler::_hooks': class 'std::vector<AHook *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'HookHandler'
+          with
+          [
+              _Ty=AHook *
+          ]
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): note: see declaration of 'std::vector<AHook *,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=AHook *
+          ]
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.cpp(15): error C2664: 'EventManager::EventManager(const EventManager &)': cannot convert argument 1 from 'Keylogger' to 'const int'
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.cpp(15): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.cpp(15): error C2512: 'EventManager::EventManager': no appropriate default constructor available
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.cpp(27): warning C4273: 'Keylogger::init': inconsistent dll linkage
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(21): note: see previous definition of 'init'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.cpp(35): warning C4273: 'Keylogger::run': inconsistent dll linkage
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(22): note: see previous definition of 'run'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.cpp(42): warning C4273: 'Keylogger::stop': inconsistent dll linkage
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(23): note: see previous definition of 'stop'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.cpp(49): warning C4273: 'Keylogger::kill': inconsistent dll linkage
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(24): note: see previous definition of 'kill'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.cpp(56): warning C4273: 'Keylogger::getInstance': inconsistent dll linkage
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(25): note: see previous definition of 'getInstance'
+  KeyboardHook.cpp
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(16): error C2143: syntax error: missing ',' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(17): error C2061: syntax error: identifier 'AHook'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(18): error C2061: syntax error: identifier 'AHook'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): error C2065: 'AHook': undeclared identifier
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): error C2059: syntax error: '>'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): error C2976: 'std::vector': too few template arguments
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(679): note: see declaration of 'std::vector'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): warning C4251: 'HookHandler::_hooks': class 'std::vector' needs to have dll-interface to be used by clients of class 'HookHandler'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(679): note: see declaration of 'std::vector'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C2143: syntax error: missing ';' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C2238: unexpected token(s) preceding ';'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(23): warning C4624: 'HookHandler': destructor was implicitly defined as deleted
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C3646: '_eventManager': unknown override specifier
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  KeyboardEvent.cpp
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keyboardevent.h(12): warning C4275: non dll-interface class 'AEvent' used as base for dll-interface class 'KeyboardEvent'
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\aevent.h(14): note: see declaration of 'AEvent'
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keyboardevent.h(12): note: see declaration of 'KeyboardEvent'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keyboardevent.cpp(13): error C2533: 'KeyboardEvent::{ctor}': constructors not allowed a return type
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keyboardevent.cpp(13): error C2511: 'KeyboardEvent::KeyboardEvent(void)': overloaded member function not found in 'KeyboardEvent'
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keyboardevent.h(12): note: see declaration of 'KeyboardEvent'
+  HookObserver.cpp
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\ahook.h(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\ahook.h(16): error C2143: syntax error: missing ',' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\ahook.h(24): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\ahook.h(24): error C2143: syntax error: missing ';' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\ahook.h(24): error C2238: unexpected token(s) preceding ';'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(16): error C2143: syntax error: missing ',' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): warning C4251: 'HookHandler::_hooks': class 'std::vector<AHook *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'HookHandler'
+          with
+          [
+              _Ty=AHook *
+          ]
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): note: see declaration of 'std::vector<AHook *,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=AHook *
+          ]
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C2143: syntax error: missing ';' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C2238: unexpected token(s) preceding ';'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C3646: '_eventManager': unknown override specifier
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  HookHandler.cpp
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C3646: '_eventManager': unknown override specifier
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(30): error C3646: '_hookHandler': unknown override specifier
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(30): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): warning C4251: 'HookHandler::_hooks': class 'std::vector<AHook *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'HookHandler'
+          with
+          [
+              _Ty=AHook *
+          ]
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): note: see declaration of 'std::vector<AHook *,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=AHook *
+          ]
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.cpp(36): error C2664: 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<AHook *>>> std::vector<AHook *,std::allocator<_Ty>>::erase(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<AHook *>>>,std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<AHook *>>>)': cannot convert argument 1 from 'AHook *' to 'std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<AHook *>>>'
+          with
+          [
+              _Ty=AHook *
+          ]
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.cpp(36): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+  EventManager.cpp
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookobserver.h(14): error C2061: syntax error: identifier 'EventManager'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookobserver.h(18): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookobserver.h(18): error C2143: syntax error: missing ';' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookobserver.h(18): error C2238: unexpected token(s) preceding ';'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(16): error C2143: syntax error: missing ',' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): warning C4251: 'HookHandler::_hooks': class 'std::vector<AHook *,std::allocator<_Ty>>' needs to have dll-interface to be used by clients of class 'HookHandler'
+          with
+          [
+              _Ty=AHook *
+          ]
+  h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): note: see declaration of 'std::vector<AHook *,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=AHook *
+          ]
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C2143: syntax error: missing ';' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C2238: unexpected token(s) preceding ';'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C3646: '_eventManager': unknown override specifier
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  AHook.cpp
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(16): error C2143: syntax error: missing ',' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(17): error C2061: syntax error: identifier 'AHook'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(18): error C2061: syntax error: identifier 'AHook'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): error C2065: 'AHook': undeclared identifier
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): error C2059: syntax error: '>'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): error C2976: 'std::vector': too few template arguments
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(679): note: see declaration of 'std::vector'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(21): warning C4251: 'HookHandler::_hooks': class 'std::vector' needs to have dll-interface to be used by clients of class 'HookHandler'
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(679): note: see declaration of 'std::vector'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C2143: syntax error: missing ';' before '&'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(22): error C2238: unexpected token(s) preceding ';'
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\hookhandler.h(23): warning C4624: 'HookHandler': destructor was implicitly defined as deleted
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C3646: '_eventManager': unknown override specifier
+h:\users\darrac_s\work\projects\spider\tests\keylogger_dll\generated_code\keylogger_model\keylogger.h(29): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  Generating Code...

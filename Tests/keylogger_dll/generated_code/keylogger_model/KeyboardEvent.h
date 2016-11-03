@@ -9,7 +9,7 @@
 #include "AEvent.h"
 
 
-class KeyboardEvent: public AEvent {
+class __declspec(dllexport) KeyboardEvent: public AEvent {
 public: 
     
      KeyboardEvent(const int virtualKeyCode, const int repeatCount, const char scanCode, const bool isExtend, const bool isAlt, const bool prevKeyState, const bool transState, const std::chrono::milliseconds & time, const t_Context context);

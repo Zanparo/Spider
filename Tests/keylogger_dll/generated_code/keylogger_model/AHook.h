@@ -10,7 +10,7 @@
 
 #include					"HookObserver.h"
 
-class						AHook {
+class __declspec(dllexport)	AHook {
 public: 
     
    AHook(const HookObserver&);

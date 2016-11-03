@@ -2,8 +2,8 @@
  * Project Keylogger
  */
 
-
 #include "Keylogger.h"
+#include "KeyloggerDLL.h"
 
 /**
  * Keylogger implementation
@@ -12,15 +12,21 @@
 
 Keylogger Keylogger::_instance = Keylogger();
 
-Keylogger::Keylogger() {
+Keylogger::Keylogger() : _eventManager(*(new EventManager(_instance))), _hookHandler(*(new HookHandler(_eventManager))) {
+}
+
+Keylogger::~Keylogger()
+{
 
 }
+
 
 /**
  * @return bool
  */
 bool Keylogger::init() {
-    return false;
+	std::cout << "init done." << std::endl;
+    return true;
 }
 
 /**

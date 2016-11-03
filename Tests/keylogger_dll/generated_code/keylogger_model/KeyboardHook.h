@@ -9,7 +9,7 @@
 #include					"AHook.h"
 
 
-class KeyboardHook: public AHook {
+class __declspec(dllexport) KeyboardHook: public AHook {
 public: 
     
 KeyboardHook(const HookObserver&);

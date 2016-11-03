@@ -1,21 +1,21 @@
 /**
- * Project Keylogger
+ *									Project Keylogger
  */
 
 
-#ifndef					_HOOKOBSERVER_H
-#define					_HOOKOBSERVER_H
+#ifndef								_HOOKOBSERVER_H
+#define								_HOOKOBSERVER_H
 
-#include				"EventManager.h"
+#include							"EventManager.h"
 
-class					HookObserver {
+class	__declspec(dllexport)		HookObserver {
 
 public:     
     HookObserver(EventManager&);
-    void				update(const LPARAM, const WPARAM) const;
+    void							update(const LPARAM, const WPARAM) const;
 
 private: 
-    EventManager&		_eventManager;
+    const EventManager&					_eventManager;
 };
 
 #endif //_HOOKOBSERVER_H

@@ -21,12 +21,6 @@
     <ClInclude Include="..\..\generated_code\keylogger_model\AEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\generated_code\keylogger_model\AHook {abstract}.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated_code\keylogger_model\CWKeylogger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\generated_code\keylogger_model\EventFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -51,18 +45,21 @@
     <ClInclude Include="..\..\generated_code\keylogger_model\MouseHook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\generated_code\keylogger_model\AHook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated_code\keylogger_model\Context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated_code\keylogger_model\KeyloggerDLL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\generated_code\keylogger_model\Keylogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\generated_code\keylogger_model\AEvent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated_code\keylogger_model\AHook {abstract}.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated_code\keylogger_model\CWKeylogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\generated_code\keylogger_model\EventFactory.cpp">
@@ -87,6 +84,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\generated_code\keylogger_model\MouseHook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated_code\keylogger_model\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated_code\keylogger_model\AHook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

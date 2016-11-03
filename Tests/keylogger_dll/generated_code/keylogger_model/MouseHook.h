@@ -8,7 +8,7 @@
 
 #include					"AHook.h"
 
-class MouseHook: public AHook {
+class __declspec(dllexport) MouseHook: public AHook {
 
 public: 
     

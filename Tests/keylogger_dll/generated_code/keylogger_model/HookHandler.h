@@ -4,21 +4,21 @@
 
 
 #ifndef								_HOOKHANDLER_H
-#define								_HOOKHANDLER_H
+#define								_HOOKHANDLER_H __declspec(dllimport)
 	
 #include							<vector>
 	
 #include							"EventManager.h"
 #include							"AHook.h"
 
-class __declspec(dllexport)  HookHandler {
+class __declspec(dllexport)			HookHandler {
 public: 
     HookHandler(const EventManager&);
     const bool						AddHook(AHook*);
-    const bool						RemoveHook(const AHook&);
+    const bool						RemoveHook(AHook*);
 
 private: 
-	std::vector<AEvent*>				_hooks;
+	std::vector<AHook*>				_hooks;
     const EventManager&				_eventManager;
 };
 
