@@ -59,34 +59,3 @@ endif (UNIX)
 		../include/sayHello.h
 		sayHello/sayHello.cpp
 	) 
-
-	# DataHandler
-	add_library (
-		dataHandler
-		SHARED
-		../include/datahandler/AFile.h
-		../include/datahandler/CUFile.h
-		../include/datahandler/CWFile.h
-		../include/datahandler/DataHandler.h
-		../include/datahandler/DataModel.h
-		../include/datahandler/DataModelFactory.h
-		../include/datahandler/DataModelHandler.h
-		../include/datahandler/FileHandler.h
-		../include/datahandler/FileManager.h
-		../include/datahandler/IFile.h
-		../include/datahandler/ISerializer.h
-		../include/datahandler/XMLSerializer.h
-		datahandler/AFile.cpp
-		datahandler/CUFile.cpp
-		datahandler/CWFile.cpp
-		datahandler/DataHandler.cpp
-		datahandler/DataModel.cpp
-		datahandler/DataModelFactory.cpp
-		datahandler/DataModelHandler.cpp
-		datahandler/FileHandler.cpp
-		datahandler/FileManager.cpp
-		datahandler/IFile.cpp
-		datahandler/main.cpp
-		datahandler/Tester.cpp
-		datahandler/XMLSerializer.cpp
-	)
