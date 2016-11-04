@@ -8,7 +8,7 @@
 
 #define OPEN_ERR "sqlite3: error on opening"
 
-class DB_SQLite {
+class DB_SQLite : public ISQL {
 public:
 	DB_SQLite();
 	~DB_SQLite();
