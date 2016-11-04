@@ -6,6 +6,9 @@
 #ifndef						_MOUSEHOOK_H
 #define						_MOUSEHOOK_H
 
+#include					<Windows.h>
+#include					<iostream>
+
 #include					"AHook.h"
 
 class  MouseHook: public AHook {
@@ -13,8 +16,8 @@ class  MouseHook: public AHook {
 public: 
     
 MouseHook(const HookObserver&);
-const bool					setHook() const;    
-static LRESULT CALLBACK		mousehook(const int, const LPARAM, const WPARAM);
+const bool					setHook();    
+static LRESULT CALLBACK		mousehook(int, WPARAM, LPARAM);
 };
 
 #endif //_MOUSEHOOK_H

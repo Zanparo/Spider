@@ -16,7 +16,7 @@ public:
 	clientController(void) throw(DLibraryException);	// Initialise
 	~clientController(void);			        // Destroy
 
-	int		mainAction(int, char**);
+	int			mainAction(int, char**);
 	void		sayHelloAction(void);
 	void		initKeyloggerAction(void);
 

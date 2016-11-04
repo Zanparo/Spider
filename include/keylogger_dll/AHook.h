@@ -22,6 +22,7 @@ public:
 protected: 
 
     const HookObserver&			_observer;
+	HHOOK						_hHook;
 };
 
 #endif //_AHOOK {ABSTRACT}_H

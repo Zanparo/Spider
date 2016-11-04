@@ -57,6 +57,7 @@ endif (UNIX)
 		../include/DLDictionary.h
 		../include/sayHello.h
 		sayHello/sayHello.cpp
+<<<<<<< HEAD
 	)
 	
 	# Keylogger_dll
@@ -88,4 +89,37 @@ endif (UNIX)
 		keylogger_dll/MouseEvent.cpp
 		keylogger_dll/MouseHook.cpp
 		keylogger_dll/instantiate.cpp
+=======
+	) 
+
+	# DataHandler
+	add_library (
+		dataHandler
+		SHARED
+		../include/datahandler/AFile.h
+		../include/datahandler/CUFile.h
+		../include/datahandler/CWFile.h
+		../include/datahandler/DataHandler.h
+		../include/datahandler/DataModel.h
+		../include/datahandler/DataModelFactory.h
+		../include/datahandler/DataModelHandler.h
+		../include/datahandler/FileHandler.h
+		../include/datahandler/FileManager.h
+		../include/datahandler/IFile.h
+		../include/datahandler/ISerializer.h
+		../include/datahandler/XMLSerializer.h
+		datahandler/AFile.cpp
+		datahandler/CUFile.cpp
+		datahandler/CWFile.cpp
+		datahandler/DataHandler.cpp
+		datahandler/DataModel.cpp
+		datahandler/DataModelFactory.cpp
+		datahandler/DataModelHandler.cpp
+		datahandler/FileHandler.cpp
+		datahandler/FileManager.cpp
+		datahandler/IFile.cpp
+		datahandler/main.cpp
+		datahandler/Tester.cpp
+		datahandler/XMLSerializer.cpp
+>>>>>>> ff66750dda58f65ca693b1fa0fb9a5e11a02ee8b
 	)
