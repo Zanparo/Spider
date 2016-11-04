@@ -1,4 +1,7 @@
 #pragma once
+#ifndef _DB_SQLITE_HPP_
+#define _DB_SQLITE_HPP_
+
 #include <string>
 #include <iostream>
 #include <exception>
@@ -21,3 +24,5 @@ private:
 	sqlite3 *_dbHandler;
 	sqlite3_stmt *_stmt;
 };
+
+#endif 
