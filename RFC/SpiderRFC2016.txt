@@ -1,0 +1,1188 @@
+﻿		       _____       _     _           
+		      / ____|     (_)   | |          
+		     | (___  _ __  _  __| | ___ _ __ 
+		      \___ \| '_ \| |/ _` |/ _ \ '__|
+		      ____) | |_) | | (_| |  __/ |   
+		     |_____/| .__/|_|\__,_|\___|_|   
+		            | |                      
+		            |_|                     
+
+		           ;               ,           
+		         ,;                 '.         
+		        ;:                   :;        
+		       ::                     ::       
+		       ::                     ::       
+		       ':                     :        
+		        :.                    :        
+		     ;' ::                   ::  '     
+		    .'  ';                   ;'  '.    
+		   ::    :;                 ;:    ::   
+		   ;      :;.             ,;:     ::   
+		   :;      :;:           ,;"      ::   
+		   ::.      ':;  ..,.;  ;:'     ,.;:   
+		    "'"...   '::,::::: ;:   .;.;""'    
+		        '"""....;:::::;,;.;"""         
+		    .:::.....'"':::::::'",...;::::;.   
+		   ;:' '""'"";.,;:::::;.'""""""  ':;   
+		  ::'         ;::;:::;::..         :;  
+		 ::         ,;:::::::::::;:..       :: 
+		 ;'     ,;;:;::::::::::::::;";..    ':.
+		::     ;:"  ::::::"""'::::::  ":     ::
+		 :.    ::   ::::::;  :::::::   :     ; 
+		  ;    ::   :::::::  :::::::   :    ;  
+		   '   ::   ::::::....:::::'  ,:   '   
+		    '  ::    :::::::::::::"   ::       
+		       ::     ':::::::::"'    ::       
+		       ':       """""""'      ::       
+		        ::                   ;:        
+		        ':;                 ;:"        
+		          ';              ,;'          
+		            "'           '"            
+		              '
+
+
+	   ,___________________________________________
+	   |\'-._(   /                                 |
+	   | \  .'-._\  Spider communication	       |
+	   |-.\'    .-;      Protocol		       |
+	   |   \  .'       Version 0.1		       |
+	   |.--.\'				       |
+	   | 					       |
+	   |	Author	: Matthieu Lambert	       |
+	   |					       |
+	   |	For Team Rocket :		       |
+	   |		- Samuel Darracq	       |
+	   |		- Alexandre Joris	       |
+	   |		- Lucien perouz		       |
+	   |		- Matthieu Lambert	  ,   ,|
+	   |				        .'\`-' |
+	   |				     _.'   \   |
+	   |				  ;-;       \._|
+	   | 			           \ `'-,_,-'\ |
+	   |_______________________________/____)_`-._\|
+
+Warning : 	There is some TOFIX in this RFC. This is the first version.
+		These TOFIX will be changed on the next version.
+
+S̲t̲a̲t̲u̲s̲ ̲o̲f̲ ̲t̲h̲i̲s̲ ̲M̲e̲m̲o̲ ̲:̲
+
+	This document specifies the Spider standard protocol for the Epitech's
+	groups participating the Spider (keylogger on Windows) project at
+	Epitech (2016-2017). Please referer to M. Lambert (lamber_o) for any
+	question aout this document. The distribution of this document is
+	stictly reserved to Epitech's Members.
+
+C̲o̲p̲y̲r̲i̲g̲h̲t̲ ̲N̲o̲t̲i̲c̲e̲ ̲:̲
+
+	There is no currents Copyright for this project. This project is the
+	intellectual property of the Epitech's member who are developping
+	the software.
+
+A̲b̲s̲t̲r̲a̲c̲t̲ ̲:̲
+
+	The spider is a low level keylogger developped in c++. The project is 
+	designed in two parts at least. One is the Widows malware. It is
+	designed to infect the computer of the user, and to register all the
+	action performed with the keyboard/mouse. These informations are
+	locally stored on the hard drive of the infected computer. Once the
+	client reach the server with a socket/sll based connection it sends
+	the datas. The second part of the project is a dedicated server
+	built to recieve datas and send orders to the differts infected
+	computers through the world. The data has to be serealized and SSL
+	encrypted before being sent to the server. The orders sent from the
+	server must be SSL encrypted aswell to avoid any efficient sniffing.
+
+
++----------------------------------------------------------------------------+
+|				Standards			     [page 1]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
+
+	1 - Introduction.....................................................2
+	1.1	Purpose......................................................2
+	1.2	Requierements................................................2
+	1.3	Terminology..................................................3
+	1.4	Overall Operation............................................7
+	2 - SLL..............................................................9
+	2.1	Purpose......................................................9
+	2.2	Handshake...................................................10
+	2.3	Requierements...............................................12
+	3 - Header
+	3.1	Purpose.....................................................13
+	3.2	Organisation................................................13
+	3.3	Signification...............................................14
+	3.4	Status......................................................15
+	4 - Data
+	4.1	Purpose.....................................................19
+	4.2	Date format.................................................19
+	4.3	Data format.................................................20
+
+
++----------------------------------------------------------------------------+
+|				Standards			     [page 2]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+1̲ ̲-̲ ̲I̲n̲t̲r̲o̲d̲u̲c̲t̲i̲o̲n̲
+
+1̲.̲1̲ ̲P̲u̲r̲p̲o̲s̲e̲
+
+	In the third year of Epitech, some students take the Advanced/c++
+	module to have more knowledge of the c++ language. In order to
+	archieve this goal a keylogger project is proposed to the
+	registered students. "The Spider" is the name of the project.
+	This "spyware" must be designed to able the communication
+	different servers around the world. The communication
+	protocol is here to guide any developpers who need/want to
+	develop or modify, on their own a server or a client for
+	the Spider.
+
+1̲.̲2̲ ̲R̲e̲q̲u̲i̲e̲r̲e̲m̲e̲n̲t̲s̲
+
+	A̲b̲s̲t̲r̲a̲c̲t̲
+
+		In many standards track documents several words are used to
+		signify the requirements in the specification.  These words
+		are often capitalized.  This document defines these words as
+		they should be interpreted in this documentation. Authors who
+		follow these guidelines should incorporate this phrase near
+		the beginning of their document:
+
+	The key words "M̲U̲S̲T̲", "M̲U̲S̲T̲ ̲N̲O̲T̲", "R̲E̲Q̲U̲I̲R̲E̲D̲", "S̲H̲A̲L̲L̲", "S̲H̲A̲L̲L̲ ̲N̲O̲T̲",
+	"S̲H̲O̲U̲L̲D̲", "S̲H̲O̲U̲L̲D̲ ̲N̲O̲T̲", "R̲E̲C̲O̲M̲M̲E̲N̲D̲E̲D̲",  "M̲A̲Y̲", and "O̲P̲T̲I̲O̲N̲A̲L̲" in this
+	document are to be interpreted as described just below.
+
+	Note that the force of these words is modified by the requirement
+	level of the document in which they are used.
+
+	"M̲U̲S̲T̲" :	This word, or the terms "R̲E̲Q̲U̲I̲R̲E̲D̲" or "S̲H̲A̲L̲L̲", mean
+	that the definition is an absolute requirement of the specification.
+
+	"M̲U̲S̲T̲ ̲N̲O̲T̲" :	This phrase, or the phrase "S̲H̲A̲L̲L̲ ̲N̲O̲T̲", mean that the
+	definition is an absolute prohibition of the specification.
+
+	"S̲H̲O̲U̲L̲D̲" :	This word, or the adjective "R̲E̲C̲O̲M̲M̲E̲N̲D̲E̲D̲", mean that
+	there may exist valid reasons in particular circumstances to ignore a
+	particular item, but the full implications must be understood and
+	carefully weighed before choosing a different course.
+
+	"S̲H̲O̲U̲L̲D̲ ̲N̲O̲T̲" :	This phrase, or the phrase "N̲O̲T̲ ̲R̲E̲C̲O̲M̲M̲E̲N̲D̲E̲D̲" mean that
+	there may exist valid reasons in particular circumstances when the
+	particular behavior is acceptable or even useful, but the full
+	implications should be understood and the case carefully weighed
+	before implementing any behavior described with this label.
+
++----------------------------------------------------------------------------+
+|				Standards			     [page 3]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	"M̲A̲Y̲" :		This word, or the adjective "O̲P̲T̲I̲O̲N̲A̲L̲", mean that an
+	item is truly optional.  One vendor may choose to include the item
+	because a particular marketplace requires it or because the vendor
+	feels that it enhances the product while another vendor may omit the
+	same item. An implementation which does not include a particular
+	option M̲U̲S̲T̲ be prepared to interoperate with another implementation
+	which does include the option, though perhaps with reduced
+	functionality. In the same vein an implementation which does include
+	a particular option M̲U̲S̲T̲ be prepared to interoperate with another
+	implementation which does not include the option (except, of course,
+	for the feature the option provides.)
+	
+
+	G̲u̲i̲d̲a̲n̲c̲e̲ ̲i̲n̲ ̲t̲h̲e̲ ̲u̲s̲e̲ ̲o̲f̲ ̲t̲h̲e̲s̲e̲ ̲I̲m̲p̲e̲r̲a̲t̲i̲v̲e̲s̲
+
+		Imperatives of the type defined in this memo must be used
+		with care and sparingly.  In particular, they M̲U̲S̲T̲ only be
+		used where it is actually required for interoperation or
+		to limit behavior which has potential for causing harm
+		(e.g., limiting retransmisssions)  For example, they must not
+		be used to try to impose a particular method on implementors
+		where the method is not required for interoperability.
+	
+	S̲e̲c̲u̲r̲i̲t̲y̲ ̲C̲o̲n̲s̲i̲d̲e̲r̲a̲t̲i̲o̲n̲s̲
+
+   		These terms are frequently used to specify behavior with
+		security implications.  The effects on security of not
+		implementing a M̲U̲S̲T̲ or S̲H̲O̲U̲L̲D̲, or doing something the
+		specification says M̲U̲S̲T̲ NOT or S̲H̲O̲U̲L̲D̲ ̲N̲O̲T̲ be done may be very
+		subtle. Document authors should take the time to elaborate
+		the security implications of not following recommendations or
+		requirements as most implementors will not have had the
+		benefit of the experience and discussion that produced the
+		specification.
+
+1̲.̲3̲ ̲T̲e̲r̲m̲i̲n̲o̲l̲o̲g̲y̲
+
+	This specification uses a number of terms to refer to the roles played
+	by participants in, and objects of, the Socket communication.
+
+	C̲o̲n̲n̲e̲c̲t̲i̲o̲n̲
+		A transport layer virtual circuit established between two
+		programs for the purpose of communication.
+
+	M̲e̲s̲s̲a̲g̲e̲
+		The basic unit of Socket communication, consisting of a
+		structured sequence of octets matching the syntax defined in
+		section 3 and transmitted via the connection.
+	
++----------------------------------------------------------------------------+
+|				Standards			     [page 4]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	R̲e̲q̲u̲e̲s̲t̲
+		An Socket request message, as defined in section 3.
+
+	R̲e̲s̲p̲o̲n̲s̲e̲
+		An Socket response message, as defined in section 3.	
+		
+	R̲e̲s̲o̲u̲r̲c̲e̲
+		A dll/library object or service that can be identified by a
+		name and a path, as defined in section 1.4. Resources may be
+		available in multiple representations (e.g. multiple
+		functions, developpement languages, size, and utilities) or
+		vary in other ways.
+
+	E̲n̲t̲i̲t̲y̲
+		The information transferred as the payload of a request or
+      		response. An entity consists of metainformation in the form of
+      		entity-header fields and content in the form of an entity-body,
+		as described in section 3.
+
+	R̲e̲p̲r̲e̲s̲e̲n̲t̲a̲t̲i̲o̲n̲
+      		An entity included with a response that is subject to content
+		negotiation, as described in section 12. There may exist
+		multiple representations associated with a particular response
+		status.	
+
+	C̲o̲n̲t̲e̲n̲t̲ ̲n̲e̲g̲o̲t̲i̲a̲t̲i̲o̲n̲
+		The mechanism for selecting the appropriate representation when
+      		servicing a request, as described in section 12. The
+		representation of entities in any response can be negotiated
+		(including error responses).
+
+	V̲a̲r̲i̲a̲n̲t̲
+		A resource may have one, or more than one, representation(s)
+		associated with it at any given instant. Each of these
+		representations is termed a `varriant'.  Use of the term
+		`variant' does not necessarily imply that the resource is
+		subject to content negotiation.
+
+	C̲l̲i̲e̲n̲t̲	
+		A program that establishes connections for the purpose of
+		sending requests.
+
+	U̲s̲e̲r̲ ̲a̲g̲e̲n̲t̲
+      		The client which initiates a request. These are often
+		browsers, editors, spiders (web-traversing robots), or other
+		end user tools.
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			     [page 5]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	S̲e̲r̲v̲e̲r̲
+      		An application program that accepts connections in order to
+      		service requests by sending back responses. Any given program
+		may be capable of being both a client and a server; our use of
+		these terms refers only to the role being performed by the
+		program for a particular connection, rather than to the
+		program's capabilities in general. Likewise, any server may
+		act as an origin server, proxy, gateway, or tunnel, switching
+		behavior based on the nature of each request.
+
+	O̲r̲i̲g̲i̲n̲ ̲s̲e̲r̲v̲e̲r̲
+		The server on which a given resource resides or is to be
+		created.
+
+	P̲r̲o̲x̲y̲
+		An intermediary program which acts as both a server and a
+		client for the purpose of making requests on behalf of other
+		clients. Requests are serviced internally or by passing them
+		on, with possible translation, to other servers. A proxy M̲U̲S̲T̲
+		implement both the client and server requirements of this
+		specification. A "transparent proxy" is a proxy that does not
+		modify the request or response beyond what is required for
+		proxy authentication and identification. A "non-transparent
+		proxy" is a proxy that modifies the request or response in
+		order to provide some added service to the user agent, such as
+		group annotation services, media type transformation, protocol
+		reduction, or anonymity filtering. Except where either
+		transparent or non-transparent behavior is explicitlystated,
+		the proxy requirements apply to both types of proxies.		
+
+
+	G̲a̲t̲e̲w̲a̲y̲
+		A server which acts as an intermediary for some other server.
+		Unlike a proxy, a gateway receives requests as if it were the
+		origin server for the requested resource; the requesting
+		client may not be aware that it is communicating with a
+		gateway.		
+
+
+	T̲u̲n̲n̲e̲l̲
+		An intermediary program which is acting as a blind relay
+		between two connections. Once active, a tunnel is not
+		considered a party to the Socket communication, though the
+		tunnel may have been initiated by an Socket request. The
+		tunnel ceases to exist when both ends of the relayed
+		connections are closed.
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			     [page 6]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	C̲a̲c̲h̲e̲
+		A program's local store of response messages and the subsystem
+		that controls its message storage, retrieval, and deletion. A
+		cache stores cacheable responses in order to reduce the
+		response time and network bandwidth consumption on future,
+		equivalent requests. Any client or server may include a cache,
+		though a cache cannot be used by a server that is acting as a
+		tunnel.
+
+	C̲a̲c̲h̲e̲a̲b̲l̲e̲
+		A response is cacheable if a cache is allowed to store a copy
+		of the response message for use in answering subsequent
+		requests. The rules for determining the cacheability of Socket
+		responses are defined in section TOFIX. Even if a resource is
+		cacheable, there may be additional constraints on whether a
+		cache can use the cached copy for a particular request.
+
+	F̲i̲r̲s̲t̲-̲h̲a̲n̲d̲
+		A response is first-hand if it comes directly and without
+      		unnecessary delay from the origin server, perhaps via one or
+		more proxies. A response is also first-hand if its validity
+		has just been checked directly with the origin server.
+
+	E̲x̲p̲l̲i̲c̲i̲t̲ ̲e̲x̲p̲i̲r̲a̲t̲i̲o̲n̲ ̲t̲i̲m̲e̲
+		The time at which the origin server intends that an entity
+		should no longer be returned by a cache without further
+		validation.
+
+	H̲e̲u̲r̲i̲s̲t̲i̲c̲ ̲e̲x̲p̲i̲r̲a̲t̲i̲o̲n̲ ̲t̲i̲m̲e̲
+		An expiration time assigned by a cache when no explicit
+		expiration time is available.
+
+	A̲g̲e̲
+		The age of a response is the time since it was sent by, or
+      successfully validated with, the origin server.
+
+	F̲r̲e̲s̲h̲n̲e̲s̲s̲ ̲l̲i̲f̲e̲t̲i̲m̲e̲
+		The length of time between the generation of a response and
+		its expiration time.
+
+	F̲r̲e̲s̲h̲
+		A response is fresh if its age has not yet exceeded its
+		freshness lifetime.
+
+	S̲t̲a̲l̲e̲
+		A response is stale if its age has passed its freshness
+		lifetime.
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			     [page 7]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	S̲e̲m̲a̲n̲t̲i̲c̲a̲l̲l̲y̲ ̲t̲r̲a̲n̲s̲p̲a̲r̲e̲n̲t̲
+		A cache behaves in a "semantically transparent" manner,
+		with respect to a particular response, when its use affects
+		neither the requesting client nor the origin server, except
+		to improve performance. When a cache is semantically
+		transparent, the client receives exactly the same response
+		(except for the validator element) that it would have received
+		had its request been handled directly by the origin server.
+
+	V̲a̲l̲i̲d̲a̲t̲o̲r̲
+      		A protocol element (e.g., an entity tag or a Last-Modified
+		time) that is used to find out whether a cache entry is an
+		equivalent copy of an entity.
+
+	U̲p̲s̲t̲r̲e̲a̲m̲/̲D̲o̲w̲n̲s̲t̲r̲e̲a̲m̲
+		Upstream and downstream describe the flow of a message: all
+		messages flow from upstream to downstream.
+
+	
+	I̲n̲b̲o̲u̲n̲d̲/̲O̲u̲t̲b̲o̲u̲n̲d̲
+		Inbound and outbound refer to the request and response paths
+		for messages: "inbound" means "traveling toward the origin
+		server", and "outbound" means "traveling toward the user
+		agent"
+
+1̲.̲4̲ ̲O̲v̲e̲r̲a̲l̲l̲ ̲O̲p̲e̲r̲a̲t̲i̲o̲n̲
+
+	The Spider protocol is a request/response protocol. A client sends
+	a request to the server in the form of a request method, followed by
+	a MIME-like message containing request modifiers, client information,
+	and possible body content over a connection with a server. The server
+	responds with a status line, including the message's protocol version
+	and a success or error code, followed by a MIME-like message
+	containing server information, entity metainformation, and possible
+	entity-body content.
+
+	Most Socket communication is initiated by a user agent and consists of
+   	a request to be applied to a resource on some origin server. In the
+   	simplest case, this may be accomplished via a single connection (v)
+	between the user agent (UA) and the origin server (O).
+
+
+	request chain → 
+		UA -------------------v------------------- O
+							     ← response chain
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			     [page 8]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	A more complicated situation occurs when one or more intermediaries
+	are present in the request/response chain. There are three common
+	forms of intermediary: proxy, gateway, and tunnel. A proxy is a
+	forwarding agent, receiving requests for a IP in its absolute form,
+	rewriting all or part of the message, and forwarding the reformatted
+	request toward the server identified by the URI. A gateway is a
+	receiving agent, acting as a layer above some other server(s) and, if
+	necessary, translating the requests to the underlying server's
+	protocol. A tunnel acts as a relay point between two connections
+	without changing the messages; tunnels are used when the
+	communication needs to pass through an intermediary (such as a
+	firewall) even when the intermediary cannot understand the contents
+	of the messages.
+
+
+	request chain → 
+		UA -----v----- A -----v----- B -----v----- C -----v----- O
+							     ← response chain
+
+
+	The figure above shows three intermediaries (A, B, and C) between the
+	user agent and origin server. A request or response message that
+	travels the whole chain will pass through four separate connections.
+	This distinction is important because some Socket communication
+	options may apply only to the connection with the nearest, non-tunnel
+	neighbor, only to the end-points of the chain, or to all connections
+	along the chain. Although the diagram is linear, each participant may
+	be engaged in multiple, simultaneous communications. For example, B
+	may be receiving requests from many clients other than A, and/or
+	forwarding requests to servers other than C, at the same time that it
+	is handling A's request.
+
+	Any party to the communication which is not acting as a tunnel may
+	employ an internal cache for handling requests. The effect of a cache
+	is that the request/response chain is shortened if one of the
+	participants along the chain has a cached response applicable to that
+	request. The following illustrates the resulting chain if B has a
+	cached copy of an earlier response from O (via C) for a request which
+	has not been cached by UA or A.
+
+	request chain → 
+		UA -----v----- A -----v----- B - - - - - - C - - - - - - O
+							     ← response chain
+
+	Not all responses are usefully cacheable, and some requests may
+	contain modifiers which place special requirements on cache behavior.
+	Socket requirements for cache behavior and cacheable responses are
+	defined in section TOFIX.
+
+
++----------------------------------------------------------------------------+
+|				Standards			     [page 9]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	Socket communication usually takes place over TCP/IP connections but
+	can also use UDP connections. There is no prefered ports for Socket
+	so any port can be used. This does not preclude Socket from being
+	implemented on top of any other protocol on the Internet, or on other
+	networks. Socket only presumes a reliable transport; any protocol
+	that provides such guarantees can be used; the mapping of the Socket
+	request and response structures onto the transport data units of the
+	protocol in question is outside the scope of this specification.
+
+2̲ ̲-̲ ̲S̲S̲L̲
+
+2̲.̲1̲ ̲P̲u̲r̲p̲o̲s̲e̲
+
+	The goals of SSL protocol, in order of their priority,
+	are:
+
+	1. Cryptographic security
+
+		SSL should be used to establish a secure connection between
+		two parties.
+
+	2.  Interoperability
+
+		Independent programmers should be able to develop applications
+		utilizing SSL 3.0 that will then be able to successfully
+		exchange cryptographic parameters without knowledge of one
+		another's code.
+
+	3.  Extensibility
+
+		SSL seeks to provide a framework into which new public key and
+		bulk encryption methods can be incorporated as necessary.
+		This will also accomplish two sub-goals: to prevent the need
+		to create a new protocol (and risking the introduction of
+		possible new weaknesses) and to avoid the need to implement an
+		entire new security library.
+
+	SSL is a layered protocol. At each layer, messages may include fields
+	for length, description, and content. SSL takes messages to be
+	transmitted, fragments the data into manageable blocks, optionally
+	compresses the data, applies a MAC, encrypts, and transmits the
+	result.  Received data is decrypted, verified, decompressed, and
+	reassembled, then delivered to higher level clients.
+
+	An SSL session is stateful.  It is the responsibility of the SSL
+	handshake protocol to coordinate the states of the client and server,
+	thereby allowing the protocol state machines of each to operate
+	consistently, despite the fact that the state
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 10]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	is not exactly parallel. Logically, the state is represented twice,
+	once as the current operating state and (during the handshake
+	protocol) again as the pending state. Additionally, separate read and
+	write states are maintained. When the client or server receives a
+	change cipher spec message, it copies the pending read state into the
+	current read state. When the client or server sends a change cipher
+	spec message, it copies the pending write state into the current write
+	state. When the handshake negotiation is complete, the client and
+	server exchange change cipher spec messages, and they then communicate
+	using the newly agreed-upon cipher spec.
+
+2̲.̲2̲ ̲H̲a̲n̲d̲s̲h̲a̲k̲e̲
+
+	The cryptographic parameters of the session state are produced by the
+	SSL handshake protocol, which operates on top of the SSL record layer.
+	When an SSL client and server first start communicating, they agree
+	on a protocol version, select cryptographic algorithms, optionally
+	authenticate each other, and use public key encryption techniques to
+	generate shared secrets. These processes are performed in the
+	handshake protocol, which can be summarized as follows: the client
+	sends a client hello message to which the server must respond with a
+	server hello message, or else a fatal error will occur and the
+	connection will fail. The client hello and server hello are used to
+	establish security enhancement capabilities between client and server.
+	The client hello and server hello establish the following attributes:
+	Protocol Version, Session ID, Cipher Suite, and Compression Method.
+	Additionally, two random values are generated and exchanged:
+	ClientHello.random and ServerHello.random.
+
+	Following the hello messages, the server will send its certificate,
+	if it is to be authenticated.  Additionally, a server key exchange
+	message may be sent, if it is required. If the server is
+	authenticated, it may request a certificate from the client, if that
+	is appropriate to the cipher suite selected.  Now the server will
+	send the server hello done message, indicating that the	hello-message
+	phase of the handshake is complete.  The server will then wait for a
+	client response. If the server has sent a certificate request message,
+	the client must send either the certificate message or a
+	no_certificate alert. The client key exchange message is now sent,
+	and the content of that message will depend on the public key
+	algorithm selected between the client hello and the server hello.
+	If the client has sent a certificate with signing ability, a
+	digitally-signed certificate verify message is sent to explicitly
+	verify the certificate.
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 11]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	At this point, a change cipher spec message is sent by the client,
+	and the client copies the pending CipherSpec into the current
+	CipherSpec. The client then immediately sends the finished message
+	under the new algorithms, keys, and secrets.  In response, the server
+	will send its own change cipher spec message, transfer the pending to
+	the current CipherSpec, and send its finished message under the new
+	CipherSpec.  At this point, the handshake is complete and the client
+	and server may begin to exchange application layer data. (See flow
+	chart below.)
+
+	Client						Server
+
+	ClientHello		→
+							ServerHello
+							Certificate*
+							ServerKeyExchange*
+							CertificateRequest*
+				←			ServerHelloDone
+	Certificate*
+	ClientKeyExchange
+	CertificateVerify*
+	Finished		→
+				←			Finished
+	Application Data       ←-→			Application Data
+
+      	*Indicates optional or situation-dependent messages that are not
+        always sent.
+
+	When the client and server decide to resume a previous session or
+	duplicate an existing session (instead of negotiating new security
+	parameters) the message flow is as follows:
+
+	The client sends a ClientHello using the session ID of the session
+	to be resumed. The server then checks its session cache for a match.
+	If a match is found, and the server is willing to re-establish the
+	connection under the specified session state, it will send a
+	ServerHello with the same session ID value.  At this point, both
+	client and server must send change cipher spec messages and proceed
+	directly to finished messages.  Once the re-establishment is
+	complete, the client and server may begin to exchange application
+	layer data.  (See flow chart below.)  If a session ID match is not
+	found, the server generates a new session ID and the SSL client and
+	server perform a full handshake.
+
+
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 12]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	Client						Server
+
+	ClientHello		→
+							ServerHello
+				←			Finished
+	Finished		→
+	Application Data       ←-→			Application Data
+
+
+	The contents and significance of each message will be presented in
+	detail in the following sections.
+
+2̲.̲3̲ ̲R̲e̲q̲u̲i̲e̲r̲e̲m̲e̲n̲t̲s̲
+
+	To perform a SSL connection beetween you client and your server you
+	must have a certificat on your server. As described above the server
+	provite the certificat to all the client who want to exchange message
+	with the server. In order to give a certificat to the server you may
+	perform a few step. It's one of the multiple way to create an SSL
+	certificat, please make sure that before you start this short tutorial
+	you have openssl installed on your linux distribution.
+
+	The first step to generate a certificat is to generate a private RSA
+	key. For this tutorial openssl will be used.
+
+	sudo openssl genrsa -out server.key 2048
+
+	The RSA key generated the second step can be done. Make sure that
+	this private key stay private and will not be reachable on the
+	internet. The second step is to generate a certificat with the key
+	that have been created above.
+
+	sudo openssl req -new -key server.key -out server.csr
+
+	The argument -key allow the commend line to take a RSA key as a entry
+	parameter. -out specify the output file. In this case the certificat
+	will be named server.csr. This certificate is the private certificat
+	for the server. This certificat allow the SSL messages to be
+	decrypted by the server. It must be protected. If this certificat is
+	stolen anyone who have it would be able to decrypt all the SSL
+	messages to your server.
+
+	openssl req -text -noout -in server.csr
+
+	This command line allow you to display safely th key on your terminal.
+	The last step is to generate two time-limited signed certificat. For 
+	this use these command lines.
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 13]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	sudo openssl x509 -req -days 365 -in server.csr -signkey server.key
+	-out server.crt
+
+	sudo openssl x509 -req -days 365 -outform PEM -in server.csr -signkey
+	server.key -out server.pem
+	
+	This first command line is used to sign a private SSL certificat for
+	the server during a limited time. In this case the certificat is
+	signed for 365 day (1 year).
+	The second command line is used to generate a .pem certificat. It is
+	also signed for 356 day (1 year). This certificat is the public that
+	will be send to the client at their first connection.
+
+3̲ ̲-̲ ̲H̲e̲a̲d̲e̲r̲
+
+2̲.̲1̲ ̲P̲u̲r̲p̲o̲s̲e̲
+
+	The header refers to supplemental data placed at the beginning of a
+	block of data being stored or transmitted. In data transmission, the
+	data following the header is called the body.
+	The header of the message is a structure send with the data in order
+	to organize and recognize if the socket message is legit. This
+	structure contain different data that allow the server and the client
+	to give and understand different order. 
+
+2̲.̲2̲ ̲O̲r̲g̲a̲n̲i̲s̲a̲t̲i̲o̲n̲
+
+	The structure is definded like this :
+
+	t_struct		Structure
+	{
+		
+		unsigned char	_id;
+
+		unsigned short	_status;
+
+		size_t		_size;
+
+		bool		_next;
+
+		char[0]		_data;
+
+	}			s_struct;
+
+
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 14]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	This header is critical. It must be present on all messages send from
+	or to the server. Any message send without this header will be refused
+	on the server or the client.
+	Every field of this structure must be filled before the message is
+	send. The different field of this header is definded int he section
+	3.3.
+
+3̲.̲3̲ ̲S̲i̲g̲n̲i̲f̲i̲c̲a̲t̲i̲o̲n̲
+
+	_̲i̲d̲ ̲:̲		The id define the computer where the spider is
+			installed. Each computer must have a diffenrent id.
+			If two computer have the same id the data will be
+			fetched with the data of another computer on the
+			server. If this happend both of the data will be
+			loosed because of irrelevant informations. To obtain
+			a unique id on the computer you can use the OS
+			licence number, the porcessor serial number or the
+			MAC adress. (this is a non-exhaustive list).
+
+	_̲s̲t̲a̲t̲u̲s̲ ̲:̲	The status define the action performed by the spider
+			or by the server. Thanks to it, the server or client
+			can act accordingly to the previous action. The list
+			of all the status is definded in the section 2.3.
+
+	_̲s̲i̲z̲e̲ ̲:̲		The status define the size of the data stored after 
+			the header. See below the definition of _data.
+			If the data stored after the header is not the same
+			of the size stored in _size, the data will not be
+			processed.
+
+	_̲n̲e̲x̲t̲ ̲:̲		The next value is definded as a bolean value. It
+			mean that the value is 0 or 1. This value is here to
+			notify the server or the client that a message will
+			follow or not. If the value is 1, a next message will
+			be send. If the value is 0 it mean that no messages
+			will follow the previous message.
+
+	_̲d̲a̲t̲a̲ ̲:̲		This field is a charset that represent the data stored
+			after the header. It size is definded by the field
+			_size. It cannot exceed this size or the message
+			integrity will be compromised. This field is used to
+			store the data you want to send to the server or to
+			the spider.
+
+
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 15]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+	All these field must be filled. The parsing of the message is made
+	acording this structure. If any parameter is missing or is not correct
+	all the behaviour of the server and/or the spider can be compromissed.
+	This header will have the same size no matter the location in the 
+	world, the type of connection, the kind of windows the target have, or
+	any other parameters. If the header have not the right size, the
+	message will not be processed.
+
+2̲.̲3̲ ̲S̲t̲a̲t̲u̲s̲
+
+	The status are split in tree categories. The first one goes from 100
+	to 199 and are the spider status.
+	The second categorie is from 200 to 299 and define the server status.
+	The third and last categorie is the error categorie.
+
+	Let's start with the spider status.
+
++-----------------------------------------------------------------------+
+|		|							|
+|    Status	|			Description			|
+|		|							|
+|		|							|
++-----------------------------------------------------------------------+
+|		| OK : This status define that everything is fine or	|
+|      101	| that the last message recevied was well processed and	|
+|		| well recieved. If a message is recieved with this	|
+|		| status there is no need to send back a message.	|
++-----------------------------------------------------------------------+
+|		| KO : This status define that nothing went well or that|
+|      102	| there is a problem on the message. The message have	|
+|		| not been processed. If a message is recieved wit this	|
+|		| status, you can send back a message.			|
++-----------------------------------------------------------------------+
+|		| CONNECTION : This status define that the spider want	|
+|      103	| to connect ther server in order to exchange data or	|
+|		| to recieve order. If a mesage is recieved with this	|
+|		| status it need a response.				|
++-----------------------------------------------------------------------+
+|		| DISCONNECT : This status define taht the spider is	|
+|      104	| going to disconnect. There is no need to awnser this	|
+|		| message. But the server must be aware that the socket	|
+|		| is going to be closed.				|
++-----------------------------------------------------------------------+
+|		| DATA : This status define a message that contain data.|
+|      105	| This message must be processed by the server. This	|
+|		| message requiere a response.				|
+|		| 							|
++-----------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 16]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------+
+|		|							|
+|    Status	|			Description			|
+|		|							|
+|		|							|
++-----------------------------------------------------------------------+
+|		| UNEXPECTED BEHAVIOUR : This status is here to warn the|
+|      106	| server that the spider have a bug or a crash. It need |
+|		| a restart or to be fixed mannualy. This message will  |
+|		| eventually followed by a 104 message.			|
++-----------------------------------------------------------------------+
+|		| ORDER : This status is here to warn the server that	|
+|      106	| the data of the message will be an order. This kind	|
+|		| of message need a response. Usualy it will be a 205	|
+|		| message.						|
++-----------------------------------------------------------------------+
+
+	The second category is going to be the server status.
+
++-----------------------------------------------------------------------+
+|		|							|
+|    Status	|			Description			|
+|		|							|
+|		|							|
++-----------------------------------------------------------------------+
+|		| ACCEPTED : This status define an action performed by 	|
+|      201	| the server. The server has accepted the connection of	|
+|		| the spider. In no case the server will awnser a OK	|
+|		| message to a 103 message.				|
++-----------------------------------------------------------------------+
+|		| REFUSE : This status define an action performed by the|
+|      202	| server. The server has refused the connection of the  |
+|		| spider. If this happend ,there is no need to respond	|
+|		| because the message will not be processed.		|
++-----------------------------------------------------------------------+
+|		| OK : This status define that everything is fine or	|
+|		| BUSY : This satus define that the server cannot handle|
+|      203	| any request for the moment. The server is busy. It	|
+|		| mean that the spider have to retry later. It can also |
+|		| mean that the server need to be restarted.		|
++-----------------------------------------------------------------------+
+|		| ASK CERTIFICAT : This status happend when the		|
+|      204	| connection is accepted. The server need to veryfy the |
+|		| certificat of the client. The client is warned that he|
+|		| have to send the certificat in a 105 message.		|
++-----------------------------------------------------------------------+
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 17]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------+
+|		|							|
+|    Status	|			Description			|
+|		|							|
+|		|							|
++-----------------------------------------------------------------------+
+|		| SEND CERTIFICAT : This status define an action 	|
+|      205	| performed by the server. It happend when the client 	|
+|		| ask for a certificat. The server must respond with a	|
+|		| 210 message.						|
++-----------------------------------------------------------------------+
+|		| REFUSE CERTIFICAT : This satus define an action 	|
+|      206	| performed by the server. It mean thet it have refused |
+|		| the certificat. The spider must ask for a new one.	|
+|		| 							|
++-----------------------------------------------------------------------+
+|		| ACCEPT CERTIFICAT : This status define an action	|
+|      207	| performed by the server. It mean that the certificat	|
+|		| has been accepted by the server. The operations can go|
+|		| further.						|
++-----------------------------------------------------------------------+
+|      208	| that the last message recevied was well processed and	|
+|		| well recieved. If a message is recieved with this	|
+|		| status there is no need to send back a message.	|
++-----------------------------------------------------------------------+
+|		| KO : This status define that nothing went well or that|
+|      209	| there is a problem on the message. The message have	|
+|		| not been processed. If a message is recieved wit this	|
+|		| status, you can send back a message.			|
++-----------------------------------------------------------------------+
+|		| DATA : This status define a message that contain data.|
+|      210	| This message must be processed by the client. This	|
+|		| message requiere a response.				|
+|		| 							|
++-----------------------------------------------------------------------+
+|		| ORDER : This status is here to warn the server that	|
+|      211	| the data of the message will be an order. This kind	|
+|		| of message need a response. Usualy it will be a 205	|
+|		| message.						|
++-----------------------------------------------------------------------+
+
+	The next array going to be the errors present on both side of the
+both	+----------------------------------------------------------------------------+
+	communication. To simplify the protocol, the error are the same on
+ side of the tunnel.
+
+	See bellow the internal errors.
+
+
+
+|				Standards			    [page 18]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------+
+|		|							|
+|    Status	|			Description			|
+|		|							|
+|		|							|
++-----------------------------------------------------------------------+
+|		|  : |
+|      301	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      302	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      303	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      304	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      305	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		| UNICORN :|
+|      306	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      307	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+|		|  : |
+|      208	| |
+|		| |
+|		| |
++-----------------------------------------------------------------------+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 19]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+4̲ ̲-̲ ̲D̲a̲t̲a̲
+
+4̲.̲1̲ ̲P̲u̲r̲p̲o̲s̲e̲
+
+	If the data is recieved on the server, the data must be stored on the
+	database. When this data is stored, the server must be able to process
+	it. For this purpose the data must follow a few serealisation in order
+	to simplify the processing.
+	The rules are quiete simple to implement. It is sliced in two parts.
+	The first part is to write correctly the date, in a certain way simple
+	to parse.
+	The second step is to understand the rules to place simple data in a
+	message. These data must have a major-minor writying style. (see 4.3)
+
+4̲.̲2̲ ̲D̲a̲t̲e̲ ̲f̲o̲r̲m̲a̲t̲
+
+	The date is a easy way to keep the data in the right order. But be
+	careful to write it the simple way possible as described bellow.
+	The date must follow the rule if you want the data processed on the
+	server.
+
+	A date is composed by tree part.
+	The first one is the time on the current day.
+
+		10:56:25
+		ten hours, fifty-six minutes and twenty-five seconds
+
+	The second one is the day on the current year.
+	
+		10/12
+		The tenth of december
+
+	In our case the date will be writed like that :
+
+		10:12
+		The tenth of december
+
+	The third part of the date format will be the year describer.
+	For this one this is quiete simple. The year is writed like that
+
+		2016
+		twenty sixteen
+
+	In the data send each time a date is send, the way to write it is :
+
+		10:56:25/10:12/2016
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 20]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
+
+4̲.̲3̲ ̲D̲a̲t̲a̲ ̲f̲o̲r̲m̲a̲t̲
+
+	The major minor style is a easy way to detect patterns in a data set.
+	For the spider the major minor will be writted like in HTML code.
+
+		<CODE> data </CODE>
+
+	The code define the kind of data that will be contained on this minor
+	major beacons.
+	Here is a little exemple of data with some beacons.
+
+		aeE|tf#k
+
+	will give :
+
+		ae<MAJ>E</MAJ><ALTGR>-</ALTGR>tf<ALTGR>"</ALTGR>k
+
+	As you can see the UTF8 characteres placed in the extended ascii table
+	are place between th major minor beacons corresponding to their key on
+	the keyboard of the trageted computer.
+
+	Here is a short list of beacons :
+
+		<MAJ></MAJ>		Uppercase
+
+		<ALTGR></ALTGR>		Special Character
+
+		<NUMP></NUMP>		Numeric number pad
+
+		<FN></FN>		Function key
+
+		<DATE></DATE>		Date between beacons
+
+		<ERROR></ERROR>		Do not parse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++----------------------------------------------------------------------------+
+|				Standards			    [page 21]|
+|									     |
+|RFC 1				Spider v0.1			November 2016|
++----------------------------------------------------------------------------+
