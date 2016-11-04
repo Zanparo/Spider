@@ -1,4 +1,4 @@
-		       _____       _     _           
+﻿		       _____       _     _           
 		      / ____|     (_)   | |          
 		     | (___  _ __  _  __| | ___ _ __ 
 		      \___ \| '_ \| |/ _` |/ _ \ '__|
@@ -66,7 +66,7 @@ Warning : 	There is some TOFIX in this RFC. This is the first version.
 
 S̲t̲a̲t̲u̲s̲ ̲o̲f̲ ̲t̲h̲i̲s̲ ̲M̲e̲m̲o̲ ̲:̲
 
-	This document specifies the Spider standart protocol for the Epitech's
+	This document specifies the Spider standard protocol for the Epitech's
 	groups participating the Spider (keylogger on Windows) project at
 	Epitech (2016-2017). Please referer to M. Lambert (lamber_o) for any
 	question aout this document. The distribution of this document is
@@ -80,16 +80,16 @@ C̲o̲p̲y̲r̲i̲g̲h̲t̲ ̲N̲o̲t̲i̲c̲e̲ ̲:̲
 
 A̲b̲s̲t̲r̲a̲c̲t̲ ̲:̲
 
-	The spider is a low level keylogger developped in c++. Te project is 
-	designed in twoo parts at least. One is the Widows malware. It is
+	The spider is a low level keylogger developped in c++. The project is 
+	designed in two parts at least. One is the Widows malware. It is
 	designed to infect the computer of the user, and to register all the
 	action performed with the keyboard/mouse. These informations are
 	locally stored on the hard drive of the infected computer. Once the
-	client reach the server with ans socket/sll based connection it send
-	the data. The second part of the project is a  dedicated server
-	build to recieve data and send order to the differts infected
-	computers through the world. The data have to be serealized and SSL
-	encrypted before they're send to the server. The order send from the
+	client reach the server with a socket/sll based connection it sends
+	the datas. The second part of the project is a dedicated server
+	built to recieve datas and send orders to the differts infected
+	computers through the world. The data has to be serealized and SSL
+	encrypted before being sent to the server. The orders sent from the
 	server must be SSL encrypted aswell to avoid any efficient sniffing.
 
 
@@ -131,7 +131,7 @@ T̲a̲b̲l̲e̲ ̲o̲f̲ ̲c̲o̲n̲t̲e̲n̲t̲s̲ ̲:̲
 
 1̲.̲1̲ ̲P̲u̲r̲p̲o̲s̲e̲
 
-	In the third year of Epitech, some student take the Advanced/c++
+	In the third year of Epitech, some students take the Advanced/c++
 	module to have more knowledge of the c++ language. In order to
 	archieve this goal a keylogger project is proposed to the
 	registered students. "The Spider" is the name of the project.
