@@ -17,8 +17,23 @@ std::map<InfoClient::InfoType, std::string> InfoClient::routine() {
 }
 
 std::string InfoClient::getOSType() {
-	PRTL_OSVERSIONINFOW versionInfo;
-	versionInfo = (PRTL_OSVERSIONINFOW)malloc(sizeof(PRTL_OSVERSIONINFOW));
+	DWORD val;
+	DWORD lpdval;
+	LPVOID infos;
+
+	val = GetFileVersionInfoSize((LPCWSTR)"C:/Windows/system32/kernel32.dll", &lpdval);
+	LPVOID ptr = new BYTE[val];
+	infos = new BYTE[val];
+	if ((GetFileVersionInfo((LPCWSTR)"C:/Windows/system32/kernel32.dll", lpdval, val, ptr)) == 0) {
+		std::cout << "GetFileVersionInfo : " << GetLastError() << std::endl;
+		return (std::string("N/A"));
+	}
+	UINT dwbytes;
+	if ((VerQueryValue(ptr, (LPCWSTR)"\\StringFileInfo\\ProductVersion", &infos, &dwbytes)) == 0) {
+		std::cout << "VerQueryValue : " << GetLastError() << std::endl;
+		return (std::string("N/A"));
+	}
+	std::cout << infos << std::endl;
 	return std::string("N/A");
 }
 

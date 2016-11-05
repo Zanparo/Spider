@@ -8,7 +8,12 @@
 #include <assert.h>
 #include <stdio.h>
 #include <iostream>
+#include <VersionHelpers.h>
+#include <winver.h>
 #pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "kernel32.lib")
+#pragma comment(lib, "ntdll.lib")
+#pragma comment(lib, "version.lib")
 #pragma comment(lib, "iphlpapi.lib")
 
 class InfoClient {
