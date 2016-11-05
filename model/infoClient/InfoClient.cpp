@@ -12,29 +12,32 @@ std::map<InfoClient::InfoType, std::string> InfoClient::routine() {
 	itemlist.insert(std::pair<InfoClient::InfoType, std::string>(HOSTNAME, this->getHostname()));
 	itemlist.insert(std::pair<InfoClient::InfoType, std::string>(DOTNETVER, this->getdotNETver()));
 	itemlist.insert(std::pair<InfoClient::InfoType, std::string>(MACADDR, this->getMacAddr()));
-	itemlist.insert(std::pair<InfoClient::InfoType, std::string>(EMAIL_ADDR, this->getMailAddr()));
+	itemlist.insert(std::pair<InfoClient::InfoType, std::string>(UUID, this->getUUID()));
 	return (itemlist);
 }
 
 std::string InfoClient::getOSType() {
-	DWORD val;
-	DWORD lpdval;
-	LPVOID infos;
-
-	val = GetFileVersionInfoSize((LPCWSTR)"C:/Windows/system32/kernel32.dll", &lpdval);
-	LPVOID ptr = new BYTE[val];
-	infos = new BYTE[val];
-	if ((GetFileVersionInfo((LPCWSTR)"C:/Windows/system32/kernel32.dll", lpdval, val, ptr)) == 0) {
-		std::cout << "GetFileVersionInfo : " << GetLastError() << std::endl;
+	HKEY hKey;
+	DWORD dwtype = REG_SZ;
+	LONG lRes = RegOpenKeyEx(HKEY_LOCAL_MACHINE, OSTYPE_REG, 0, KEY_READ | KEY_WOW64_64KEY, &hKey);
+	DWORD bufferSize = 512;
+	char result[512] = { 0 };
+	if (lRes != 0) {
+		std::cout << "lres = " << lRes << std::endl;
 		return (std::string("N/A"));
 	}
-	UINT dwbytes;
-	if ((VerQueryValue(ptr, (LPCWSTR)"\\StringFileInfo\\ProductVersion", &infos, &dwbytes)) == 0) {
-		std::cout << "VerQueryValue : " << GetLastError() << std::endl;
-		return (std::string("N/A"));
+	LONG nError = RegQueryValueEx(hKey, OSTYPE_KEY, NULL, &dwtype, (LPBYTE)&result, &bufferSize);
+	if (nError == ERROR_SUCCESS) {
+		std::string end;
+		for (int i = 0; i < 512; i++) {
+			if (result[i] != 0) {
+				end += result[i];
+			}
+		}
+		return (std::string(end));
 	}
-	std::cout << infos << std::endl;
-	return std::string("N/A");
+	std::cout << "nError = " << nError << std::endl;
+	return (std::string("N/A"));
 }
 
 std::string InfoClient::getHostname() {
@@ -51,15 +54,22 @@ std::string InfoClient::getHostname() {
 	if (ret == 0) {
 		return (std::string(hostname));
 	}
-	else {
-		perror("gethostname");
-		std::cout << WSAGetLastError() << std::endl;
-	}
 	return std::string("N/A");
 }
 
 std::string InfoClient::getdotNETver() {
-	return std::string("N/A");
+	HKEY hKey;
+	LONG lRes = RegOpenKeyEx(HKEY_LOCAL_MACHINE, DOTNETVER_REG, 0, KEY_READ | KEY_WOW64_64KEY, &hKey);
+	DWORD result(0);
+	DWORD bufferSize(sizeof(DWORD));
+	if (lRes != 0) {
+		return (std::string("N/A"));
+	}
+	LONG nError = RegQueryValueEx(hKey, DOTNETVER_KEY, 0, NULL, reinterpret_cast<LPBYTE>(&result), &bufferSize);
+	if (nError == ERROR_SUCCESS) {
+		return (std::to_string(result));
+	}
+	return (std::string("N/A"));
 }
 
 
@@ -88,6 +98,19 @@ std::string InfoClient::getMacAddr() {
 	return std::string("N/A");
 }
 
-std::string InfoClient::getMailAddr() {
-	return std::string("N/A");
+std::string InfoClient::getUUID() {
+	char buffer[255];
+	std::string result = "";
+	std::shared_ptr<FILE> pipe(_popen(GET_UUID, "r"), _pclose);
+	if (!pipe)
+		return (std::string("N/A"));
+	int i = 1;
+	while (!feof(pipe.get())) {
+		if (fgets(buffer, 255, pipe.get()) != NULL) {
+			if (i % 2 == 0)
+				result += buffer;
+			i++;
+		}
+	}
+	return (result);
 }
