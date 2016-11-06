@@ -8,6 +8,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include <io.h>
 #include <codecvt>
@@ -46,7 +47,8 @@ public:
 	std::string getdotNETver();
 	std::string getMacAddr();
 	std::string getUUID();
-
+	int getHistory(char **output);
+	int getSAMHive(char **output);
 private:
 
 };

