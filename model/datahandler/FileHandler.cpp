@@ -2,24 +2,16 @@
  * Project FileManager DLL
  */
 
-
 #include "FileHandler.h"
+#ifdef __linux__
+#include "CUFile.h"
+#elif _WIN32
+#include "CWFile.h"
+#endif
 
 /**
  * FileHandler implementation
  */
-
-
-/**
- * Constructor of FileHandler class.
- */
-FileHandler::FileHandler() {
-	std::cout << "FileHandler constructor" << std::endl;
-	_nbfiles = 0;
-}
-
-FileHandler::~FileHandler() {
-}
 
 /**
  * Add a file to _files. Returns ID of _file on success, otherwise -1
@@ -27,18 +19,16 @@ FileHandler::~FileHandler() {
  * @return int
  */
 
-int FileHandler::AddFile(std::string const& path) {
-#if defined(WIN32)
-	IFile *newitem = new CWFile;
-#elif(UNIX)
-	IFile *newitem = new CUFile;
-#endif
-	if (newitem->open(path) == true) {
-		this->_files.insert(std::pair<IFile*, int>(newitem, _nbfiles));
-		_nbfiles++;
-		return (_nbfiles - 1);
-	}
-	return (-1);
+void		FileHandler::add(const std::string path)
+{
+	IFile	*file;
+
+	#if defined(WIN32)
+		file = new CWFile(path);
+	#elif(UNIX)
+		file = new CUFile(path);
+	#endif
+		this->files.push_back(file);
 }
 
 /**

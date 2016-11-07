@@ -19,9 +19,9 @@ if (WIN32)
     add_library (
 		DLLoader
 		STATIC
-		../include/DLDictionary.h
-		../include/DLibrary.h
-		../include/CWDLibrary.h
+		../include/DLLoader/DLDictionary.h
+		../include/DLLoader/DLibrary.h
+		../include/DLLoader/CWDLibrary.h
 		DLLoader/DLibrary.cpp
 		DLLoader/CWDLibrary.cpp
 	)
@@ -42,9 +42,9 @@ if (UNIX)
     add_library (
 		DLLoader
 		STATIC
-		../include/DLDictionary.h
-		../include/DLibrary.h
-		../include/CUDLibrary.h
+		../include/DLLoader/DLDictionary.h
+		../include/DLLoader/DLibrary.h
+		../include/DLLoader/CUDLibrary.h
 		DLLoader/DLibrary.cpp
 		DLLoader/CUDLibrary.cpp
 	)
@@ -55,38 +55,30 @@ endif (UNIX)
 	add_library (
 		sayHello
 		SHARED
-		../include/DLDictionary.h
-		../include/sayHello.h
+		../include/DLLoader/DLDictionary.h
+		../include/sayHello/sayHello.h
 		sayHello/sayHello.cpp
 	)
 
-	# DataHandler
+	# dataHandler
 	add_library (
 		dataHandler
 		SHARED
-		../include/datahandler/AFile.h
-		../include/datahandler/CUFile.h
-		../include/datahandler/CWFile.h
-		../include/datahandler/DataHandler.h
-		../include/datahandler/DataModel.h
-		../include/datahandler/DataModelFactory.h
-		../include/datahandler/DataModelHandler.h
-		../include/datahandler/FileHandler.h
-		../include/datahandler/FileManager.h
-		../include/datahandler/IFile.h
-		../include/datahandler/ISerializer.h
-		../include/datahandler/XMLSerializer.h
-		datahandler/AFile.cpp
-		datahandler/CUFile.cpp
-		datahandler/CWFile.cpp
-		datahandler/DataHandler.cpp
-		datahandler/DataModel.cpp
-		datahandler/DataModelFactory.cpp
-		datahandler/DataModelHandler.cpp
-		datahandler/FileHandler.cpp
-		datahandler/FileManager.cpp
-		datahandler/IFile.cpp
-		datahandler/main.cpp
-		datahandler/Tester.cpp
-		datahandler/XMLSerializer.cpp
+		../include/dataHandler/CUFile.h
+		../include/dataHandler/CWFile.h
+		../include/dataHandler/dataHandler.h
+		../include/dataHandler/DataModel.h
+		../include/dataHandler/DataModelFactory.h
+		../include/dataHandler/DataModelHandler.h
+		../include/dataHandler/FileHandler.h
+		../include/dataHandler/ISerializer.h
+		../include/dataHandler/XMLSerializer.h
+		dataHandler/CUFile.cpp
+		dataHandler/CWFile.cpp
+		dataHandler/dataHandler.cpp
+		dataHandler/DataModel.cpp
+		dataHandler/DataModelFactory.cpp
+		dataHandler/DataModelHandler.cpp
+		dataHandler/FileHandler.cpp
+		dataHandler/XMLSerializer.cpp
 	)

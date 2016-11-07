@@ -4,44 +4,44 @@
 
 
 #ifndef _CWFILE_H
-#define _CWFILE_H
+# define _CWFILE_H
 
-#include "AFile.h"
-#include <string>
-#include <Windows.h>
-#include <exception>
-#include <fstream>
-class CWFile : public AFile {
+# include <string>
+# include <Windows.h>
+# include <exception>
+# include <fstream>
+# include "FileHandler.h"
+
+class CWFile : public IFile, public AFile {
+
+	std::fstream _file;
+
 public: 
     
-	CWFile() {}
-	CWFile(std::string const& filename);
-	~CWFile();
+	CWFile(std::string const& _path) : AFile(_path) {};
 
     /**
      * Open the Windows file. Returns bool if succeed.
      */
-    bool open(std::string const& path);
-	bool open();
+	bool			open(void);
     
     /**
      * Close the Windows file. Returns true if succeed.
      */
-    bool close();
+    bool			close(void);
     
     /**
      * Read the n characters in the file, depending on the int parameter. Returns the string read.
      * @param int
      */
-    std::string read(int n);
+    std::string		read(int);
     
     /**
      * Write the string passed in parameter in the file. Returns the number of characters successfully wrote.
      * @param string
      */
-    int write(std::string const& towrite);
-private: 
-     std::fstream _file;
+    int				write(std::string const&);
+
 };
 
 #endif //_CWFILE_H

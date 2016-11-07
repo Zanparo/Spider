@@ -1,32 +1,36 @@
-/**
- * Project FileManager DLL
- */
+#ifndef DATA_HANDLER_H__
+# define DATA_HANDLER_H__
 
+# include <iostream>
+# include <sstream>
+# include "DLDictionary.h"
+# include "FileHandler.h"
 
-#ifndef _DATAHANDLER_H
-#define _DATAHANDLER_H
+typedef struct			s_Packet {
+	unsigned char		_id;
+	unsigned short		_status;
+	bool				_next;
+	size_t				_size;
+	char *				_data;
+}						Packet;
 
-#include "DataModelHandler.h"
-#include "FileHandler.h"
-#include "ISerializer.h"
-#include <list>
+class		DataHandler {
 
-class DataHandler {
-public: 
-    
-    /**
-     * Constructor of DataHandler class.
-     */
-    DataHandler();
-    
-    /**
-     * Initialization of DataHandler class.
-     */
-    bool Init();
-private: 
-    DataModelHandler _dataModelHandler;
-    FileHandler _fileHandler;
-    std::list<ISerializer*> _serializers;
+	//std::stringstream flux;
+
+public:
+
+	FileHandler			fileHandler;
+
+	//void parser(Packet const& Mess);
 };
 
-#endif //_DATAHANDLER_H
+//
+// SPIDER DYNAMIC LIBRARY STANDARDS
+//
+// Functions type MUST be defined as the name of the function preceded by "_"
+//
+
+typedef		DataHandler *(*_getDataHandler)(void);
+
+#endif /* !DATA_HANDLER_H__ */

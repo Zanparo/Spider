@@ -2,45 +2,38 @@
  * Project FileManager DLL
  */
 
-
-#include "CWFile.h"
 #include <iostream>
+#include "CWFile.h"
 
 /**
  * CWFile implementation
  */
-CWFile::CWFile(std::string const& path) : AFile(path) {
-	this->_file.open(path);
-}
-
-CWFile::~CWFile() {
-
-}
 
 /**
  * Open the Windows file. Returns bool if succeed.
  * @return bool
  */
-bool CWFile::open(std::string const& path) {
-	std::cout << "Opening : " << path << std::endl;
-	this->_file.open(path, std::ios::in | std::ios::out | std::ios::ate);
-	if (this->_file.is_open() == false)
-		return (false);
-	return (true);
-}
 
-bool CWFile::open() {
+bool		CWFile::open()
+{
+	/*
 	this->_file.open(this->_filename);
 	if (this->_file.is_open() == false)
 		return (false);
+	return (true);
+	*/
 	return (true);
 }
 /**
  * Close the Windows file. Returns true if succeed.
  * @return bool
  */
-bool CWFile::close() {
+bool		CWFile::close()
+{
+	/*
 	this->_file.close();
+	return (true);
+	*/
 	return (true);
 }
 
@@ -49,7 +42,9 @@ bool CWFile::close() {
  * @param int
  * @return string
  */
-std::string CWFile::read(int size) {
+std::string	CWFile::read(int size)
+{
+	/*
 	if (this->_file.is_open() == false)
 		throw std::exception("Uninitialized file.");
 	this->_file.seekg(0, _file.end);
@@ -64,6 +59,8 @@ std::string CWFile::read(int size) {
 	std::string ret(buffer);
 	delete[] buffer;
 	return (ret);
+	*/
+	return (std::string("Hello World !"));
 }
 
 /**
@@ -71,10 +68,14 @@ std::string CWFile::read(int size) {
  * @param string
  * @return int
  */
-int CWFile::write(std::string const& towrite) {
+int		CWFile::write(std::string const& towrite)
+{
+	/*
 	if (this->_file.is_open() == false)
 		throw std::exception("Uninitialized file.");
 	std::cout << "writing this: " << towrite << std::endl;
 	this->_file.write(towrite.c_str(), towrite.length());
 	return (towrite.length());
+	*/
+	return (0);
 }

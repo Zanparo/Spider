@@ -4,7 +4,10 @@
 
 
 #ifndef _ISERIALIZER_H
-#define _ISERIALIZER_H
+# define _ISERIALIZER_H
+
+# include <iostream>
+# include "DataModel.h"
 
 class ISerializer {
 public: 
@@ -14,7 +17,7 @@ public:
      * 
      * @param DataModel*
      */
-    virtual std::string serialize(DataModel* c) = 0;
+    virtual std::string		serialize(DataModel* c) = 0;
 };
 
 #endif //_ISERIALIZER_H

@@ -31,7 +31,7 @@ bool CUFile::close() {
  * @param int
  * @return string
  */
-string CUFile::read(void int) {
+std::string		CUFile::read(int nb_byte) {
     return "";
 }
 
@@ -40,6 +40,6 @@ string CUFile::read(void int) {
  * @param string
  * @return int
  */
-int CUFile::write(void string) {
+int CUFile::write(std::string string) {
     return 0;
 }

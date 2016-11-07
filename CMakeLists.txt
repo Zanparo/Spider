@@ -6,7 +6,13 @@ cmake_minimum_required(VERSION 2.6)
 
 project("Spider")
 
-include_directories("include")
+include_directories(
+	"include"
+	"include/DLLoader"
+	"include/sayHello"
+	"include/dataHandler"
+	"include/network"
+	)
 
 if (WIN32)
   set(BUILD_FOLDER build/windows)

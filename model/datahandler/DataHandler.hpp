@@ -3,19 +3,19 @@
 #include <iostream>
 #include <sstream>
 
-typedef struct s_Message {
-	unsigned char _id;
-	unsigned short _status;
-	bool		   _next;
-	size_t		   _size;
-	char		   _data[0];
-}				t_Mess;
+typedef struct		s_Message {
+	unsigned char	_id;
+	unsigned short	_status;
+	bool			_next;
+	size_t			_size;
+	char			*_data;
+}					t_Mess;
 
-class DataHandler {
+class				DataHandler {
 public:
 	DataHandler();
 	~DataHandler();
-	void parser(t_Mess const& Mess);
+	void	parser(t_Mess const& Mess);
 
 private:
 	std::stringstream flux;

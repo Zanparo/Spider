@@ -13,7 +13,7 @@
 /**
  * Constructor of XMLSerializer.
  */
-void XMLSerializer::XMLSerializer() {
+XMLSerializer::XMLSerializer() {
 
 }
 
@@ -23,6 +23,6 @@ void XMLSerializer::XMLSerializer() {
  * @param DataModel*
  * @return string
  */
-string XMLSerializer::serialize(void DataModel*) {
+std::string		XMLSerializer::serialize(DataModel *model) {
     return "";
 }

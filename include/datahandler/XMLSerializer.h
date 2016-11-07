@@ -15,14 +15,14 @@ public:
     /**
      * Constructor of XMLSerializer.
      */
-    void XMLSerializer();
+    XMLSerializer();
     
     /**
      * Serialization function. Take a pointer to a DataModel instance and returns the serialized string.
      * 
      * @param DataModel*
      */
-    string serialize(void DataModel*);
+    std::string		serialize(DataModel *);
 };
 
 #endif //_XMLSERIALIZER_H
