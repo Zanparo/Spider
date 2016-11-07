@@ -14,6 +14,8 @@
 #include <codecvt>
 #include <stdexcept>
 
+#include "IInfoClient.h"
+
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "kernel32.lib")
 #pragma comment(lib, "ntdll.lib")
@@ -28,7 +30,7 @@
 #define OSTYPE_REG L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"
 #define OSTYPE_KEY L"ProductName"
 
-class InfoClient {
+class InfoClient : public _I_InfoClient {
 public:
 
 	enum InfoType {
@@ -41,7 +43,7 @@ public:
 
 	InfoClient();
 	~InfoClient();
-	std::map<InfoClient::InfoType, std::string> routine();
+	std::map<_I_InfoClient::InfoType, std::string> routine();
 	std::string getOSType();
 	std::string getHostname();
 	std::string getdotNETver();

@@ -2,6 +2,7 @@
 # define CLIENT_H__
 
 # include "DLibrary.h"
+# include "IInfoClient.h"
 
 class	clientController {
 
@@ -9,7 +10,7 @@ class	clientController {
 
 	// Dictionaries
 	Dictionary	sayHello;
-
+	
 public:
 
 	clientController(void) throw(DLibraryException);	// Initialise
@@ -18,6 +19,8 @@ public:
 	int		mainAction(int, char**);
 	void		sayHelloAction(void);
 
+private:
+	_I_InfoClient *ifinstance;
 };
 
 #endif /* !CLIENT_H__ */

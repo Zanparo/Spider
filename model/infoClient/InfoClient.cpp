@@ -1,18 +1,23 @@
 #include "InfoClient.hpp"
 
+__declspec (dllexport) _I_InfoClient* getInstance() {
+	_I_InfoClient *module = new InfoClient();
+	return (module);
+}
+
 InfoClient::InfoClient() {
 }
 
 InfoClient::~InfoClient() {
 }
 
-std::map<InfoClient::InfoType, std::string> InfoClient::routine() {
-	std::map<enum InfoClient::InfoType, std::string> itemlist;
-	itemlist.insert(std::pair<InfoClient::InfoType, std::string>(OSTYPE, this->getOSType()));
-	itemlist.insert(std::pair<InfoClient::InfoType, std::string>(HOSTNAME, this->getHostname()));
-	itemlist.insert(std::pair<InfoClient::InfoType, std::string>(DOTNETVER, this->getdotNETver()));
-	itemlist.insert(std::pair<InfoClient::InfoType, std::string>(MACADDR, this->getMacAddr()));
-	itemlist.insert(std::pair<InfoClient::InfoType, std::string>(UUID, this->getUUID()));
+std::map<_I_InfoClient::InfoType, std::string> InfoClient::routine() {
+	std::map<enum _I_InfoClient::InfoType, std::string> itemlist;
+	itemlist.insert(std::pair<_I_InfoClient::InfoType, std::string>(_I_InfoClient::InfoType::OSTYPE, this->getOSType()));
+	itemlist.insert(std::pair<_I_InfoClient::InfoType, std::string>(_I_InfoClient::InfoType::HOSTNAME, this->getHostname()));
+	itemlist.insert(std::pair<_I_InfoClient::InfoType, std::string>(_I_InfoClient::InfoType::DOTNETVER, this->getdotNETver()));
+	itemlist.insert(std::pair<_I_InfoClient::InfoType, std::string>(_I_InfoClient::InfoType::MACADDR, this->getMacAddr()));
+	itemlist.insert(std::pair<_I_InfoClient::InfoType, std::string>(_I_InfoClient::InfoType::UUID, this->getUUID()));
 	return (itemlist);
 }
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "client.h"
 #include "sayHello.h"
+#include "IInfoClient.h"
 
 /////////////////////////////////////////////////////////////////
 //  SETTINGS
@@ -17,12 +18,19 @@ clientController::clientController(void) throw(DLibraryException)
 		this->libraries.add(1, "sayHello", "./libsayHello.so");
 	#elif _WIN32
 		this->libraries.add(1, "sayHello", "sayHello.dll");
+		this->libraries.add(2, "infoClient", "InfoClient.dll");
 	#endif
 
 	if (!(this->libraries.handler.loadByName("sayHello")))
 		throw DLibraryException("sayHello", "Couldn't load module.");
 	if (!(this->sayHello = this->libraries.handler.getDictionaryByName("sayHello")))
 		throw DLibraryException("sayHello", "Couldn't get Dictionary.");
+
+	if (!(this->libraries.handler.loadByName("infoClient")))
+		throw DLibraryException("sayHello", "Couldn't load module.");
+	Sleep(1);
+	if (!(this->ifinstance = reinterpret_cast<_I_InfoClient*>(this->libraries.handler.getClassInstanceByName("infoClient"))))
+		throw DLibraryException("infoClient", "Couldn't get ClassInstance");
 }
 
 clientController::~clientController(void)
@@ -38,7 +46,9 @@ int		clientController::mainAction(int ac, char **av) {
 
 	// Dire bonjour
 	this->sayHelloAction();
-
+	std::string buffer;
+	std::cout << this->ifinstance->getMacAddr() << std::endl;
+	std::cin >> buffer;
 	// Faire pleins de trucs ...
 	// ...
 
