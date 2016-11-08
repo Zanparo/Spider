@@ -58,4 +58,13 @@ endif (UNIX)
 		../include/DLDictionary.h
 		../include/sayHello.h
 		sayHello/sayHello.cpp
-	) 
+	)
+
+	# Info Client
+	add_library (
+	        infoClient
+		SHARED
+		../include/IInfoClient.h
+		infoClient/InfoClient.cpp
+		infoClient/InfoClient.hpp
+	)

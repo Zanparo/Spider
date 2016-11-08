@@ -1,9 +1,32 @@
 #include "InfoClient.hpp"
+#include "DLDictionary.h"
 
-__declspec (dllexport) _I_InfoClient* getInstance() {
+_I_InfoClient* getInstance() {
 	_I_InfoClient *module = new InfoClient();
 	return (module);
 }
+
+
+/////////////////////////////////////////////////////
+// Get Dictionary
+/////////////////////////////////////////////////////
+
+extern "C" {
+#ifdef __linux__
+	Dictionary	getDictionary(void)
+#elif _WIN32
+	__declspec(dllexport) Dictionary	__cdecl getDictionary(void)
+#endif
+	{
+		Dictionary	dict = new std::map<std::string, void *>;
+
+		// List every usefull functions out there
+		(*dict)["getInstance"] = (void *)&getInstance;
+
+		return (dict);
+	}
+}
+
 
 InfoClient::InfoClient() {
 }
@@ -24,14 +47,14 @@ std::map<_I_InfoClient::InfoType, std::string> InfoClient::routine() {
 std::string InfoClient::getOSType() {
 	HKEY hKey;
 	DWORD dwtype = REG_SZ;
-	LONG lRes = RegOpenKeyEx(HKEY_LOCAL_MACHINE, OSTYPE_REG, 0, KEY_READ | KEY_WOW64_64KEY, &hKey);
+	LONG lRes = RegOpenKeyExW(HKEY_LOCAL_MACHINE, OSTYPE_REG, 0, KEY_READ | KEY_WOW64_64KEY, &hKey);
 	DWORD bufferSize = 512;
 	char result[512] = { 0 };
 	if (lRes != 0) {
 		std::cout << "lres = " << lRes << std::endl;
 		return (std::string("N/A"));
 	}
-	LONG nError = RegQueryValueEx(hKey, OSTYPE_KEY, NULL, &dwtype, (LPBYTE)&result, &bufferSize);
+	LONG nError = RegQueryValueExW(hKey, OSTYPE_KEY, NULL, &dwtype, (LPBYTE)&result, &bufferSize);
 	if (nError == ERROR_SUCCESS) {
 		std::string end;
 		for (int i = 0; i < 512; i++) {
@@ -64,13 +87,13 @@ std::string InfoClient::getHostname() {
 
 std::string InfoClient::getdotNETver() {
 	HKEY hKey;
-	LONG lRes = RegOpenKeyEx(HKEY_LOCAL_MACHINE, DOTNETVER_REG, 0, KEY_READ | KEY_WOW64_64KEY, &hKey);
+	LONG lRes = RegOpenKeyExW(HKEY_LOCAL_MACHINE, DOTNETVER_REG, 0, KEY_READ | KEY_WOW64_64KEY, &hKey);
 	DWORD result(0);
 	DWORD bufferSize(sizeof(DWORD));
 	if (lRes != 0) {
 		return (std::string("N/A"));
 	}
-	LONG nError = RegQueryValueEx(hKey, DOTNETVER_KEY, 0, NULL, reinterpret_cast<LPBYTE>(&result), &bufferSize);
+	LONG nError = RegQueryValueExW(hKey, DOTNETVER_KEY, 0, NULL, reinterpret_cast<LPBYTE>(&result), &bufferSize);
 	if (nError == ERROR_SUCCESS) {
 		return (std::to_string(result));
 	}
@@ -151,7 +174,7 @@ int InfoClient::getHistory(char **output) {
 	int length;
 
 	path += "C:/Users/";
-	if (GetUserName((LPWSTR)name, &_nbuffer) == false) {
+	if (GetUserName((LPSTR)name, &_nbuffer) == false) {
 		std::cout << "No Username" << std::endl;
 	}
 	for (int i = 0; i < 255; i++) {

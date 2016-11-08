@@ -27,9 +27,9 @@ clientController::clientController(void) throw(DLibraryException)
 		throw DLibraryException("sayHello", "Couldn't get Dictionary.");
 
 	if (!(this->libraries.handler.loadByName("infoClient")))
-		throw DLibraryException("sayHello", "Couldn't load module.");
+		throw DLibraryException("infoClient", "Couldn't load module.");
 	Sleep(1);
-	if (!(this->ifinstance = reinterpret_cast<_I_InfoClient*>(this->libraries.handler.getClassInstanceByName("infoClient"))))
+	if (!(this->infoClient = this->libraries.handler.getDictionaryByName("infoClient")))
 		throw DLibraryException("infoClient", "Couldn't get ClassInstance");
 }
 
@@ -46,9 +46,7 @@ int		clientController::mainAction(int ac, char **av) {
 
 	// Dire bonjour
 	this->sayHelloAction();
-	std::string buffer;
-	std::cout << this->ifinstance->getMacAddr() << std::endl;
-	std::cin >> buffer;
+	ifinstance = ((_getInstance)(*this->infoClient)["getInstance"])();
 	// Faire pleins de trucs ...
 	// ...
 

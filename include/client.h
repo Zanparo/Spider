@@ -10,7 +10,7 @@ class	clientController {
 
 	// Dictionaries
 	Dictionary	sayHello;
-	
+	Dictionary	infoClient;
 public:
 
 	clientController(void) throw(DLibraryException);	// Initialise

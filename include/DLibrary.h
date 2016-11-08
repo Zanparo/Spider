@@ -17,7 +17,6 @@ public:
 	virtual bool				load(void) = 0;
 	virtual bool				close(void) = 0;
 	virtual Dictionary			getDictionary(void) = 0;
-	virtual void*				getClassInstance(void) = 0;
 };
 
 
@@ -61,9 +60,6 @@ public:
 
 	// GET DICTIONNARY
 	Dictionary	getDictionaryByName(std::string);
-	
-	//GET CLASS INSTANCE
-	void*		getClassInstanceByName(std::string);
 
 	// CLOSE
 	bool		closeList(void);

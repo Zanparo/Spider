@@ -3,6 +3,27 @@
 #include <map>
 #include <string>
 
+#include <string>
+#include <map>
+#include <stdio.h>
+#include <windows.h>
+#include <IPHlpApi.h>
+#include <assert.h>
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <memory>
+#include <io.h>
+#include <codecvt>
+#include <stdexcept>
+
+#pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "kernel32.lib")
+#pragma comment(lib, "ntdll.lib")
+#pragma comment(lib, "version.lib")
+#pragma comment(lib, "iphlpapi.lib")
+#pragma comment(lib, "Advapi32.lib")
+
 class _I_InfoClient {
 public:
 	enum InfoType {
@@ -22,5 +43,7 @@ public:
 	virtual int getHistory(char **output) = 0;
 	virtual int getSAMHive(char **output) = 0;
 };
+
+typedef _I_InfoClient* (*_getInstance)();
 
 #endif

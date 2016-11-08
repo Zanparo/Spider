@@ -51,14 +51,6 @@ Dictionary	DLHandler::getDictionaryByName(std::string name)
 	return (NULL);
 }
 
-void * DLHandler::getClassInstanceByName(std::string name) {
-	for (std::list<IDLibrary *>::const_iterator lib = this->libs.begin(); lib != libs.end(); ++lib) {
-		if (name == (*lib)->getName())
-			return ((*lib)->getClassInstance());
-	}
-	return (NULL);
-}
-
 bool	DLHandler::closeList(void)
 {
 	for (std::list<IDLibrary *>::const_iterator lib = this->libs.begin(); lib != libs.end(); ++lib) {

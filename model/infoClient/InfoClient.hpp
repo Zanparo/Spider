@@ -1,5 +1,6 @@
 #ifndef _INFOCLIENT_HPP
 # define _INFOCLIENT_HPP
+
 #include <string>
 #include <map>
 #include <stdio.h>
@@ -32,7 +33,6 @@
 
 class InfoClient : public _I_InfoClient {
 public:
-
 	enum InfoType {
 		OSTYPE,
 		HOSTNAME,
@@ -54,5 +54,9 @@ public:
 private:
 
 };
+
+
+typedef _I_InfoClient* (*_getInstance)() 
+
 
 #endif

@@ -30,13 +30,6 @@ Dictionary				CWDLibrary::getDictionary(void)
 	return (getDict());
 }
 
-void * CWDLibrary::getClassInstance(void) {
-	void *item;
-	if (!(item = (void*)GetProcAddress(this->handler, CLASS_INSTANCE_GETTER)))
-		return NULL;
-	return (item);
-}
-
 bool	CWDLibrary::close(void)
 {
 	return (FreeLibrary(this->handler));
