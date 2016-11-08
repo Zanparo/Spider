@@ -24,6 +24,7 @@ bool		CWFile::open()
 	*/
 	return (true);
 }
+
 /**
  * Close the Windows file. Returns true if succeed.
  * @return bool
@@ -34,6 +35,15 @@ bool		CWFile::close()
 	this->_file.close();
 	return (true);
 	*/
+	return (true);
+}
+
+/**
+* Erase the file. Returns true if succeed.
+* @return bool
+*/
+bool		CWFile::erase()
+{
 	return (true);
 }
 

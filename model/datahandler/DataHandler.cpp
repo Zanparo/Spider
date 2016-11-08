@@ -1,4 +1,5 @@
 #include "DataHandler.h"
+
 /*
 void	DataHandler::parser(Packet const& Mess) {
 	for (unsigned int i = 0; i < Mess._size; i++) {
@@ -7,15 +8,19 @@ void	DataHandler::parser(Packet const& Mess) {
 	std::cout << flux.str() << std::endl;
 }
 */
+
+void	DataHandler::test2(void)
+{
+	std::cout << "NIIIICE" << std::endl;
+}
+
 /////////////////////////////////////////////////////
 // Instanciate DataHandler
 /////////////////////////////////////////////////////
 
 DataHandler		*getDataHandler(void)
 {
-	DataHandler	*instance = new DataHandler();
-
-	return (instance);
+	return (new DataHandler());
 }
 
 /////////////////////////////////////////////////////

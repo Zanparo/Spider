@@ -22,6 +22,13 @@ public:
 
 	FileHandler			fileHandler;
 
+	void	test2(void);
+
+	void	test(void) {
+		this->test2();
+		std::cout << "Hello test" << std::endl;
+	};
+
 	//void parser(Packet const& Mess);
 };
 
@@ -31,6 +38,6 @@ public:
 // Functions type MUST be defined as the name of the function preceded by "_"
 //
 
-typedef		DataHandler *(*_getDataHandler)(void);
+typedef		DataHandler* (*_getDataHandler)(void);
 
 #endif /* !DATA_HANDLER_H__ */

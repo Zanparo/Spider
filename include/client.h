@@ -3,17 +3,21 @@
 # define CLIENT_H__
 
 # include "DLibrary.h"
+# include "sayHello.h"
 # include "DataHandler.h"
 
 class	clientController {
 
-	DLManager	libraries;
+	DLManager		libraries;
 
 	// Dictionaries
-	Dictionary	sayHello;
-	Dictionary	dictDataHandler;
+	Dictionary		sayHello;
+	Dictionary		dictDataHandler;
 
-	DataHandler	*dataHandler;
+	std::string		storeFolder;
+	int				bytePerFile;
+	DataHandler		*dataHandler;
+
 
 public:
 

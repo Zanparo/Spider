@@ -29,6 +29,11 @@ public:
      * Close the Windows file. Returns true if succeed.
      */
     bool			close(void);
+
+	/**
+	* Erase a file. Returns true if suceed.
+	*/
+	bool			erase(void);
     
     /**
      * Read the n characters in the file, depending on the int parameter. Returns the string read.

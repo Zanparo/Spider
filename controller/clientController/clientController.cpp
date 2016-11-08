@@ -1,7 +1,5 @@
 #include <iostream>
 #include "client.h"
-#include "sayHello.h"
-#include "FileHandler.h"
 
 /////////////////////////////////////////////////////////////////
 //  SETTINGS
@@ -15,21 +13,24 @@ clientController::clientController(void) throw(DLibraryException)
 	//////////////////////////////
 
 	#ifdef __linux__
+		this->storeFolder = "./data";
 		this->libraries.add(1, "sayHello", "./libsayHello.so");
 		this->libraries.add(1, "dataHandler", "./libdataHandler.so");
 	#elif _WIN32
+		this->storeFolder = "data";
 		this->libraries.add(1, "sayHello", "sayHello.dll");
 		this->libraries.add(1, "dataHandler", "dataHandler.dll");
 	#endif
 
+		this->bytePerFile = 4;
 		std::string		err;
 
 	if (!(this->libraries.handler.loadAll(err)))
 		throw DLibraryException(err.c_str(), "Couldn't load module.");
 
+	//
 	if (!(this->sayHello = this->libraries.handler.getDictionaryByName("sayHello")))
 		throw DLibraryException("sayHello", "Couldn't get Dictionary.");
-
 	if (!(this->dictDataHandler = this->libraries.handler.getDictionaryByName("dataHandler")))
 		throw DLibraryException("dataHandler", "Couldn't get Dictionary.");
 }
@@ -69,5 +70,9 @@ bool					clientController::initDataHandlerAction(void) {
 
 	if (!(this->dataHandler = ((_getDataHandler)(*this->dictDataHandler)["getDataHandler"])()))
 		return (false);
+
+	std::cout << this->dataHandler << std::endl;
+	//this->dataHandler->fileHandler.initStream(this->storeFolder, this->bytePerFile);
+	this->dataHandler->test();
 	return (true);
 }

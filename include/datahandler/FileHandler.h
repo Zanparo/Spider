@@ -19,12 +19,17 @@ public:
 	/**
 	* Open the file and return true for sucess
 	*/
-	virtual bool			open() = 0;
+	virtual bool			open(void) = 0;
 
 	/**
 	* Close a file. Returns true if suceed.
 	*/
-	virtual bool			close() = 0;
+	virtual bool			close(void) = 0;
+
+	/**
+	* Erase a file. Returns true if suceed.
+	*/
+	virtual bool			erase(void) = 0;
 
 	/**
 	* Read the n characters in the file, depending on the int parameter. Returns the string read.
@@ -47,9 +52,9 @@ public:
 class AFile {
 public:
 
-	std::string		filename;
-	int				size;
+	int				id;
 	std::string		path;
+	int				size;
 
 	AFile(std::string const& _path) : path(_path) {};
 };
@@ -66,21 +71,25 @@ class FileHandler {
 	/**
 	* List of IFile*. Used to contains pointers on files needed by the DataHandler.
 	*/
-	Library			files;
+	Library			stream;
 
-public: 
-    
-    /**
-     * Constructor of FileHandler class.
-     */
-    FileHandler();
-	~FileHandler();
-    
-    /**
-     * Add a file to _files. Return true if succeed.
-     * @param string
-     */
-	void		add(const std::string);
+	/**
+	* Byte per file. Used to setup stream's files limit.
+	*/
+	std::string		streamFolder;
+
+	/**
+	* Byte per file. Used to setup stream's files limit.
+	*/
+	unsigned int	bytePerFile;
+
+public:
+
+	FileHandler() {};
+
+	int			initStream(std::string, unsigned int);
+	void		addFileToStream(const std::string);
+	int			insertDataToStream(const std::string);
 };
 
 #endif //_FILEHANDLER_H
