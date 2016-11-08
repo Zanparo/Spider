@@ -7,6 +7,8 @@
 #define						_AHOOK_H
 
 #include					<Windows.h>
+#include					<iostream>
+#include					<vector>
 
 #include					"HookObserver.h"
 
@@ -16,13 +18,14 @@ public:
    AHook(const HookObserver&);
     
     virtual const bool		setHook() = 0;
-    void					notify(int, LPARAM, WPARAM);
+    void					notify(int, WPARAM, LPARAM);
     bool					unsetHook();
+	const HHOOK				getHook() const;
 
 protected: 
 
-    const HookObserver&			_observer;
-	HHOOK						_hHook;
+	HHOOK					_hHook;
+	const HookObserver&		_observer;
 };
 
 #endif //_AHOOK {ABSTRACT}_H

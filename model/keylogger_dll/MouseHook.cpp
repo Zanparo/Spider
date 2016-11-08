@@ -9,15 +9,17 @@
  * MouseHook implementation
  */
 
+MouseHook* g_mouseHook = NULL;
 
 MouseHook::MouseHook(const HookObserver& hookObserver) : AHook::AHook(hookObserver) {
+	g_mouseHook = this;
 }
 
 /**
  * @return bool if hook set succeeded
  */
 const bool				MouseHook::setHook() {
-	if ((_hHook = SetWindowsHookEx(WH_MOUSE, &mousehook, NULL, 0)) == NULL)
+	if ((_hHook = SetWindowsHookEx(WH_MOUSE_LL, &mousehook, NULL, 0)) == NULL)
 	{
 		return false;
 	}
@@ -31,6 +33,6 @@ const bool				MouseHook::setHook() {
  * @return LRESULT CALLBACK
  */
 LRESULT CALLBACK		MouseHook::mousehook(int code, WPARAM wParam, LPARAM lParam) {
-	std::cout << "mousehook called" << std::endl;
+	g_mouseHook->notify(code, wParam, lParam);
     return CallNextHookEx(NULL, code, wParam, lParam);
 }

@@ -11,11 +11,11 @@
 class								HookObserver {
 
 public:     
-    HookObserver(EventManager&);
-    void							update(const LPARAM, const WPARAM) const;
+    HookObserver(const EventManager&);
+    void							update(const WPARAM, const LPARAM) const;
 
 private: 
-    const EventManager&					_eventManager;
+    const EventManager&				_eventManager;
 };
 
 #endif //_HOOKOBSERVER_H

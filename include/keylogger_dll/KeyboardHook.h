@@ -16,7 +16,8 @@ public:
     
 	KeyboardHook(const HookObserver&);
 	const bool				setHook();
-    static LRESULT CALLBACK keyboardhook(int, WPARAM, LPARAM);
+	static LRESULT CALLBACK keyboardhook(int, WPARAM, LPARAM);
 };
+
 
 #endif //_KEYBOARDHOOK_H

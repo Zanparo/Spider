@@ -9,13 +9,15 @@
 #include							<vector>
 	
 #include							"EventManager.h"
-#include							"AHook.h"
+#include							"KeyboardHook.h"
+#include							"MouseHook.h"
 
 class								HookHandler {
 public: 
     HookHandler(const EventManager&);
-    const bool						AddHook(AHook*);
-    const bool						RemoveHook(AHook*);
+    const bool						addHook(AHook*);
+    const bool						removeHook(AHook*);
+	const bool						init();
 
 private: 
 	std::vector<AHook*>				_hooks;

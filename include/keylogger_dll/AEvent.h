@@ -15,7 +15,7 @@ class									AEvent {
 
 public: 
     
-    AEvent(const int, const int, const char, const bool, const bool, const bool, const bool, const std::chrono::milliseconds&, const t_Context);
+    AEvent(const int, const int, const char, const bool, const bool, const bool, const bool, const t_Context);
     const int							getVirtualKeyCode() const;
     const int							getRepeatCount() const;    
     const int							getScanCode() const;
@@ -23,7 +23,6 @@ public:
     const bool							isAlt() const;    
     const bool							getPrevKeyState() const;
     const bool							getTransState() const;
-    const std::chrono::milliseconds		getTime() const;
     const t_Context						getContext() const;
 
 protected: 
@@ -35,7 +34,6 @@ protected:
     const bool							_alt;
     const bool							_prevKeyState;
     const bool							_transState;
-    const std::chrono::milliseconds		_time;
 	const t_Context						_context;
 };
 

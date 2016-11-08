@@ -12,13 +12,14 @@
 #include				"Context.h"
 #include				<chrono>
 #include				<ctime>
+#include				<iostream>
 
 class  EventFactory {
 public: 
     
     EventFactory();
     
-    static const AEvent* create(LPARAM, WPARAM, t_Context);
+    static const AEvent* create(WPARAM, LPARAM, t_Context);
 };
 
 #endif //_EVENTFACTORY_H

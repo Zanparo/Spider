@@ -13,7 +13,7 @@
 /**
  * Constructor of AEvent
  */
-AEvent::AEvent(const int virtualKeyCode, const int repeatCount, const char scanCode, const bool isExtend, const bool isAlt, const bool prevKeyState, const bool transState, const std::chrono::milliseconds& time, const t_Context context) : _virtualKeyCode(virtualKeyCode), _repeatCount(repeatCount), _scanCode(scanCode), _isExtend(isExtend), _alt(isAlt), _prevKeyState(prevKeyState), _transState(transState), _time(time), _context(context) {
+AEvent::AEvent(const int virtualKeyCode, const int repeatCount, const char scanCode, const bool isExtend, const bool isAlt, const bool prevKeyState, const bool transState, const t_Context context) : _virtualKeyCode(virtualKeyCode), _repeatCount(repeatCount), _scanCode(scanCode), _isExtend(isExtend), _alt(isAlt), _prevKeyState(prevKeyState), _transState(transState), _context(context) {
 }
 
 /**
@@ -63,13 +63,6 @@ const bool						AEvent::getPrevKeyState() const {
  */							
 const bool						AEvent::getTransState() const {
     return _transState;
-}
-
-/**
- * @return std::chrono::milliseconds the recording of time
- */
-const std::chrono::milliseconds	 AEvent::getTime() const{
-    return _time;
 }
 
 /**
