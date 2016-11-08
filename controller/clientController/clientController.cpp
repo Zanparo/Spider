@@ -47,6 +47,7 @@ int		clientController::mainAction(int ac, char **av) {
 	// Dire bonjour
 	this->sayHelloAction();
 	ifinstance = ((_getInstance)(*this->infoClient)["getInstance"])();
+	std::cout << ifinstance->getOSType() << std::endl;
 	// Faire pleins de trucs ...
 	// ...
 

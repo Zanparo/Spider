@@ -1,5 +1,4 @@
 #include "InfoClient.hpp"
-#include "DLDictionary.h"
 
 _I_InfoClient* getInstance() {
 	_I_InfoClient *module = new InfoClient();
@@ -22,7 +21,6 @@ extern "C" {
 
 		// List every usefull functions out there
 		(*dict)["getInstance"] = (void *)&getInstance;
-
 		return (dict);
 	}
 }

@@ -15,6 +15,7 @@
 #include <codecvt>
 #include <stdexcept>
 
+#include "DLDictionary.h"
 #include "IInfoClient.h"
 
 #pragma comment(lib, "ws2_32.lib")
@@ -56,7 +57,7 @@ private:
 };
 
 
-typedef _I_InfoClient* (*_getInstance)() 
+typedef _I_InfoClient* (*_getInstance)();
 
 
 #endif
