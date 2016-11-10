@@ -3,7 +3,9 @@
 
 # include "DLibrary.h"
 # include "IInfoClient.h"
+# include "WorkQueue.h"
 # include <Shlobj.h>
+# include <queue>
 #include <shlwapi.h>
 #include "windows.h"
 #include "winnls.h"
@@ -37,8 +39,8 @@ private:
 	_I_InfoClient *ifinstance;
 	/*IDataHandler *dhinstance;
 	IKeylogger *klinstance;
-	INetwork *netinstance; 
-	IMSGQueue *_lqueue; */
+	INetwork *netinstance; */
+	WorkQueue _lwqueue;
 };
 
 #endif /* !CLIENT_H__ */
