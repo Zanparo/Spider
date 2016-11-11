@@ -1,7 +1,0 @@
-<<<<<<< HEAD
-#TargetFrameworkVersion=v4.0:PlatformToolSet=v140:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=8.1
-Debug|Win32|C:\Users\Shad\Documents\Spider\|
-=======
-#TargetFrameworkVersion=v4.0:PlatformToolSet=v140:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0.14393.0
-Debug|Win32|H:\Users\darrac_s\Work\Projects\Spider\|
->>>>>>> keylogger_test

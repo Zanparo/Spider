@@ -58,7 +58,6 @@ endif (UNIX)
 		../include/sayHello.h
 		sayHello/sayHello.cpp
 	)
-<<<<<<< HEAD
 
 	# Info Client
 	add_library (
@@ -68,7 +67,6 @@ endif (UNIX)
 		infoClient/InfoClient.cpp
 		infoClient/InfoClient.hpp
 	)
-=======
 	
 	# Keylogger_dll
 	add_library (
@@ -87,6 +85,7 @@ endif (UNIX)
 		../include/keylogger_dll/KeyloggerDLL.h
 		../include/keylogger_dll/MouseEvent.h
 		../include/keylogger_dll/MouseHook.h
+		../include/keylogger_dll/IKeylogger.h
 		keylogger_dll/AEvent.cpp
 		keylogger_dll/AHook.cpp
 		keylogger_dll/EventFactory.cpp
@@ -131,4 +130,3 @@ endif (UNIX)
 ##		datahandler/Tester.cpp
 ##		datahandler/XMLSerializer.cpp
 ##	)
->>>>>>> keylogger_test

