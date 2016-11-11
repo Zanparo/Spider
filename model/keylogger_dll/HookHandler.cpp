@@ -21,7 +21,7 @@ HookHandler::HookHandler(const EventManager& eventManager) : _eventManager(event
  * @param AHook
  * @return bool
  */
-const bool HookHandler::addHook(AHook* hook) {
+const bool HookHandler::addHook(IHook* hook) {
 	_hooks.push_back(hook);
 	return true;
 }
@@ -32,10 +32,10 @@ const bool HookHandler::addHook(AHook* hook) {
  * @param const AHook&
  * @return bool
  */
-const bool HookHandler::removeHook(AHook* hook) {
+const bool HookHandler::removeHook(IHook* hook) {
 	bool good = true;
 
-	for (std::vector<AHook*>::iterator it = _hooks.begin(); it != _hooks.end(); it++)
+	for (std::vector<IHook*>::iterator it = _hooks.begin(); it != _hooks.end(); it++)
 	{
 		if (*it == hook)
 		{
@@ -51,14 +51,14 @@ const bool HookHandler::removeHook(AHook* hook) {
 const bool HookHandler::init()
 {
 	//Set the keyboard hook
-	AHook* keyboardHook = new KeyboardHook(*((IHookObserver*)(new KeyboardHookObserver(this->_eventManager))));
-	AHook* mouseHook = new MouseHook(*((IHookObserver*)(new MouseHookObserver(this->_eventManager))));
+	IHook* keyboardHook = new KeyboardHook(*((IHookObserver*)(new KeyboardHookObserver(this->_eventManager))));
+	IHook* mouseHook = new MouseHook(*((IHookObserver*)(new MouseHookObserver(this->_eventManager))));
 
 	this->addHook(keyboardHook);
 	this->addHook(mouseHook);
 	if (keyboardHook == NULL || !keyboardHook->setHook() || mouseHook == NULL || !mouseHook->setHook())
 	{
-		std::cout << "HookHandler::init() : Fatal error on hook set !" << keyboardHook->getHook() << "||" << mouseHook->getHook() << std::endl;
+		std::cout << "HookHandler::init() : Fatal error on hook set !" << std::endl;
 		return false;
 	}
 	return true;
@@ -67,12 +67,12 @@ const bool HookHandler::init()
 const bool HookHandler::stop()
 {
 	bool good = true;
-	std::vector<AHook*> tmp;
-	for (AHook* hook : _hooks)
+	std::vector<IHook*> tmp;
+	for (IHook* hook : _hooks)
 	{
 		tmp.push_back(hook);
 	}
-	for (AHook* hook : tmp)
+	for (IHook* hook : tmp)
 	{
 		if (!this->removeHook(hook))
 			good = false;

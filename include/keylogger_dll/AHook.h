@@ -6,15 +6,14 @@
 #ifndef						_AHOOK_H
 #define						_AHOOK_H
 
-#include					<iostream>
-#include					<vector>
-
+#include					"IHook.h"
 #include					"IHookObserver.h"
 
-class						AHook {
+class						AHook : public IHook {
 public: 
     
    AHook(const IHookObserver&);
+   ~AHook();
     
     virtual const bool		setHook() = 0;
     void					notify(int, WPARAM, LPARAM);
@@ -24,7 +23,7 @@ public:
 protected: 
 
 	HHOOK					_hHook;
-	const IHookObserver&		_observer;
+	const IHookObserver&	_observer;
 };
 
 #endif //_AHOOK {ABSTRACT}_H

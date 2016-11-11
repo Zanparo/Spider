@@ -16,6 +16,10 @@
 AHook::AHook(const IHookObserver& hookObserver) : _observer(hookObserver){
 }
 
+AHook::~AHook()
+{
+}
+
 /**
  * Notify the HookObserver _observer that a callback have been called.
  * @param int

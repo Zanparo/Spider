@@ -89,6 +89,7 @@ endif (UNIX)
 		../include/keylogger_dll/KeyboardHookObserver.h
 		../include/keylogger_dll/Analyser.h
 		../include/keylogger_dll/AHookObserver.h
+		../include/keylogger_dll/IHook.h
 		../include/WorkQueue.h
 		keylogger_dll/AEvent.cpp
 		keylogger_dll/AHook.cpp

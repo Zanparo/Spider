@@ -17,13 +17,13 @@
 class								HookHandler {
 public: 
     HookHandler(const EventManager&);
-    const bool						addHook(AHook*);
-    const bool						removeHook(AHook*);
+    const bool						addHook(IHook*);
+    const bool						removeHook(IHook*);
 	const bool						init();
 	const bool						stop();
 
 private: 
-	std::vector<AHook*>				_hooks;
+	std::vector<IHook*>				_hooks;
     const EventManager&				_eventManager;
 };
 

@@ -475,8 +475,7 @@ const AEvent* EventFactory::createKeyboardEvent(WPARAM wParam, LPARAM lParam, t_
 	bool extend = (tmp > 36);
 	bool prevKeyState = 0;
 	bool transState = 0;
-	analysis(wParam, lParam);
-	//	std::cout << "vkCode=" << vkKeyCode << "|scanCode=" << scanCode << "| at Time = " << context._ms << " |extraInfo=" << p->dwExtraInfo << "|wParam=" << wParam << "|lParam" << lParam  << std::endl;
+//	analysis(wParam, lParam);
 	return new KeyboardEvent(vkKeyCode, repeatCount, scanCode, extend, alt, prevKeyState, transState, context);
 }
 
@@ -489,6 +488,5 @@ const AEvent* EventFactory::createKeyboardEvent(WPARAM wParam, LPARAM lParam, t_
 const AEvent* EventFactory::createMouseEvent(WPARAM wParam, LPARAM lParam, t_Context context) {
 	PMOUSEHOOKSTRUCT p = (PMOUSEHOOKSTRUCT)(lParam);
 	context._ms = time(NULL);
-	std::cout << "Mouse event!" << std::endl;
 	return new MouseEvent(p->wHitTestCode, context);
 }

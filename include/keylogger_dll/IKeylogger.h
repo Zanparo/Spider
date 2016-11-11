@@ -6,6 +6,7 @@
 #include "AEvent.h"
 #include "WorkQueue.h"
 #include "DLDictionary.h"
+
 class IKeylogger {
 	public:
 	virtual ~IKeylogger() {}

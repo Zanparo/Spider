@@ -25,13 +25,11 @@ public:
     bool				stop();
     bool				kill();
 	bool				pushToQueue(const AEvent*);
-	std::vector<AEvent*> getEvents() const;
 
 private: 
 	bool				_running;
     EventManager		_eventManager;
     HookHandler			_hookHandler;
-    std::vector<AEvent*> _events;
 	WorkQueue&			_levents;
 };
 
