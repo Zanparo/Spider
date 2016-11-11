@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  Checking Build System
   CMake does not need to re-run because C:/Users/Shad/Documents/Spider/CMakeFiles/generate.stamp is up-to-date.
   CMake is re-running because C:/Users/Shad/Documents/Spider/model/CMakeFiles/generate.stamp is out-of-date.
@@ -7,3 +8,6 @@
   -- Configuring done
   -- Generating done
   -- Build files have been written to: C:/Users/Shad/Documents/Spider
+=======
+﻿
+>>>>>>> keylogger_test

