@@ -3,18 +3,18 @@
  */
 
 #include <iostream>
-#include "CWFile.h"
+#include "CUFile.h"
 
 /**
- * CWFile implementation
+ * CUFile implementation
  */
 
-long long	CWFile::getSize(void) const
+long long	CUFile::getSize(void) const
 {
 	return (this->size);
 }
 
-std::string	CWFile::getPath(void) const
+std::string	CUFile::getPath(void) const
 {
 	return (this->path);
 }
@@ -24,7 +24,7 @@ std::string	CWFile::getPath(void) const
  * @return bool
  */
 
-bool		CWFile::open()
+bool		CUFile::open()
 {
 	this->file.open(this->path, std::fstream::out | std::fstream::in | std::fstream::app);
 	return (this->file.is_open());
@@ -34,7 +34,7 @@ bool		CWFile::open()
  * Close the Windows file. Returns true if succeed.
  * @return bool
  */
-bool		CWFile::close()
+bool		CUFile::close()
 {
 	this->file.close();
 	return (true);
@@ -44,7 +44,7 @@ bool		CWFile::close()
 * Erase the file. Returns true if succeed.
 * @return bool
 */
-bool		CWFile::erase()
+bool		CUFile::erase()
 {
 	remove(this->path.c_str());
 	return (true);
@@ -55,7 +55,7 @@ bool		CWFile::erase()
  * @param int
  * @return string
  */
-std::string	CWFile::read(int size)
+std::string	CUFile::read(int size)
 {
 	char *buffer;
 
@@ -73,7 +73,7 @@ std::string	CWFile::read(int size)
 	return (ret);
 }
 
-std::string	CWFile::read()
+std::string	CUFile::read()
 {
 	char	*buffer;
 	int		size;
@@ -96,7 +96,7 @@ std::string	CWFile::read()
  * @param string
  * @return int
  */
-int		CWFile::write(std::string const& data)
+int		CUFile::write(std::string const& data)
 {
 	if (!data.size())
 		return (-1);
@@ -107,7 +107,7 @@ int		CWFile::write(std::string const& data)
 	return (data.length());
 }
 
-int		CWFile::write(std::string const& data, long long nBytes)
+int		CUFile::write(std::string const& data, long long nBytes)
 {
 	if (!data.size())
 		return (0);
