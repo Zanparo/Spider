@@ -60,7 +60,7 @@ endif (UNIX)
 	
 	# Info Client
 	add_library (
-	        infoClient
+	    infoClient
 		SHARED
 		../include/IInfoClient.h
 		infoClient/InfoClient.cpp
