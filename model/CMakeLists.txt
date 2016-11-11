@@ -78,26 +78,34 @@ endif (UNIX)
 		../include/keylogger_dll/EventFactory.h
 		../include/keylogger_dll/EventManager.h
 		../include/keylogger_dll/HookHandler.h
-		../include/keylogger_dll/HookObserver.h
 		../include/keylogger_dll/KeyboardEvent.h
 		../include/keylogger_dll/KeyboardHook.h
 		../include/keylogger_dll/Keylogger.h
-		../include/keylogger_dll/KeyloggerDLL.h
 		../include/keylogger_dll/MouseEvent.h
 		../include/keylogger_dll/MouseHook.h
 		../include/keylogger_dll/IKeylogger.h
+		../include/keylogger_dll/IHookObserver.h
+		../include/keylogger_dll/MouseHookObserver.h
+		../include/keylogger_dll/KeyboardHookObserver.h
+		../include/keylogger_dll/Analyser.h
+		../include/keylogger_dll/AHookObserver.h
+		../include/WorkQueue.h
 		keylogger_dll/AEvent.cpp
 		keylogger_dll/AHook.cpp
 		keylogger_dll/EventFactory.cpp
 		keylogger_dll/EventManager.cpp
 		keylogger_dll/HookHandler.cpp
-		keylogger_dll/HookObserver.cpp
 		keylogger_dll/KeyboardEvent.cpp
 		keylogger_dll/KeyboardHook.cpp
 		keylogger_dll/Keylogger.cpp
 		keylogger_dll/MouseEvent.cpp
 		keylogger_dll/MouseHook.cpp
 		keylogger_dll/instantiate.cpp
+		keylogger_dll/AHookObserver.cpp
+		keylogger_dll/Analyser.cpp
+		keylogger_dll/KeyboardHookObserver.cpp
+		keylogger_dll/MouseHookObserver.cpp
+		../controller/clientController/WorkQueue.cpp
 	) 
 
 ##	# DataHandler
