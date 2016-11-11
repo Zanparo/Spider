@@ -11,7 +11,8 @@ class CWDLibrary : public IDLibrary, private ADLibrary {
 public:
 
 	CWDLibrary(int _id, const char *_name, const char *_path) :
-		ADLibrary(_id, _name, _path) {}
+		ADLibrary(_id, _name, _path) {
+	}
 
 	const char			*getName(void) const;
 

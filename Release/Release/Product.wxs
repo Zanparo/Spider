@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?define client_TargetDir=$(var.client.TargetDir)?>
+  <?define infoClient_TargetDir=$(var.infoClient.TargetDir)?>
+  <?define sayHello_TargetDir=$(var.sayHello.TargetDir)?>
+  <Product Id="{8D40C843-6711-4150-86C4-39B944897CC6}" Name="Release" Language="1033" Version="1.0.0.0" Manufacturer="TeamRocket" UpgradeCode="f83c59c3-fcc1-4ca2-a2d8-7d56872e387c">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <Media Id="1" Cabinet="Cab1.cab" EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="Release" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Release" />
+      </Directory>
+    </Directory>
+  </Fragment>
+ 
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <!-- <Component Id="ProductComponent"> -->
+      <!-- TODO: Insert files, registry keys, and other resources here. -->
+      <!-- </Component> -->
+      <Component Id="client.exe" Guid="c0c5d072-abf3-404c-87d0-65afa55f6e0a">
+        <File Id="client.exe" Name="client.exe" Source="$(var.client_TargetDir)client.exe" />
+      </Component>
+      <Component Id="infoClient.dll" Guid="419857d5-895d-41a4-9f1d-08cb7e3883c3">
+        <File Id="infoClient.dll" Name="infoClient.dll" Source="$(var.infoClient_TargetDir)infoClient.dll" />
+      </Component>
+      <Component Id="sayHello.dll" Guid="e5019c1d-b4db-40b1-876b-dd5d0745c3e6">
+        <File Id="sayHello.dll" Name="sayHello.dll" Source="$(var.sayHello_TargetDir)sayHello.dll" />
+      </Component>
+
+      <Component Id="startup" Guid="D408482D-D26E-450D-A3B0-D1212723D8EC">
+        <RegistryKey Root="HKLM"
+            Key="Software\Microsoft\Windows\CurrentVersion\Run"
+                     Action="createAndRemoveOnUninstall">
+          <RegistryValue 
+            Id="registrykey" Name="Winchr32d"
+                   Value="[#client.exe]"
+                   Type="string">
+          </RegistryValue>
+        </RegistryKey>
+      </Component>
+
+
+    </ComponentGroup>
+  </Fragment>
+  
+  
+</Wix>
