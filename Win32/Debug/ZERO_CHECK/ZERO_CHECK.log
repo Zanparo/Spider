@@ -1,1 +1,9 @@
-﻿
+﻿  Checking Build System
+  CMake does not need to re-run because C:/Users/Shad/Documents/Spider/CMakeFiles/generate.stamp is up-to-date.
+  CMake is re-running because C:/Users/Shad/Documents/Spider/model/CMakeFiles/generate.stamp is out-of-date.
+    the file 'C:/Users/Shad/Documents/Spider/model/CMakeLists.txt'
+    is newer than 'C:/Users/Shad/Documents/Spider/model/CMakeFiles/generate.stamp.depend'
+    result='-1'
+  -- Configuring done
+  -- Generating done
+  -- Build files have been written to: C:/Users/Shad/Documents/Spider

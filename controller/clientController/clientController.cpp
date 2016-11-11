@@ -55,7 +55,7 @@ int		clientController::mainAction(int ac, char **av) {
 	// this->dhinstance->setNetQueue(this->netinstance->getQueue());
 	//std::thread keylogging(klinstance->routine(_lqueue));
 	//std::thread datahandling(dhinstance->routine());
-	//std::thread networking(netinstance->routine());
+	//std::thread networking(netinstance->routine(_lqueue));
 	// keylog.join();
 	// datahandling.join();
 	// networking.join();
