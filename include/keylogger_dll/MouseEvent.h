@@ -11,7 +11,10 @@
 
 class  MouseEvent: public AEvent {
 public: 
-   MouseEvent(const int virtualKeyCode, const int repeatCount, const char scanCode, const bool isExtend, const bool isAlt, const bool prevKeyState, const bool transState, const t_Context context);
+   MouseEvent(const int, const t_Context);
+   ~MouseEvent();
+   void				describe() const;
+
 };
 
 #endif //_MOUSEEVENT_H

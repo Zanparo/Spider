@@ -11,6 +11,8 @@
 #include							"EventManager.h"
 #include							"KeyboardHook.h"
 #include							"MouseHook.h"
+#include							"KeyboardHookObserver.h"
+#include							"MouseHookObserver.h"
 
 class								HookHandler {
 public: 
@@ -18,6 +20,7 @@ public:
     const bool						addHook(AHook*);
     const bool						removeHook(AHook*);
 	const bool						init();
+	const bool						stop();
 
 private: 
 	std::vector<AHook*>				_hooks;

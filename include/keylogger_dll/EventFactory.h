@@ -8,7 +8,8 @@
 
 #include				<Windows.h>
 
-#include				"AEvent.h"
+#include				"KeyboardEvent.h"
+#include				"MouseEvent.h"
 #include				"Context.h"
 #include				<chrono>
 #include				<ctime>
@@ -19,7 +20,8 @@ public:
     
     EventFactory();
     
-    static const AEvent* create(WPARAM, LPARAM, t_Context);
+    static const AEvent* createKeyboardEvent(WPARAM, LPARAM, t_Context);
+	static const AEvent* createMouseEvent(WPARAM, LPARAM, t_Context);
 };
 
 #endif //_EVENTFACTORY_H

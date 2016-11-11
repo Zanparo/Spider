@@ -11,7 +11,7 @@
 
 KeyboardHook* g_keyboardHook = NULL;
 
-KeyboardHook::KeyboardHook(const HookObserver& observer) : AHook::AHook(observer){
+KeyboardHook::KeyboardHook(const IHookObserver& observer) : AHook::AHook(observer){
 	g_keyboardHook = this;
 }
 

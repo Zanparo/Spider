@@ -6,16 +6,15 @@
 #ifndef						_AHOOK_H
 #define						_AHOOK_H
 
-#include					<Windows.h>
 #include					<iostream>
 #include					<vector>
 
-#include					"HookObserver.h"
+#include					"IHookObserver.h"
 
 class						AHook {
 public: 
     
-   AHook(const HookObserver&);
+   AHook(const IHookObserver&);
     
     virtual const bool		setHook() = 0;
     void					notify(int, WPARAM, LPARAM);
@@ -25,7 +24,7 @@ public:
 protected: 
 
 	HHOOK					_hHook;
-	const HookObserver&		_observer;
+	const IHookObserver&		_observer;
 };
 
 #endif //_AHOOK {ABSTRACT}_H

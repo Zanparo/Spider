@@ -8,3 +8,6 @@
 
 typedef bool (* _initKeylogger)(Keylogger*);
 typedef Keylogger* (* _instantiate)(void);
+typedef bool (* _runKeylogger)(Keylogger*);
+typedef bool (* _stopKeylogger)(Keylogger*);
+typedef void (* _deleteKeylogger)(Keylogger*);

@@ -6,16 +6,14 @@
 #ifndef								_HOOKOBSERVER_H
 #define								_HOOKOBSERVER_H
 
+#include							"AHookObserver.h"
 #include							"EventManager.h"
 
-class								HookObserver {
+class								KeyboardHookObserver : public AHookObserver {
 
 public:     
-    HookObserver(const EventManager&);
-    void							update(const WPARAM, const LPARAM) const;
-
-private: 
-    const EventManager&				_eventManager;
+    KeyboardHookObserver(const EventManager&);
+	~KeyboardHookObserver();
 };
 
 #endif //_HOOKOBSERVER_H

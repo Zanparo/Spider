@@ -10,5 +10,14 @@
  */
 
 
-MouseEvent::MouseEvent(const int virtualKeyCode, const int repeatCount, const char scanCode, const bool isExtend, const bool isAlt, const bool prevKeyState, const bool transState, const t_Context context) : AEvent::AEvent(virtualKeyCode, repeatCount, scanCode, isExtend, isAlt, prevKeyState, transState, context) {
+MouseEvent::MouseEvent(const int hitTestCode, const t_Context context) : AEvent::AEvent(hitTestCode, context) {
+}
+
+MouseEvent::~MouseEvent()
+{
+}
+
+void				MouseEvent::describe() const
+{
+	std::cout << "[MouseEvent]: hitTestCode=" << _hitTestCode << "|time=" << _context._ms << "|MousePos=" << _context._mousePos << "|Window=" << std::endl; // _context._windowTitle << std::endl;
 }

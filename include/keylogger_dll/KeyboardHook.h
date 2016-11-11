@@ -14,7 +14,7 @@
 class						KeyboardHook: public AHook {
 public: 
     
-	KeyboardHook(const HookObserver&);
+	KeyboardHook(const IHookObserver&);
 	const bool				setHook();
 	static LRESULT CALLBACK keyboardhook(int, WPARAM, LPARAM);
 };

