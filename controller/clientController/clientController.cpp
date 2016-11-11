@@ -13,12 +13,9 @@ clientController::clientController(void) throw(DLibraryException)
 	//////////////////////////////
 
 	#ifdef __linux__
-		this->storeFolder = "./data";
-		this->libraries.add(1, "sayHello", "./libsayHello.so");
 		this->libraries.add(1, "dataHandler", "./libdataHandler.so");
 	#elif _WIN32
-		this->storeFolder = "data";
-		this->libraries.add(1, "sayHello", "sayHello.dll");
+		this->storeFolder = "C:\\\\spider\\";
 		this->libraries.add(1, "dataHandler", "dataHandler.dll");
 	#endif
 
@@ -28,9 +25,6 @@ clientController::clientController(void) throw(DLibraryException)
 	if (!(this->libraries.handler.loadAll(err)))
 		throw DLibraryException(err.c_str(), "Couldn't load module.");
 
-	//
-	if (!(this->sayHello = this->libraries.handler.getDictionaryByName("sayHello")))
-		throw DLibraryException("sayHello", "Couldn't get Dictionary.");
 	if (!(this->dictDataHandler = this->libraries.handler.getDictionaryByName("dataHandler")))
 		throw DLibraryException("dataHandler", "Couldn't get Dictionary.");
 }
@@ -49,8 +43,9 @@ int		clientController::mainAction(int ac, char **av) {
 	if (!this->initDataHandlerAction())
 		return (1);
 
-	// Dire bonjour
-	this->sayHelloAction();
+	this->saveDataAction("Hello World !");
+	this->saveDataAction("This is as sentence ;)");
+	this->sendLocalDataAction();
 
 	// Faire pleins de trucs ...
 	// ...
@@ -60,10 +55,26 @@ int		clientController::mainAction(int ac, char **av) {
 	return (0);
 }
 
-void					clientController::sayHelloAction(void) {
+bool	clientController::saveDataAction(std::string raw)
+{
+	this->dataHandler->fileHandler->insertDataToStream(raw);
+	//this->dataHandler->fileHandler->showStream();
+	return (true);
+}
 
-	((_sayHelloFrom)(*this->sayHello)["sayHelloFrom"])("client");
+bool			clientController::sendLocalDataAction(void)
+{
+	std::string	buffer;
 
+	buffer = this->dataHandler->fileHandler->extractDataFromStream(10);
+	while (buffer.size())
+	{
+		// Here we can send buffer to server
+		std::cout << "[BUFFER] : " << buffer << std::endl;
+		this->dataHandler->fileHandler->removeLocalData(10);
+		buffer = this->dataHandler->fileHandler->extractDataFromStream(10);
+	}
+	return (true);
 }
 
 bool					clientController::initDataHandlerAction(void) {
@@ -71,8 +82,6 @@ bool					clientController::initDataHandlerAction(void) {
 	if (!(this->dataHandler = ((_getDataHandler)(*this->dictDataHandler)["getDataHandler"])()))
 		return (false);
 
-	std::cout << this->dataHandler << std::endl;
-	//this->dataHandler->fileHandler.initStream(this->storeFolder, this->bytePerFile);
-	this->dataHandler->test();
+	this->dataHandler->fileHandler->initStream(this->storeFolder, this->bytePerFile);
 	return (true);
 }

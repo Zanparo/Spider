@@ -16,7 +16,7 @@ class	clientController {
 
 	std::string		storeFolder;
 	int				bytePerFile;
-	DataHandler		*dataHandler;
+	IDataHandler*	dataHandler;
 
 
 public:
@@ -25,9 +25,9 @@ public:
 	~clientController(void);							// Destroy
 
 	int			mainAction(int, char**);
-	void		sayHelloAction(void);
 	bool		initDataHandlerAction(void);
-
+	bool		saveDataAction(std::string);
+	bool		sendLocalDataAction(void);
 };
 
 #endif /* !CLIENT_H__ */

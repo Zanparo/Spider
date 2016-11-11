@@ -14,11 +14,15 @@
 
 class CWFile : public IFile, public AFile {
 
-	std::fstream _file;
+	std::fstream	file;
 
 public: 
     
-	CWFile(std::string const& _path) : AFile(_path) {};
+	CWFile(std::string const& _path, long long _size)
+		: AFile(_path, _size) {};
+
+	long long	getSize(void) const;
+	std::string	getPath(void) const;
 
     /**
      * Open the Windows file. Returns bool if succeed.
@@ -40,12 +44,20 @@ public:
      * @param int
      */
     std::string		read(int);
+	std::string		read();
     
     /**
      * Write the string passed in parameter in the file. Returns the number of characters successfully wrote.
      * @param string
      */
     int				write(std::string const&);
+
+	/**
+	* Write the string passed in parameter in the file. Returns the number of characters successfully wrote.
+	* @param string
+	* @param long long
+	*/
+	int				write(std::string const&, long long);
 
 };
 

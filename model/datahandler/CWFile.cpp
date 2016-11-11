@@ -9,6 +9,16 @@
  * CWFile implementation
  */
 
+long long	CWFile::getSize(void) const
+{
+	return (this->size);
+}
+
+std::string	CWFile::getPath(void) const
+{
+	return (this->path);
+}
+
 /**
  * Open the Windows file. Returns bool if succeed.
  * @return bool
@@ -16,13 +26,8 @@
 
 bool		CWFile::open()
 {
-	/*
-	this->_file.open(this->_filename);
-	if (this->_file.is_open() == false)
-		return (false);
-	return (true);
-	*/
-	return (true);
+	this->file.open(this->path, std::fstream::out | std::fstream::in | std::fstream::app);
+	return (this->file.is_open());
 }
 
 /**
@@ -31,10 +36,7 @@ bool		CWFile::open()
  */
 bool		CWFile::close()
 {
-	/*
-	this->_file.close();
-	return (true);
-	*/
+	this->file.close();
 	return (true);
 }
 
@@ -44,6 +46,7 @@ bool		CWFile::close()
 */
 bool		CWFile::erase()
 {
+	remove(this->path.c_str());
 	return (true);
 }
 
@@ -54,23 +57,38 @@ bool		CWFile::erase()
  */
 std::string	CWFile::read(int size)
 {
-	/*
-	if (this->_file.is_open() == false)
-		throw std::exception("Uninitialized file.");
-	this->_file.seekg(0, _file.end);
-	if (this->_file.tellg() < size) {
-		size = this->_file.tellg();
-	}
-	this->_file.seekg(0, _file.beg);
-	std::cout << "Size read is : " << size << std::endl;
-	char *buffer = new char [size + 1];
-	this->_file.read(buffer, size);
-	buffer[size] = 0;
+	char *buffer;
+
+	if (!this->file.is_open())
+		return (std::string(""));
+	this->file.seekg(0, file.end);
+	if (this->file.tellg() < size)
+		size = this->file.tellg();
+	this->file.seekg(0, file.beg);
+	buffer = new char[size + 1];
+	this->file.read(buffer, size);
+	buffer[size] = '\0';
 	std::string ret(buffer);
 	delete[] buffer;
 	return (ret);
-	*/
-	return (std::string("Hello World !"));
+}
+
+std::string	CWFile::read()
+{
+	char	*buffer;
+	int		size;
+
+	if (!this->file.is_open())
+		return (std::string(""));
+	this->file.seekg(0, file.end);
+	size = this->file.tellg();	
+	this->file.seekg(0, file.beg);
+	buffer = new char[size + 1];
+	this->file.read(buffer, size);
+	buffer[size] = '\0';
+	std::string ret = std::string(buffer);
+	delete[] buffer;
+	return (ret);
 }
 
 /**
@@ -78,14 +96,26 @@ std::string	CWFile::read(int size)
  * @param string
  * @return int
  */
-int		CWFile::write(std::string const& towrite)
+int		CWFile::write(std::string const& data)
 {
-	/*
-	if (this->_file.is_open() == false)
-		throw std::exception("Uninitialized file.");
-	std::cout << "writing this: " << towrite << std::endl;
-	this->_file.write(towrite.c_str(), towrite.length());
-	return (towrite.length());
-	*/
-	return (0);
+	if (!data.size())
+		return (-1);
+	if (!this->file.is_open())
+		return (-1);
+	this->file.write(data.c_str(), data.length());
+	this->size += data.length();
+	return (data.length());
+}
+
+int		CWFile::write(std::string const& data, long long nBytes)
+{
+	if (!data.size())
+		return (0);
+	if (nBytes > data.size())
+		nBytes = data.size();
+	if (!this->file.is_open() || nBytes > data.size())
+		return (-1);
+	this->file.write(data.c_str(), nBytes);
+	this->size += nBytes;
+	return (nBytes);
 }

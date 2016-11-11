@@ -4,7 +4,14 @@
 # include <iostream>
 # include <sstream>
 # include "DLDictionary.h"
-# include "FileHandler.h"
+#ifdef __linux__
+#include "FileHandler.h"
+#elif _WIN32
+#include "CWFileHandler.h"
+#endif
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
 
 typedef struct			s_Packet {
 	unsigned char		_id;
@@ -14,30 +21,35 @@ typedef struct			s_Packet {
 	char *				_data;
 }						Packet;
 
-class		DataHandler {
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
+class	IDataHandler {
+public:
+	IFileHandler			*fileHandler;
+
+};
+
+/////////////////////////////////////////////
+/////////////////////////////////////////////
+
+class		DataHandler : public IDataHandler {
 
 	//std::stringstream flux;
 
 public:
 
-	FileHandler			fileHandler;
-
-	void	test2(void);
-
-	void	test(void) {
-		this->test2();
-		std::cout << "Hello test" << std::endl;
-	};
+	DataHandler() {
+	#ifdef __linux__
+		this->fileHandler = NULL;
+	#elif _WIN32
+		this->fileHandler = new CWFileHandler();
+	#endif
+	}
 
 	//void parser(Packet const& Mess);
 };
 
-//
-// SPIDER DYNAMIC LIBRARY STANDARDS
-//
-// Functions type MUST be defined as the name of the function preceded by "_"
-//
-
-typedef		DataHandler* (*_getDataHandler)(void);
+typedef		IDataHandler* (*_getDataHandler)(void);
 
 #endif /* !DATA_HANDLER_H__ */

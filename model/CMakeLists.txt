@@ -2,7 +2,13 @@
 ##  MODEL - EXTERNAL LIBRARIES
 ###########################################################
 
-include_directories("../include")
+#include_directories(
+#	"../include/DLLoader"
+#	"../include/sayHello"
+#	"../include/dataHandler"
+#	"../include/network"
+#	"../include"
+#	)
 
 
 if (WIN32)
@@ -57,19 +63,14 @@ endif (UNIX)
 	add_library (
 		dataHandler
 		SHARED
-		../include/dataHandler/C${DISTRIB_LETTER}File.h
 		../include/dataHandler/DataHandler.h
-		../include/dataHandler/DataModel.h
-		../include/dataHandler/DataModelFactory.h
-		../include/dataHandler/DataModelHandler.h
+		../include/dataHandler/C${DISTRIB_LETTER}File.h
 		../include/dataHandler/FileHandler.h
-		../include/dataHandler/ISerializer.h
+		../include/dataHandler/C${DISTRIB_LETTER}FileHandler.h
+		../include/dataHandler/Serializer.h
 		../include/dataHandler/XMLSerializer.h
-		dataHandler/C${DISTRIB_LETTER}File.cpp
 		dataHandler/DataHandler.cpp
-		dataHandler/DataModel.cpp
-		dataHandler/DataModelFactory.cpp
-		dataHandler/DataModelHandler.cpp
-		dataHandler/FileHandler.cpp
+		dataHandler/C${DISTRIB_LETTER}File.cpp
+		dataHandler/C${DISTRIB_LETTER}FileHandler.cpp
 		dataHandler/XMLSerializer.cpp
 	)

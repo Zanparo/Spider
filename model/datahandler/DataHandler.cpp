@@ -9,18 +9,15 @@ void	DataHandler::parser(Packet const& Mess) {
 }
 */
 
-void	DataHandler::test2(void)
-{
-	std::cout << "NIIIICE" << std::endl;
-}
-
 /////////////////////////////////////////////////////
 // Instanciate DataHandler
 /////////////////////////////////////////////////////
 
-DataHandler		*getDataHandler(void)
+IDataHandler		*getDataHandler(void)
 {
-	return (new DataHandler());
+	IDataHandler	*instance = new DataHandler();
+
+	return (instance);
 }
 
 /////////////////////////////////////////////////////

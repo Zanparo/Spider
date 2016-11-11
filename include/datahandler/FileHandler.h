@@ -16,6 +16,9 @@
 class IFile {
 public:
 
+	virtual long long	getSize(void) const = 0;
+	virtual std::string	getPath(void) const = 0;
+
 	/**
 	* Open the file and return true for sucess
 	*/
@@ -36,12 +39,15 @@ public:
 	* @param int
 	*/
 	virtual std::string		read(int n) = 0;
+	virtual std::string		read() = 0;
 
 	/**
 	* Write the string passed in parameter in the file. Returns the number of characters successfully wrote.
 	* @param string
 	*/
 	virtual int				write(std::string const& towrite) = 0;
+
+	virtual int				write(std::string const&, long long) = 0;
 };
 
 
@@ -52,11 +58,11 @@ public:
 class AFile {
 public:
 
-	int				id;
 	std::string		path;
-	int				size;
+	long long		size;
 
-	AFile(std::string const& _path) : path(_path) {};
+	AFile(std::string const& _path, long long _size)
+		: path(_path), size(_size) {};
 };
 
 
@@ -66,7 +72,9 @@ public:
 
 typedef std::list<IFile *>	Library;
 
-class FileHandler {
+class	IFileHandler {
+
+public:
 
 	/**
 	* List of IFile*. Used to contains pointers on files needed by the DataHandler.
@@ -83,13 +91,13 @@ class FileHandler {
 	*/
 	unsigned int	bytePerFile;
 
-public:
+	virtual int			initStream(std::string, unsigned int) = 0;
+	virtual void		closeStream() = 0;
+	virtual void		showStream(void) = 0;
+	virtual bool		insertDataToStream(std::string) = 0;
+	virtual std::string	extractDataFromStream(int) = 0;
+	virtual void		removeLocalData(int) = 0;
 
-	FileHandler() {};
-
-	int			initStream(std::string, unsigned int);
-	void		addFileToStream(const std::string);
-	int			insertDataToStream(const std::string);
 };
 
 #endif //_FILEHANDLER_H

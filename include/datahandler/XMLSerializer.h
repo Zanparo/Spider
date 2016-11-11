@@ -1,28 +1,15 @@
-/**
- * Project FileManager DLL
- */
+#ifndef XML_SERIALIZER_H
+# define XML_SERIALIZER_H
 
+# include <iostream>
+# include "Serializer.h"
 
-#ifndef _XMLSERIALIZER_H
-#define _XMLSERIALIZER_H
+class PacketSerializer : public ISerializer {
+public:
+	//std::string	serializeEvent(AEvent *) const;
+	//std::string	serializePacket(Packet *) const;
 
-#include "ISerializer.h"
-
-
-class XMLSerializer: public ISerializer {
-public: 
-    
-    /**
-     * Constructor of XMLSerializer.
-     */
-    XMLSerializer();
-    
-    /**
-     * Serialization function. Take a pointer to a DataModel instance and returns the serialized string.
-     * 
-     * @param DataModel*
-     */
-    std::string		serialize(DataModel *);
+	//Packet*		createPacket(std::string) const;
 };
 
-#endif //_XMLSERIALIZER_H
+#endif //XML_SERIALIZER_H
