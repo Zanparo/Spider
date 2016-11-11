@@ -1,10 +1,13 @@
 #pragma once
+#ifndef _DB_SQLITE_HPP_
+#define _DB_SQLITE_HPP_
+
 #include <string>
 #include <iostream>
 #include <exception>
 #include <sqlite3.h>
 #include <time.h>
-#include <stdli>
+#include <stdlib>
 
 #define OPEN_ERR "sqlite3: error on opening"
 
@@ -21,3 +24,5 @@ private:
 	sqlite3 *_dbHandler;
 	sqlite3_stmt *_stmt;
 };
+
+#endif 

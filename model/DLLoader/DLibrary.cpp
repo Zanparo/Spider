@@ -42,6 +42,17 @@ bool	DLHandler::loadByName(std::string name)
 	return (false);
 }
 
+bool	DLHandler::loadAll(std::string &err)
+{
+	for (std::list<IDLibrary *>::const_iterator lib = this->libs.begin(); lib != libs.end(); ++lib) {
+		if (!(*lib)->load()) {
+			err = (*lib)->getName();
+			return (false);
+		}
+	}
+	return (true);
+}
+
 Dictionary	DLHandler::getDictionaryByName(std::string name)
 {
 	for (std::list<IDLibrary *>::const_iterator lib = this->libs.begin(); lib != libs.end(); ++lib) {
