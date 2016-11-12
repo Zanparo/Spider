@@ -481,7 +481,7 @@ const AEvent* EventFactory::createKeyboardEvent(WPARAM wParam, LPARAM lParam, t_
 //	analysis(wParam, lParam);
 	AEvent* kbevent = new KeyboardEvent(vkKeyCode, repeatCount, scanCode, extend, alt, prevKeyState, transState, context);
 	ana->analysis(kbevent);
-	return ;
+	return kbevent;
 }
 
 /**

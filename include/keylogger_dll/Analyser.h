@@ -20,9 +20,10 @@ public:
 
 private:
 	void								initMap();
-
+	int									isCapsLock() const;
 private:
 	std::map<int, std::string>			_translateMap;
+	std::map<int, std::string>			_translateShiftMap;
 };
 
 #endif
