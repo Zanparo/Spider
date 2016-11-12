@@ -2,7 +2,13 @@
 ##  MODEL - EXTERNAL LIBRARIES
 ###########################################################
 
-include_directories("../include")
+#include_directories(
+#	"../include/DLLoader"
+#	"../include/sayHello"
+#	"../include/dataHandler"
+#	"../include/network"
+#	"../include"
+#	)
 
 if (WIN32)
 
@@ -13,17 +19,8 @@ if (WIN32)
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ../build/windows)
 	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../build/windows)
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../build/windows)
-
-	# Load external libraries dynamically
-    add_library (
-		DLLoader
-		STATIC
-		../include/DLDictionary.h
-		../include/DLibrary.h
-		../include/CWDLibrary.h
-		DLLoader/DLibrary.cpp
-		DLLoader/CWDLibrary.cpp
-	)
+	
+	set(DISTRIB_LETTER W)
 
 endif (WIN32)
 
@@ -37,31 +34,33 @@ if (UNIX)
 	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../build/unix)
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../build/unix)
 	
+	set(DISTRIB_LETTER U)
+
+endif (UNIX)
+
 	# Load external libraries dynamically
     add_library (
 		DLLoader
 		STATIC
-		../include/DLDictionary.h
-		../include/DLibrary.h
-		../include/CUDLibrary.h
+		../include/DLLoader/DLDictionary.h
+		../include/DLLoader/DLibrary.h
+		../include/DLLoader/CWDLibrary.h
 		DLLoader/DLibrary.cpp
-		DLLoader/CUDLibrary.cpp
+		DLLoader/C${DISTRIB_LETTER}DLibrary.cpp
 	)
-
-endif (UNIX)
 
 	# Say Hello
 	add_library (
 		sayHello
 		SHARED
-		../include/DLDictionary.h
-		../include/sayHello.h
+		../include/DLLoader/DLDictionary.h
+		../include/sayHello/sayHello.h
 		sayHello/sayHello.cpp
 	)
-
+	
 	# Info Client
 	add_library (
-	        infoClient
+	    infoClient
 		SHARED
 		../include/IInfoClient.h
 		infoClient/InfoClient.cpp
@@ -109,33 +108,18 @@ endif (UNIX)
 		../controller/clientController/WorkQueue.cpp
 	) 
 
-##	# DataHandler
-##	add_library (
-##		dataHandler
-##		SHARED
-##		../include/datahandler/AFile.h
-##		../include/datahandler/CUFile.h
-##		../include/datahandler/CWFile.h
-##		../include/datahandler/DataHandler.h
-##		../include/datahandler/DataModel.h
-##		../include/datahandler/DataModelFactory.h
-##		../include/datahandler/DataModelHandler.h
-##		../include/datahandler/FileHandler.h
-##		../include/datahandler/FileManager.h
-##		../include/datahandler/IFile.h
-##		../include/datahandler/ISerializer.h
-##		../include/datahandler/XMLSerializer.h
-##		datahandler/AFile.cpp
-##		datahandler/CUFile.cpp
-##		datahandler/CWFile.cpp
-##		datahandler/DataHandler.cpp
-##		datahandler/DataModel.cpp
-##		datahandler/DataModelFactory.cpp
-##		datahandler/DataModelHandler.cpp
-##		datahandler/FileHandler.cpp
-##		datahandler/FileManager.cpp
-##		datahandler/IFile.cpp
-##		datahandler/main.cpp
-##		datahandler/Tester.cpp
-##		datahandler/XMLSerializer.cpp
-##	)
+	# dataHandler
+	add_library (
+		dataHandler
+		SHARED
+		../include/dataHandler/DataHandler.h
+		../include/dataHandler/C${DISTRIB_LETTER}File.h
+		../include/dataHandler/FileHandler.h
+		../include/dataHandler/C${DISTRIB_LETTER}FileHandler.h
+		../include/dataHandler/Serializer.h
+		../include/dataHandler/XMLSerializer.h
+		dataHandler/DataHandler.cpp
+		dataHandler/C${DISTRIB_LETTER}File.cpp
+		dataHandler/C${DISTRIB_LETTER}FileHandler.cpp
+		dataHandler/XMLSerializer.cpp
+	)
