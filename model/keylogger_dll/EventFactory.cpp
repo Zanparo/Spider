@@ -462,9 +462,6 @@ void					analysis(WPARAM wParam, LPARAM lParam)
  * @param WPARAM wparam from hook
  * @return AEvent* the event created
  */
- #include "keylogger_dll\Analyser.h"
-Analyser *ana = new Analyser();
-
 const AEvent* EventFactory::createKeyboardEvent(WPARAM wParam, LPARAM lParam, t_Context context) {
 
 
@@ -480,7 +477,6 @@ const AEvent* EventFactory::createKeyboardEvent(WPARAM wParam, LPARAM lParam, t_
 	bool transState = 0;
 //	analysis(wParam, lParam);
 	AEvent* kbevent = new KeyboardEvent(vkKeyCode, repeatCount, scanCode, extend, alt, prevKeyState, transState, context);
-	ana->analysis(kbevent);
 	return kbevent;
 }
 
