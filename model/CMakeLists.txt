@@ -2,14 +2,6 @@
 ##  MODEL - EXTERNAL LIBRARIES
 ###########################################################
 
-#include_directories(
-#	"../include/DLLoader"
-#	"../include/sayHello"
-#	"../include/dataHandler"
-#	"../include/network"
-#	"../include"
-#	)
-
 if (WIN32)
 
 	###########################################################
@@ -47,6 +39,20 @@ endif (UNIX)
 		../include/DLLoader/CWDLibrary.h
 		DLLoader/DLibrary.cpp
 		DLLoader/C${DISTRIB_LETTER}DLibrary.cpp
+	)
+	
+	# WorkQueue
+	add_library (
+		workQueueManager
+		SHARED
+		../include/workQueueManager/workQueueManager.h
+		../include/workQueueManager/CUMutex.h
+		../include/workQueueManager/CWMutex.h # To join
+		../include/workQueueManager/workQueue.h
+		workQueueManager/CUMutex.cpp
+		workQueueManager/CWMutex.cpp # To join
+		workQueueManager/workQueue.cpp
+		workQueueManager/workQueueManager.cpp
 	)
 
 	# Say Hello

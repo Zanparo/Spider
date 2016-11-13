@@ -1,7 +1,8 @@
 #ifndef		IKEYLOGGER_H_
 #define		IKEYLOGGER_H_
 
-#include "WorkQueue.h"
+# include "AEvent.h"
+# include "workQueueManager.h"
 
 class IKeylogger {
 public:
@@ -12,6 +13,6 @@ public:
 	virtual bool				pushToQueue(const AEvent*) = 0;
 };
 
-typedef IKeylogger* (*_instantiate)(WorkQueue &);
+typedef IKeylogger* (*_instantiate)(IWorkQueue *);
 
 #endif

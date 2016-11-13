@@ -4,6 +4,7 @@
 # include <iostream>
 # include <sstream>
 # include "DLDictionary.h"
+# include "XMLSerializer.h"
 #ifdef __linux__
 #include "FileHandler.h"
 #elif _WIN32
@@ -14,6 +15,10 @@
 /////////////////////////////////////////////
 
 typedef struct			s_Packet {
+
+	struct s_Packet(unsigned char id, unsigned short status, bool next, size_t size, char *data)
+		: _id(id), _status(status), _next(next), _size(size), _data(data) {};
+
 	unsigned char		_id;
 	unsigned short		_status;
 	bool				_next;
@@ -27,6 +32,7 @@ typedef struct			s_Packet {
 class	IDataHandler {
 public:
 	IFileHandler			*fileHandler;
+	ISerializer				*serializer;
 
 };
 
@@ -45,6 +51,7 @@ public:
 	#elif _WIN32
 		this->fileHandler = new CWFileHandler();
 	#endif
+		this->serializer = new XMLSerializer();
 	}
 
 	//void parser(Packet const& Mess);
