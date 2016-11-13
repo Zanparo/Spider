@@ -1,4 +1,5 @@
-#include "KeyloggerDLL.h"
+#include "DLDictionary.h"
+#include "Keylogger.h"
 #include "workQueueManager.h"
 
 IKeylogger*				instantiate(IWorkQueue *item)

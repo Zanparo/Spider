@@ -15,7 +15,7 @@ class  MouseHook: public AHook {
 
 public: 
     
-MouseHook(const HookObserver&);
+MouseHook(const IHookObserver&);
 const bool					setHook();    
 static LRESULT CALLBACK		mousehook(int, WPARAM, LPARAM);
 };

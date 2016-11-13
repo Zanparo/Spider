@@ -11,7 +11,7 @@
 
 MouseHook* g_mouseHook = NULL;
 
-MouseHook::MouseHook(const HookObserver& hookObserver) : AHook::AHook(hookObserver) {
+MouseHook::MouseHook(const IHookObserver& hookObserver) : AHook::AHook(hookObserver) {
 	g_mouseHook = this;
 }
 

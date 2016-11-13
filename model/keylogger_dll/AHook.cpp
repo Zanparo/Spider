@@ -13,7 +13,7 @@
 /**
  * @param HookObserver&
  */
-AHook::AHook(const HookObserver& hookObserver) : _observer(hookObserver){
+AHook::AHook(const IHookObserver& hookObserver) : _observer(hookObserver){
 }
 
 /**

@@ -11,9 +11,22 @@
 
 
 /**
- * Constructor of AEvent
+ * Constructor of AEvent for Keyboard infos
  */
-AEvent::AEvent(const int virtualKeyCode, const int repeatCount, const char scanCode, const bool isExtend, const bool isAlt, const bool prevKeyState, const bool transState, const t_Context context) : _virtualKeyCode(virtualKeyCode), _repeatCount(repeatCount), _scanCode(scanCode), _isExtend(isExtend), _alt(isAlt), _prevKeyState(prevKeyState), _transState(transState), _context(context) {
+AEvent::AEvent(const int virtualKeyCode, const int repeatCount, const char scanCode, const bool isExtend, const bool isAlt, const bool prevKeyState, const bool transState, const t_Context context) : _virtualKeyCode(virtualKeyCode), _repeatCount(repeatCount), _scanCode(scanCode), _isExtend(isExtend), _alt(isAlt), _prevKeyState(prevKeyState), _transState(transState), _context(context), _isMouse(false) {
+}
+
+
+/**
+* Constructor of AEvent for Mouse infos
+*/
+AEvent::AEvent(const int hitTestCode, const t_Context context) : _hitTestCode(hitTestCode), _context(context), _isMouse(true)
+{
+}
+
+AEvent::~AEvent()
+{
+	free (_context._windowTitle);
 }
 
 /**
@@ -70,4 +83,16 @@ const bool						AEvent::getTransState() const {
  */
 const t_Context					AEvent::getContext() const {
     return _context;
+}
+
+/**
+* @return bool isMouse
+*/
+const bool						AEvent::isMouse() const {
+	return _isMouse;
+}
+
+void							AEvent::describe() const
+{
+	std::cout << "Just an AEvent" << std::endl;
 }
