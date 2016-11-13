@@ -5,8 +5,8 @@
 
 class ISerializer {
 public: 
+
 	//virtual std::string	serializeEvent(AEvent *) const = 0;
-	//virtual std::string	serializePacket(Packet *) const = 0;
 
 	//virtual Packet*		createPacket(std::string) const = 0;
 };

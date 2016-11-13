@@ -1,14 +1,11 @@
-#ifndef IKEYLOGGER_H_
-# define IKEYLOGGER_H_
+#ifndef		IKEYLOGGER_H_
+#define		IKEYLOGGER_H_
 
-#include <vector>
-
-#include "AEvent.h"
-#include "WorkQueue.h"
-#include "DLLoader\DLDictionary.h"
+# include "AEvent.h"
+# include "workQueueManager.h"
 
 class IKeylogger {
-	public:
+public:
 	virtual ~IKeylogger() {}
 
 	virtual bool				init() = 0;
@@ -18,6 +15,6 @@ class IKeylogger {
 	virtual bool				pushToQueue(const AEvent*) = 0;
 };
 
-typedef IKeylogger* (*_instantiate)(WorkQueue &);
+typedef IKeylogger* (*_instantiate)(IWorkQueue *);
 
 #endif

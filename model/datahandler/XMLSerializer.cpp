@@ -19,6 +19,3 @@ std::string				XMLSerializer::createXML(XMLTree tree)
 	}
 	return (res);
 }
-
-//XMLTree		XMLSerializer::
-

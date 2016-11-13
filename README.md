@@ -1,4 +1,6 @@
 # Spider
 Spider
-Hello Guys !
-Check RFC for more info ;)
+
+Ceci est un readme
+
+Merci.

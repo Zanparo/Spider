@@ -11,7 +11,9 @@ include_directories(
 	"include/DLLoader"
 	"include/sayHello"
 	"include/dataHandler"
+	"include/keylogger_dll"
 	"include/network"
+	"include/workQueueManager"
 	"include"
 	)
 
@@ -37,11 +39,8 @@ add_subdirectory(model)
 add_executable (
 	client
 	include/client.h
-	include/IInfoClient.h
-	include/WorkQueue.h
 	launcher/client.cpp
 	controller/clientController/clientController.cpp
-	controller/clientController/WorkQueue.cpp
 )
 
 target_link_libraries(client DLLoader)

