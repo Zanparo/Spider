@@ -1,9 +1,1 @@
-﻿  NetworkDLL.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
-  - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
-c:\users\mimoone\documents\socket\networkdll\networkdll\NetworkDLL.h(17): warning C4005: '_WIN32_WINNT': macro redefinition
-  C:\Users\Mimoone\Documents\socket\NetworkDLL\packages\fix8.dependencies.boost.1.59.20151130.1\build\native\include\boost/asio/detail/config.hpp(555): note: see previous definition of '_WIN32_WINNT'
-  NetworkDLL.vcxproj -> C:\Users\Mimoone\Documents\socket\NetworkDLL\Debug\NetworkDLL.dll
-  NetworkDLL.vcxproj -> C:\Users\Mimoone\Documents\socket\NetworkDLL\Debug\NetworkDLL.pdb (Full PDB)
+﻿C:\Users\Mimoone\Clean\Spider\model\network_dll\NetworkDLL\NetworkDLL.vcxproj(205,5): error : This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is ..\packages\boost.1.62.0.0\build\native\boost.targets.
