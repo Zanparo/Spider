@@ -4,7 +4,6 @@
 # include <iostream>
 # include <map>
 # include "Serializer.h"
-//# include "AEvent.h"
 
 typedef	std::map < std::string, std::string > XMLTree;
 
@@ -14,9 +13,9 @@ class XMLSerializer : public ISerializer {
 
 public:
 
-	//std::string	serializeEvent(AEvent *) const;
+	XMLSerializer();
 
-	//Packet*		createPacket(std::string) const;
+	std::string	serializeEvent(std::string, std::string);
 };
 
 #endif //XML_SERIALIZER_H

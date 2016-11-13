@@ -1,4 +1,10 @@
 #include "XMLSerializer.h"
+#include "AEvent.h"
+#include "Analyser.h"
+
+XMLSerializer::XMLSerializer()
+{
+}
 
 std::string				XMLSerializer::createXML(XMLTree tree)
 {
@@ -18,4 +24,13 @@ std::string				XMLSerializer::createXML(XMLTree tree)
 		res += ">";
 	}
 	return (res);
+}
+
+std::string			XMLSerializer::serializeEvent(std::string windowName, std::string code)
+{
+	XMLTree			tree;
+
+	tree["WINDOW_TITLE"] = windowName;
+	tree["CODE"] = code;
+	return (this->createXML(tree));
 }

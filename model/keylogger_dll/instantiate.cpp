@@ -1,11 +1,18 @@
 #include "DLDictionary.h"
 #include "Keylogger.h"
+#include "Analyser.h"
 #include "workQueueManager.h"
 
 IKeylogger*				instantiate(IWorkQueue *item)
 {
 	IKeylogger			*keylogger = new Keylogger(item);
 	return keylogger;
+}
+
+IAnalyser*				getAnalyser(void)
+{
+	IAnalyser			*analyser = new Analyser();
+	return analyser;
 }
 
 extern "C" {
@@ -19,6 +26,7 @@ extern "C" {
 
 		// List every usefull functions out there
 		(*dict)["instantiate"] = (void *)&instantiate;
+		(*dict)["getAnalyser"] = (void *)&getAnalyser;
 		return (dict);
 	}
 }

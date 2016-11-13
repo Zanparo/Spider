@@ -2,6 +2,7 @@
 #define		IKEYLOGGER_H_
 
 # include "AEvent.h"
+# include "IAnalyser.h"
 # include "workQueueManager.h"
 
 class IKeylogger {
@@ -16,5 +17,6 @@ public:
 };
 
 typedef IKeylogger* (*_instantiate)(IWorkQueue *);
+typedef IAnalyser* (*_getAnalyser)();
 
 #endif

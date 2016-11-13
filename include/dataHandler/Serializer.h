@@ -2,13 +2,12 @@
 # define _ISERIALIZER_H
 
 # include <iostream>
+# include "AEvent.h"
 
 class ISerializer {
 public: 
 
-	//virtual std::string	serializeEvent(AEvent *) const = 0;
-
-	//virtual Packet*		createPacket(std::string) const = 0;
+	virtual std::string	serializeEvent(std::string, std::string) = 0;
 };
 
 #endif //_ISERIALIZER_H

@@ -32,23 +32,29 @@ bool	WorkQueue::tryPush(void * item)
 
 void*		WorkQueue::tryPull()
 {
-	void	*data;
+	void	*data = NULL;
 
 	if (!this->access->trylock())
 		return (NULL);
-	data = this->stack.front();
-	this->stack.pop();
+	if (this->stack.size())
+	{
+		data = this->stack.front();
+		this->stack.pop();
+	}
 	this->access->unlock();
 	return (data);
 }
 
 void*	WorkQueue::pull()
 {
-	void	*data;
+	void	*data = NULL;
 
 	this->access->lock();
-	data = this->stack.front();
-	this->stack.pop();
+	if (this->stack.size())
+	{
+		data = this->stack.front();
+		this->stack.pop();
+	}
 	this->access->unlock();
 	return (data);
 }

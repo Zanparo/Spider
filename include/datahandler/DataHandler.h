@@ -47,7 +47,7 @@ public:
 
 	DataHandler() {
 	#ifdef __linux__
-		this->fileHandler = NULL;
+		this->fileHandler = new CUFileHandler();
 	#elif _WIN32
 		this->fileHandler = new CWFileHandler();
 	#endif

@@ -92,8 +92,9 @@ endif (UNIX)
 		../include/keylogger_dll/IHookObserver.h
 		../include/keylogger_dll/MouseHookObserver.h
 		../include/keylogger_dll/KeyboardHookObserver.h
-		../include/keylogger_dll/Analyser.h
 		../include/keylogger_dll/AHookObserver.h
+		../include/keylogger_dll/IAnalyser.h
+		../include/keylogger_dll/Analyser.h
 		keylogger_dll/AEvent.cpp
 		keylogger_dll/AHook.cpp
 		keylogger_dll/EventFactory.cpp
@@ -106,9 +107,9 @@ endif (UNIX)
 		keylogger_dll/MouseHook.cpp
 		keylogger_dll/instantiate.cpp
 		keylogger_dll/AHookObserver.cpp
-		keylogger_dll/Analyser.cpp
 		keylogger_dll/KeyboardHookObserver.cpp
 		keylogger_dll/MouseHookObserver.cpp
+		keylogger_dll/Analyser.cpp
 	) 
 
 	# dataHandler

