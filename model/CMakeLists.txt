@@ -127,3 +127,28 @@ endif (UNIX)
 		dataHandler/C${DISTRIB_LETTER}FileHandler.cpp
 		dataHandler/XMLSerializer.cpp
 	)
+
+	#NetworkDLL
+	add_library (
+		networkDLL
+		SHARED
+		network_dll/NetworkDLL/INetwork.h
+		network_dll/NetworkDLL/IServer.h
+		network_dll/NetworkDLL/ISession.h
+		network_dll/NetworkDLL/Iclient.h
+		network_dll/NetworkDLL/NetworkDLL.h
+		network_dll/NetworkDLL/stdafx.h
+		network_dll/NetworkDLL/targetver.h
+		network_dll/NetworkDLL/session.h
+		network_dll/NetworkDLL/serverManager.h
+		network_dll/NetworkDLL/server.h
+		network_dll/NetworkDLL/clientManager.h
+		network_dll/NetworkDLL/client.h
+		network_dll/NetworkDLL/NetworkDLL.h
+		network_dll/NetworkDLL/NetworkDLL.cpp
+		network_dll/NetworkDLL/session.cpp
+		network_dll/NetworkDLL/serverManager.cpp
+		network_dll/NetworkDLL/server.cpp
+		network_dll/NetworkDLL/clientManager.cpp
+		network_dll/NetworkDLL/client.cpp
+	)
