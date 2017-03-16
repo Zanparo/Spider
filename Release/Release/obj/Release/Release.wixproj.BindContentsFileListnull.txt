@@ -1,3 +1,0 @@
-C:\Users\Shad\Documents\Spider\build\windows\Release\client.exe
-C:\Users\Shad\Documents\Spider\build\windows\Release\infoClient.dll
-C:\Users\Shad\Documents\Spider\build\windows\Release\sayHello.dll

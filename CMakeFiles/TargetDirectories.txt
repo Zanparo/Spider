@@ -1,0 +1,9 @@
+C:/Users/Shad/Documents/Spider/CMakeFiles/client.dir
+C:/Users/Shad/Documents/Spider/CMakeFiles/ALL_BUILD.dir
+C:/Users/Shad/Documents/Spider/CMakeFiles/ZERO_CHECK.dir
+C:/Users/Shad/Documents/Spider/model/CMakeFiles/DLLoader.dir
+C:/Users/Shad/Documents/Spider/model/CMakeFiles/workQueueManager.dir
+C:/Users/Shad/Documents/Spider/model/CMakeFiles/keylogger_dll.dir
+C:/Users/Shad/Documents/Spider/model/CMakeFiles/sayHello.dir
+C:/Users/Shad/Documents/Spider/model/CMakeFiles/infoClient.dir
+C:/Users/Shad/Documents/Spider/model/CMakeFiles/dataHandler.dir

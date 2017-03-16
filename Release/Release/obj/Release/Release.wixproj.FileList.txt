@@ -1,6 +1,0 @@
-C:\Users\Shad\Documents\Spider\Release\Release\bin\Release\Release.msi
-C:\Users\Shad\Documents\Spider\Release\Release\bin\Release\Release.wixpdb
-obj\Release\Product.wixobj
-obj\Release\Release.wixproj.BindContentsFileListnull.txt
-obj\Release\Release.wixproj.BindOutputsFileListnull.txt
-obj\Release\Release.wixproj.BindBuiltOutputsFileListnull.txt
